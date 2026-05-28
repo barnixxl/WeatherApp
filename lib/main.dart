@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'network/forecast/forecast_api.dart';
+import 'network/forecast/forecast_network_service.dart';
 import 'network/geocoding/geocoding_api.dart';
-import 'network/geocoding_network.dart';
-import 'network/forecast_network.dart';
+import 'network/geocoding/geocoding_network_service.dart';
 import 'repository/weather_repository.dart';
 import 'resources/colors/app_colors.dart';
 import 'resources/strings/app_localizations.dart';
@@ -31,13 +31,13 @@ Future<void> main() async {
   );
   final getIt = GetIt.instance;
 
-  final forecastNetwork = WeatherNetwork();
+  final forecastNetwork = ForecastNetworkService();
   forecastNetwork.register(
     getIt,
   );
   await forecastNetwork.initializeDependencies();
 
-  final geocodingNetwork = GeocodingNetwork();
+  final geocodingNetwork = GeocodingNetworkService();
   geocodingNetwork.register(
     getIt,
   );

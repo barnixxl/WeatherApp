@@ -2,13 +2,13 @@ import 'package:get_it/get_it.dart';
 
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
-import '../geocoding_network.dart';
+import 'geocoding_network_service.dart';
 import 'resp/geocoding_response_from_network.dart';
 
 class GeocodingApi {
   static final GetIt _getIt = GetIt.instance;
 
-  late final GeocodingNetwork _network;
+  late final GeocodingNetworkService _network;
 
   void register(
     GetIt getIt,
@@ -19,7 +19,7 @@ class GeocodingApi {
   }
 
   Future<void> initializeDependencies() async {
-    _network = _getIt<GeocodingNetwork>();
+    _network = _getIt<GeocodingNetworkService>();
   }
 
   Future<WeatherResult<Map<String, double>>> getCoordinates(
