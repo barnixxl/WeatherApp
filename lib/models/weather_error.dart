@@ -1,0 +1,91 @@
+import '../main.dart';
+
+class WeatherError {
+  final int errorCode;
+  final String errorMessage;
+
+  const WeatherError({
+    required this.errorCode,
+    required this.errorMessage,
+  });
+
+  static const int unknownCode = -1;
+  static const int timeoutCode = 1;
+  static const int noInternetCode = 2;
+  static const int serverCode = 3;
+  static const int badResponseCode = 4;
+  static const int cancelledCode = 5;
+  static const int parsingCode = 6;
+  static const int noDataCode = 7;
+  static const int loadFailedCode = 8;
+
+  @override
+  String toString() => errorMessage;
+
+  factory WeatherError.fromException(
+    Object e,
+  ) {
+    if (e is WeatherError) {
+      return e;
+    }
+    return WeatherError(
+      errorCode: unknownCode,
+      errorMessage: e.toString(),
+    );
+  }
+
+  factory WeatherError.timeout() => WeatherError(
+        errorCode: timeoutCode,
+        errorMessage: strings.error_timeout,
+      );
+
+  factory WeatherError.noInternet() => WeatherError(
+        errorCode: noInternetCode,
+        errorMessage: strings.error_no_internet,
+      );
+
+  factory WeatherError.serverError(
+    int statusCode,
+  ) =>
+      WeatherError(
+        errorCode: serverCode,
+        errorMessage: strings.error_server(
+          statusCode,
+        ),
+      );
+
+  factory WeatherError.badResponse(
+    int statusCode,
+  ) =>
+      WeatherError(
+        errorCode: badResponseCode,
+        errorMessage: strings.error_bad_response(
+          statusCode,
+        ),
+      );
+
+  factory WeatherError.cancelled() => WeatherError(
+        errorCode: cancelledCode,
+        errorMessage: strings.error_cancelled,
+      );
+
+  factory WeatherError.unknown() => WeatherError(
+        errorCode: unknownCode,
+        errorMessage: strings.error_unknown,
+      );
+
+  factory WeatherError.parsing() => WeatherError(
+        errorCode: parsingCode,
+        errorMessage: strings.error_parsing,
+      );
+
+  factory WeatherError.noData() => WeatherError(
+        errorCode: noDataCode,
+        errorMessage: strings.error_no_data,
+      );
+
+  factory WeatherError.loadFailed() => WeatherError(
+        errorCode: loadFailedCode,
+        errorMessage: strings.error_load_failed,
+      );
+}

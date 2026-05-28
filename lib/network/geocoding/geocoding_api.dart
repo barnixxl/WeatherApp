@@ -1,0 +1,111 @@
+import 'package:get_it/get_it.dart';
+
+import '../../models/weather_error.dart';
+import '../../models/weather_result.dart';
+import '../geocoding_network.dart';
+import 'resp/geocoding_response_from_network.dart';
+
+class GeocodingApi {
+  static final GetIt _getIt = GetIt.instance;
+
+  late final GeocodingNetwork _network;
+
+  void register(
+    GetIt getIt,
+  ) {
+    getIt.registerSingleton<GeocodingApi>(
+      this,
+    );
+  }
+
+  Future<void> initializeDependencies() async {
+    _network = _getIt<GeocodingNetwork>();
+  }
+
+  Future<WeatherResult<Map<String, double>>> getCoordinates(
+    String cityName,
+  ) async {
+    try {
+      final result = await _network.get(
+        'direct',
+        queryParameters: {
+          'q': cityName,
+          'limit': '1',
+        },
+      );
+      if (result.error == null) {
+        final data = result.data;
+        if (data is List<dynamic> && data.isNotEmpty) {
+          final item = data.first;
+          if (item is Map<String, dynamic>) {
+            final response = GeocodingResponseFromNetwork.fromJson(
+              item,
+            );
+            return WeatherResult.success(
+              {
+                'lat': response.lat ?? 0.0,
+                'lon': response.lon ?? 0.0,
+              },
+            );
+          }
+        }
+        return WeatherResult.failure(
+          WeatherError.noData(),
+        );
+      }
+      return WeatherResult.failure(
+        result.error,
+      );
+    } catch (e) {
+      return WeatherResult.failure(
+        WeatherError.fromException(
+          e,
+        ),
+      );
+    }
+  }
+
+  Future<WeatherResult<String>> getCityName(
+    double lat,
+    double lon,
+  ) async {
+    try {
+      final result = await _network.get(
+        'reverse',
+        queryParameters: {
+          'lat': lat.toString(),
+          'lon': lon.toString(),
+          'limit': '1',
+        },
+      );
+      if (result.error == null) {
+        final data = result.data;
+        if (data is List<dynamic> && data.isNotEmpty) {
+          final item = data.first;
+          if (item is Map<String, dynamic>) {
+            final response = GeocodingResponseFromNetwork.fromJson(
+              item,
+            );
+            final cityName =
+                response.localNames?['ru'] ?? response.name ?? 'Unknown';
+            return WeatherResult.success(
+              cityName,
+            );
+          }
+        }
+        return WeatherResult.failure(
+          WeatherError.noData(),
+        );
+      }
+      return WeatherResult.failure(
+        result.error,
+      );
+    } catch (e) {
+      return WeatherResult.failure(
+        WeatherError.fromException(
+          e,
+        ),
+      );
+    }
+  }
+}
