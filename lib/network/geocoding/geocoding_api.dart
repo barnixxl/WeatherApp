@@ -31,7 +31,7 @@ class GeocodingApi {
           'limit': '1',
         },
       );
-      if (result.error == null) {
+      if (result.isSuccess) {
         final data = result.data;
         if (data is List<dynamic> && data.isNotEmpty) {
           final item = data.first;
@@ -76,7 +76,7 @@ class GeocodingApi {
           'limit': '1',
         },
       );
-      if (result.error == null) {
+      if (result.isSuccess) {
         final data = result.data;
         if (data is List<dynamic> && data.isNotEmpty) {
           final item = data.first;

@@ -36,7 +36,7 @@ class WeatherApi {
         path,
         queryParameters: queryParams,
       );
-      if (result.error == null) {
+      if (result.isSuccess) {
         final data = result.data;
         if (data is Map<String, dynamic>) {
           final response = WeatherResponseFromNetwork.fromJson(
