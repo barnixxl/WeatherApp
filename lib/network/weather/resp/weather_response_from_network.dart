@@ -1,26 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'forecast_item_from_network.dart';
+import 'weather_item_from_network.dart';
 
-part 'forecast_response_from_network.g.dart';
+part 'weather_response_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
   explicitToJson: false,
 )
-class ForecastResponseFromNetwork {
+class WeatherResponseFromNetwork {
   @JsonKey(name: 'list')
-  final List<ForecastItemFromNetwork>? list;
+  final List<WeatherItemFromNetwork>? list;
   @JsonKey(name: 'city')
   final CityDataFromNetwork? city;
 
-  ForecastResponseFromNetwork({
+  WeatherResponseFromNetwork({
     this.list,
     this.city,
   });
 
-  factory ForecastResponseFromNetwork.fromJson(Map<String, dynamic> json) =>
-      _$ForecastResponseFromNetworkFromJson(
+  factory WeatherResponseFromNetwork.fromJson(Map<String, dynamic> json) =>
+      _$WeatherResponseFromNetworkFromJson(
         json,
       );
 }

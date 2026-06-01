@@ -2,8 +2,8 @@ import 'package:get_it/get_it.dart';
 
 import '../network_service.dart';
 
-class ForecastNetworkService extends NetworkService {
-  ForecastNetworkService()
+class WeatherNetworkService extends NetworkService {
+  WeatherNetworkService()
       : super(
           baseUrl: 'https://api.openweathermap.org/data/2.5/',
         );
@@ -11,7 +11,7 @@ class ForecastNetworkService extends NetworkService {
   void register(
     GetIt getIt,
   ) {
-    getIt.registerSingleton<ForecastNetworkService>(
+    getIt.registerSingleton<WeatherNetworkService>(
       this,
     );
   }

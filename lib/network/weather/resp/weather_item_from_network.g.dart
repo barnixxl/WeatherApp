@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'forecast_item_from_network.dart';
+part of 'weather_item_from_network.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ForecastItemFromNetwork _$ForecastItemFromNetworkFromJson(
+WeatherItemFromNetwork _$WeatherItemFromNetworkFromJson(
         Map<String, dynamic> json) =>
-    ForecastItemFromNetwork(
+    WeatherItemFromNetwork(
       dt: (json['dt'] as num?)?.toInt(),
       main: json['main'] == null
           ? null

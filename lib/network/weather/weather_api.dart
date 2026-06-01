@@ -2,27 +2,27 @@ import 'package:get_it/get_it.dart';
 
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
-import 'forecast_network_service.dart';
-import 'resp/forecast_response_from_network.dart';
+import 'weather_network_service.dart';
+import 'resp/weather_response_from_network.dart';
 
-class ForecastApi {
+class WeatherApi {
   static final GetIt _getIt = GetIt.instance;
 
-  late final ForecastNetworkService _network;
+  late final WeatherNetworkService _network;
 
   void register(
     GetIt getIt,
   ) {
-    getIt.registerSingleton<ForecastApi>(
+    getIt.registerSingleton<WeatherApi>(
       this,
     );
   }
 
   Future<void> initializeDependencies() async {
-    _network = _getIt<ForecastNetworkService>();
+    _network = _getIt<WeatherNetworkService>();
   }
 
-  Future<WeatherResult<ForecastResponseFromNetwork>> fetchForecast(
+  Future<WeatherResult<WeatherResponseFromNetwork>> fetchForecast(
     double lat,
     double lon,
   ) async {
@@ -41,7 +41,7 @@ class ForecastApi {
       if (result.error == null) {
         final data = result.data;
         if (data is Map<String, dynamic>) {
-          final response = ForecastResponseFromNetwork.fromJson(
+          final response = WeatherResponseFromNetwork.fromJson(
             data,
           );
           return WeatherResult.success(

@@ -3,8 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'network/forecast/forecast_api.dart';
-import 'network/forecast/forecast_network_service.dart';
+import 'network/weather/weather_api.dart';
+import 'network/weather/weather_network_service.dart';
 import 'network/geocoding/geocoding_api.dart';
 import 'network/geocoding/geocoding_network_service.dart';
 import 'repository/weather_repository.dart';
@@ -31,11 +31,11 @@ Future<void> main() async {
   );
   final getIt = GetIt.instance;
 
-  final forecastNetwork = ForecastNetworkService();
-  forecastNetwork.register(
+  final weatherNetwork = WeatherNetworkService();
+  weatherNetwork.register(
     getIt,
   );
-  await forecastNetwork.initializeDependencies();
+  await weatherNetwork.initializeDependencies();
 
   final geocodingNetwork = GeocodingNetworkService();
   geocodingNetwork.register(
@@ -43,11 +43,11 @@ Future<void> main() async {
   );
   await geocodingNetwork.initializeDependencies();
 
-  final forecastApi = ForecastApi();
-  forecastApi.register(
+  final weatherApi = WeatherApi();
+  weatherApi.register(
     getIt,
   );
-  await forecastApi.initializeDependencies();
+  await weatherApi.initializeDependencies();
 
   final geocodingApi = GeocodingApi();
   geocodingApi.register(

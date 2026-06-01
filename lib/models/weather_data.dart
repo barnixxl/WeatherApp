@@ -1,4 +1,4 @@
-import '../network/forecast/resp/forecast_item_from_network.dart';
+import '../network/weather/resp/weather_item_from_network.dart';
 
 class WeatherData {
   final DateTime dateTime;
@@ -20,7 +20,7 @@ class WeatherData {
   });
 
   static WeatherData fromNetworkModel(
-    ForecastItemFromNetwork model,
+    WeatherItemFromNetwork model,
   ) {
     return WeatherData(
       dateTime: DateTime.fromMillisecondsSinceEpoch(

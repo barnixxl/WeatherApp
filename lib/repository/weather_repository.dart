@@ -4,14 +4,14 @@ import '../models/day_forecast.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
-import '../network/forecast/forecast_api.dart';
+import '../network/weather/weather_api.dart';
 import '../network/geocoding/geocoding_api.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
 
-  late final ForecastApi _forecastApi;
+  late final WeatherApi _forecastApi;
   late final GeocodingApi _geocodingApi;
 
   @override
@@ -25,7 +25,7 @@ class WeatherRepository extends BaseRepository {
 
   @override
   Future<void> initializeDependencies() async {
-    _forecastApi = _getIt<ForecastApi>();
+    _forecastApi = _getIt<WeatherApi>();
     _geocodingApi = _getIt<GeocodingApi>();
   }
 
