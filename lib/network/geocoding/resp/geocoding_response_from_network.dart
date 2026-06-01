@@ -10,7 +10,7 @@ class GeocodingResponseFromNetwork {
   @JsonKey(name: 'name')
   final String? name;
   @JsonKey(name: 'local_names')
-  final Map<String, dynamic>? localNames;
+  final Map<String, String>? localNames;
   @JsonKey(name: 'lat')
   final double? lat;
   @JsonKey(name: 'lon')
@@ -30,4 +30,8 @@ class GeocodingResponseFromNetwork {
       _$GeocodingResponseFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() =>
+      'GeocodingResponseFromNetwork(name: $name, localNames: $localNames, lat: $lat, lon: $lon, country: $country)';
 }

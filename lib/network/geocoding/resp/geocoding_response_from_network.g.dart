@@ -10,7 +10,9 @@ GeocodingResponseFromNetwork _$GeocodingResponseFromNetworkFromJson(
         Map<String, dynamic> json) =>
     GeocodingResponseFromNetwork(
       name: json['name'] as String?,
-      localNames: json['local_names'] as Map<String, dynamic>?,
+      localNames: (json['local_names'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
       lat: (json['lat'] as num?)?.toDouble(),
       lon: (json['lon'] as num?)?.toDouble(),
       country: json['country'] as String?,
