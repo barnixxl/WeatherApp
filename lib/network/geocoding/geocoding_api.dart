@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../../models/coordinates.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import 'geocoding_network_service.dart';
@@ -20,7 +21,7 @@ class GeocodingApi {
     );
   }
 
-  Future<WeatherResult<Map<String, double>>> getCoordinates(
+  Future<WeatherResult<Coordinates>> getCoordinates(
     String cityName,
   ) async {
     try {
@@ -40,10 +41,10 @@ class GeocodingApi {
               item,
             );
             return WeatherResult.success(
-              {
-                'lat': response.lat ?? 0.0,
-                'lon': response.lon ?? 0.0,
-              },
+              Coordinates(
+                lat: response.lat ?? 0.0,
+                lon: response.lon ?? 0.0,
+              ),
             );
           }
         }

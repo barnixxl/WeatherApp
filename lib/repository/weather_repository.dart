@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../models/coordinates.dart';
 import '../models/day_weather.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
@@ -63,7 +64,7 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  Future<WeatherResult<Map<String, double>>> getCoordinates(
+  Future<WeatherResult<Coordinates>> getCoordinates(
     String cityName,
   ) async {
     return await _geocodingApi.getCoordinates(

@@ -65,8 +65,8 @@ class HomeController {
     if (coordsResult.isSuccess) {
       final coords = coordsResult.data;
       if (coords != null) {
-        final lat = coords['lat'] ?? 0.0;
-        final lon = coords['lon'] ?? 0.0;
+        final lat = coords.lat;
+        final lon = coords.lon;
         runInAction(
           () {
             _latitude.value = lat;
