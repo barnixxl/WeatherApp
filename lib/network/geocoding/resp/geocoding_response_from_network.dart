@@ -32,6 +32,11 @@ class GeocodingResponseFromNetwork {
       );
 
   @override
-  String toString() =>
-      'GeocodingResponseFromNetwork(name: $name, localNames: $localNames, lat: $lat, lon: $lon, country: $country)';
+  String toString() => 'GeocodingResponseFromNetwork('
+      'name: $name,'
+      ' localNames: $localNames,'
+      ' lat: $lat,'
+      ' lon: $lon,'
+      ' country: $country,'
+      ')';
 }
