@@ -4,4 +4,6 @@ abstract class BaseRepository {
   void register(
     GetIt getIt,
   );
+
+  Future<void> initializeDependencies();
 }

@@ -1,3 +1,4 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../models/day_weather.dart';
@@ -7,14 +8,9 @@ import '../../repository/weather_repository.dart';
 import '../../utils/location_service.dart';
 
 class HomeController {
-  final WeatherRepository _repository;
-  final LocationService _locationService;
+  final WeatherRepository _repository = WeatherRepository.getInstance();
+  final LocationService _locationService = GetIt.instance<LocationService>();
 
-  HomeController({
-    required WeatherRepository repository,
-    required LocationService locationService,
-  })  : _repository = repository,
-        _locationService = locationService;
   final Observable<WeatherResult<List<DayWeather>>> _weatherResult =
       Observable(
     WeatherResult.notInitialized(),

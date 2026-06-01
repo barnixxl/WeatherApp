@@ -7,11 +7,9 @@ import 'geocoding_network_service.dart';
 import 'resp/geocoding_response_from_network.dart';
 
 class GeocodingApi {
-  final GeocodingNetworkService _network;
+  static final GetIt _getIt = GetIt.instance;
 
-  GeocodingApi({
-    required GeocodingNetworkService network,
-  }) : _network = network;
+  late final GeocodingNetworkService _network;
 
   void register(
     GetIt getIt,
@@ -19,6 +17,10 @@ class GeocodingApi {
     getIt.registerSingleton<GeocodingApi>(
       this,
     );
+  }
+
+  Future<void> initializeDependencies() async {
+    _network = _getIt<GeocodingNetworkService>();
   }
 
   Future<WeatherResult<Coordinates>> getCoordinates(
