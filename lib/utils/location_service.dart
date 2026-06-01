@@ -1,6 +1,17 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:get_it/get_it.dart';
 
 class LocationService {
+  void register(
+    GetIt getIt,
+  ) {
+    getIt.registerSingleton<LocationService>(
+      this,
+    );
+  }
+
+  Future<void> initializeDependencies() async {}
+
   Future<Position?> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;

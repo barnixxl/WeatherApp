@@ -1,3 +1,4 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../models/day_forecast.dart';
@@ -7,8 +8,9 @@ import '../../repository/weather_repository.dart';
 import '../../utils/location_service.dart';
 
 class HomeController {
+  static final GetIt _getIt = GetIt.instance;
   final WeatherRepository _repository = WeatherRepository.getInstance();
-  final LocationService _locationService = LocationService();
+  final LocationService _locationService = _getIt<LocationService>();
   final Observable<WeatherResult<List<DayForecast>>> _forecastResult =
       Observable(
     WeatherResult.notInitialized(),
@@ -68,14 +70,24 @@ class HomeController {
     }
     final coords = coordsResult.data;
     if (coords != null) {
+      final lat = coords['lat'] ?? 0.0;
+      final lon = coords['lon'] ?? 0.0;
       runInAction(
         () {
-          _latitude.value = coords['lat'] ?? 0.0;
-          _longitude.value = coords['lon'] ?? 0.0;
+          _latitude.value = lat;
+          _longitude.value = lon;
           _cityName.value = city;
         },
       );
-      await loadForecast();
+      final result = await _repository.fetchForecast(
+        lat,
+        lon,
+      );
+      runInAction(
+        () {
+          _forecastResult.value = result;
+        },
+      );
     }
   }
 

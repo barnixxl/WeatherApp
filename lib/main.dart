@@ -11,6 +11,7 @@ import 'repository/weather_repository.dart';
 import 'resources/colors/app_colors.dart';
 import 'resources/strings/app_localizations.dart';
 import 'ui/home/home_screen.dart';
+import 'utils/location_service.dart';
 
 late final AppLocalizations strings;
 
@@ -54,6 +55,12 @@ Future<void> main() async {
     getIt,
   );
   await geocodingApi.initializeDependencies();
+
+  final locationService = LocationService();
+  locationService.register(
+    getIt,
+  );
+  await locationService.initializeDependencies();
 
   final repository = WeatherRepository();
   repository.register(
