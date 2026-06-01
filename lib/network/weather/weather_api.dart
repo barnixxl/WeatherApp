@@ -1,9 +1,11 @@
 import 'package:get_it/get_it.dart';
 
+import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import 'weather_network_service.dart';
 import 'resp/weather_response_from_network.dart';
+import 'resp/weather_item_from_network.dart';
 
 class WeatherApi {
   static final GetIt _getIt = GetIt.instance;
@@ -22,7 +24,7 @@ class WeatherApi {
     _network = _getIt<WeatherNetworkService>();
   }
 
-  Future<WeatherResult<WeatherResponseFromNetwork>> fetchForecast(
+  Future<WeatherResult<List<WeatherData>>> fetchForecast(
     double lat,
     double lon,
   ) async {
@@ -44,8 +46,13 @@ class WeatherApi {
           final response = WeatherResponseFromNetwork.fromJson(
             data,
           );
+          final weatherList = (response.list ?? [])
+              .map(
+                _toWeatherData,
+              )
+              .toList();
           return WeatherResult.success(
-            response,
+            weatherList,
           );
         }
         return WeatherResult.failure(
@@ -62,5 +69,21 @@ class WeatherApi {
         ),
       );
     }
+  }
+
+  WeatherData _toWeatherData(
+    WeatherItemFromNetwork model,
+  ) {
+    return WeatherData(
+      dateTime: DateTime.fromMillisecondsSinceEpoch(
+        (model.dt ?? 0) * 1000,
+      ),
+      temperature: model.main?.temp ?? 0.0,
+      weatherMain: model.weather?.firstOrNull?.main ?? '',
+      weatherDescription: model.weather?.firstOrNull?.description ?? '',
+      weatherIcon: model.weather?.firstOrNull?.icon ?? '',
+      windSpeed: model.wind?.speed ?? 0.0,
+      humidity: model.main?.humidity ?? 0,
+    );
   }
 }

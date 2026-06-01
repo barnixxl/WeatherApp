@@ -6,7 +6,6 @@ import '../models/weather_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
-import '../network/weather/resp/weather_item_from_network.dart';
 import '../network/geocoding/geocoding_api.dart';
 import 'base_repository.dart';
 
@@ -44,17 +43,12 @@ class WeatherRepository extends BaseRepository {
       lon,
     );
     if (result.isSuccess) {
-      final response = result.data;
-      if (response == null) {
+      final weatherList = result.data;
+      if (weatherList == null) {
         return WeatherResult.failure(
-          WeatherError.noData(),
+          WeatherError.loadFailed(),
         );
       }
-      final weatherList = (response.list ?? [])
-          .map(
-            _toWeatherData,
-          )
-          .toList();
       final grouped = _groupByDay(
         weatherList,
       );
@@ -116,22 +110,6 @@ class WeatherRepository extends BaseRepository {
         );
       },
     ).toList();
-  }
-
-  WeatherData _toWeatherData(
-    WeatherItemFromNetwork model,
-  ) {
-    return WeatherData(
-      dateTime: DateTime.fromMillisecondsSinceEpoch(
-        (model.dt ?? 0) * 1000,
-      ),
-      temperature: model.main?.temp ?? 0.0,
-      weatherMain: model.weather?.firstOrNull?.main ?? '',
-      weatherDescription: model.weather?.firstOrNull?.description ?? '',
-      weatherIcon: model.weather?.firstOrNull?.icon ?? '',
-      windSpeed: model.wind?.speed ?? 0.0,
-      humidity: model.main?.humidity ?? 0,
-    );
   }
 
   String _getDateKey(
