@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'network/weather/weather_api.dart';
-import 'network/weather/weather_network_service.dart';
 import 'network/geocoding/geocoding_api.dart';
 import 'network/geocoding/geocoding_network_service.dart';
+import 'network/weather/weather_api.dart';
+import 'network/weather/weather_network_service.dart';
 import 'repository/weather_repository.dart';
 import 'resources/colors/app_colors.dart';
 import 'resources/strings/app_localizations.dart';
@@ -24,6 +25,7 @@ Future<void> initializeLocale() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await initializeLocale();
   strings = lookupAppLocalizations(
     const Locale(

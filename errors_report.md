@@ -1,6 +1,6 @@
 # Ошибки WeatherApp — Перекрёстный анализ с чатом ментора
 
-Дата анализа: 28.05.2026
+Дата анализа: 01.06.2026
 Источник: чат с дима snake (12.03.2026 — 25.05.2026, файлы messages1–8.html)
 Проект: WeatherApp (lib/, test/, example/)
 
@@ -80,7 +80,7 @@ class AppConfig {
 
 ### 7. Глобальная переменная `strings`
 
-**Где:** `lib/main.dart:15`
+**Где:** `lib/main.dart:17`
 
 ```dart
 late final AppLocalizations strings;
@@ -88,17 +88,57 @@ late final AppLocalizations strings;
 
 ---
 
-## 📋 ОСТАЛОСЬ (7 ошибок)
+### 8. `if (result.error == null)` вместо `if (result.isSuccess)` в API
+
+**Где:**
+- `lib/network/weather/weather_api.dart:39`
+- `lib/network/geocoding/geocoding_api.dart:34, 79`
+
+```dart
+if (result.error == null) {       // ← должно быть if (result.isSuccess)
+```
+
+**Fix:** success-first паттерн, как в репозитории и контроллере.
+
+---
+
+### 9. `register(GetIt)` — dead code (все зависимости через конструкторы)
+
+**Где:** `lib/main.dart:38, 44, 52, 59, 64, 73` — все вызовы `.register(getIt)`
+
+**Проблема:** каждый объект регистрируется в GetIt, но нигде не запрашивается через `getIt<Type>()`. Регистрация не используется.
+
+---
+
+### 10. `GeocodingApi.getCoordinates()` возвращает `Map<String, double>`
+
+**Где:** `lib/network/geocoding/geocoding_api.dart:42-47`
+
+```dart
+return WeatherResult.success({
+  'lat': response.lat ?? 0.0,
+  'lon': response.lon ?? 0.0,
+});
+```
+
+**Fix:** создать модель `Coordinates` с полями `lat`/`lon` и использовать её.
+
+---
+
+## 📋 ОСТАЛОСЬ
 
 | # | Степень | Описание | Файл |
 |---|---------|----------|------|
-| 1 | 🔴 HIGH | `Colors.red` вместо AppColors | weather_map_widget.dart |
-| 2 | 🟡 MED | static `_getIt` поля | weather_api.dart, geocoding_api.dart, weather_repository.dart |
-| 3 | 🟡 MED | `getInstance()` статический метод | weather_repository.dart |
+| 1 | 🔴 HIGH | `Colors.red` вместо AppColors | ~~weather_map_widget.dart~~ ✅ |
+| 2 | 🟡 MED | static `_getIt` поля | ~~weather_api.dart, geocoding_api.dart, weather_repository.dart~~ ✅ |
+| 3 | 🟡 MED | `getInstance()` статический метод | ~~weather_repository.dart~~ ✅ |
 | 4 | 🟡 MED | AppImages пустой | app_images.dart |
 | 5 | 🟡 MED | Нет тестов | test/ |
 | 6 | 🟡 MED | API key хардкодом | app_config.dart |
 | 7 | 🟢 LOW | Глобальная `strings` | main.dart |
+| 8 | 🟡 MED | `if (result.error == null)` вместо `if (result.isSuccess)` | ~~weather_api.dart, geocoding_api.dart~~ ✅ |
+| 9 | 🟡 MED | `register(GetIt)` — dead code | main.dart |
+| 10 | 🟡 MED | `getCoordinates()` возвращает raw Map | geocoding_api.dart |
 
 ---
 
@@ -110,7 +150,10 @@ late final AppLocalizations strings;
 | 2 | Дублирование WeatherNetwork / GeocodingNetwork (2 × 96 строк) | NetworkService + 2 наследника по 18 строк |
 | 3 | Бесполезный `get<T>()` с `if (data is T)` | `get()` возвращает `WeatherResult<dynamic>` |
 | 4 | Domain model зависит от network model | Конвертация в репозитории, модель чистая |
-| 6 | `new LocationService()` в контроллере | Через `_getIt<LocationService>()` |
-| 12 | WeatherNetwork без appid, GeocodingNetwork с appid | `NetworkService.get()` всегда добавляет `appid` |
+| 5 | `Colors.red` вместо AppColors | `AppColors.error` |
+| 6 | `new LocationService()` в контроллере | Через конструктор |
+| 11 | WeatherNetwork без appid, GeocodingNetwork с appid | `NetworkService.get()` всегда добавляет `appid` |
 | — | Названия `forecast` в файлах/классах | Переименовано в `weather` |
 | — | Example: `fromNetworkModel` в `RateData` | Конвертация в API-слое |
+| 8 | `if (result.error == null)` в API | `if (result.isSuccess)` ✅ |
+| — | `if (result.isError)` в репозитории и контроллере | success-first ✅ |
