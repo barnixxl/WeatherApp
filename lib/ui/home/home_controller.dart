@@ -92,19 +92,21 @@ class HomeController {
   }
 
   Future<void> _loadCurrentLocation() async {
-    final position = await _locationService.getCurrentLocation();
-    if (position != null) {
-      runInAction(
-        () {
-          _latitude.value = position.latitude;
-          _longitude.value = position.longitude;
-        },
-      );
-      await _updateCityName(
-        position.latitude,
-        position.longitude,
-      );
-    }
+    try {
+      final position = await _locationService.getCurrentLocation();
+      if (position != null) {
+        runInAction(
+          () {
+            _latitude.value = position.latitude;
+            _longitude.value = position.longitude;
+          },
+        );
+        await _updateCityName(
+          position.latitude,
+          position.longitude,
+        );
+      }
+    } catch (_) {}
   }
 
   Future<void> _updateCityName(
