@@ -23,6 +23,12 @@ class WeatherResponseFromNetwork {
       _$WeatherResponseFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'WeatherResponseFromNetwork('
+      'list: $list,'
+      ' city: $city,'
+      ')';
 }
 
 @JsonSerializable(
@@ -44,6 +50,9 @@ class CityDataFromNetwork {
       _$CityDataFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'CityDataFromNetwork(name: $name, coord: $coord)';
 }
 
 @JsonSerializable(
@@ -65,4 +74,7 @@ class CoordDataFromNetwork {
       _$CoordDataFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'CoordDataFromNetwork(lat: $lat, lon: $lon)';
 }

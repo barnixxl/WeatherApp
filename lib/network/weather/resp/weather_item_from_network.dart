@@ -30,6 +30,15 @@ class WeatherItemFromNetwork {
       _$WeatherItemFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'WeatherItemFromNetwork('
+      'dt: $dt,'
+      ' main: $main,'
+      ' weather: $weather,'
+      ' wind: $wind,'
+      ' dtTxt: $dtTxt,'
+      ')';
 }
 
 @JsonSerializable(
@@ -60,6 +69,14 @@ class MainDataFromNetwork {
       _$MainDataFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'MainDataFromNetwork(temp: $temp,'
+      ' feelsLike: $feelsLike,'
+      ' tempMin: $tempMin,'
+      ' tempMax: $tempMax,'
+      ' humidity: $humidity,'
+      ')';
 }
 
 @JsonSerializable(
@@ -87,6 +104,14 @@ class WeatherInfoFromNetwork {
       _$WeatherInfoFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'WeatherInfoFromNetwork('
+      'id: $id,'
+      ' main: $main,'
+      ' description: $description,'
+      ' icon: $icon,'
+      ')';
 }
 
 @JsonSerializable(
@@ -94,7 +119,9 @@ class WeatherInfoFromNetwork {
   explicitToJson: false,
 )
 class WindDataFromNetwork {
-  @JsonKey(name: 'speed')
+  @JsonKey(
+    name: 'speed',
+  )
   final double? speed;
 
   WindDataFromNetwork({
@@ -105,4 +132,9 @@ class WindDataFromNetwork {
       _$WindDataFromNetworkFromJson(
         json,
       );
+
+  @override
+  String toString() => 'WindDataFromNetwork('
+      'speed: $speed, '
+      ')';
 }
