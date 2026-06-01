@@ -101,7 +101,7 @@ class WeatherMapWidget extends StatelessWidget {
                         height: 40,
                         child: const Icon(
                           Icons.location_pin,
-                          color: Colors.red,
+                          color: AppColors.error,
                           size: 40,
                         ),
                       ),
