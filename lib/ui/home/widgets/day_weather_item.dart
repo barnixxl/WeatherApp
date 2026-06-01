@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/day_forecast.dart';
+import '../../../models/day_weather.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
-import 'hourly_forecast_row.dart';
+import 'hourly_weather_row.dart';
 
-class DayForecastItem extends StatelessWidget {
-  final DayForecast forecast;
+class DayWeatherItem extends StatelessWidget {
+  final DayWeather dayWeather;
 
-  const DayForecastItem({
+  const DayWeatherItem({
     super.key,
-    required this.forecast,
+    required this.dayWeather,
   });
 
   @override
@@ -48,7 +48,7 @@ class DayForecastItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              forecast.date.toDayOfWeekFormat() ?? '',
+              dayWeather.date.toDayOfWeekFormat() ?? '',
               style: const TextStyle(
                 color: AppColors.onPrimary,
                 fontSize: 18,
@@ -58,8 +58,8 @@ class DayForecastItem extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            HourlyForecastRow(
-              hourlyData: forecast.hourlyData,
+            HourlyWeatherRow(
+              hourlyData: dayWeather.hourlyData,
             ),
           ],
         ),

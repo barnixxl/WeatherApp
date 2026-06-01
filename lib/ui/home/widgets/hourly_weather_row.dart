@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
-import '../../../utils/weather_icon_mapper.dart';
+import '../../../utils/app_images.dart';
 
-class HourlyForecastRow extends StatelessWidget {
+class HourlyWeatherRow extends StatelessWidget {
   final List<WeatherData> hourlyData;
 
-  const HourlyForecastRow({
+  const HourlyWeatherRow({
     super.key,
     required this.hourlyData,
   });

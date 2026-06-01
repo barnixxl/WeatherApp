@@ -1,7 +1,7 @@
 part of 'home_screen.dart';
 
 Widget _buildSuccessWidget({
-  required List<DayForecast> forecasts,
+  required List<DayWeather> dayWeather,
   required double latitude,
   required double longitude,
 }) {
@@ -9,15 +9,15 @@ Widget _buildSuccessWidget({
     padding: const EdgeInsets.all(
       8,
     ),
-    itemCount: forecasts.length + 1,
+    itemCount: dayWeather.length + 1,
     itemBuilder: (
       context,
       index,
     ) {
-      if (index < forecasts.length) {
-        final forecast = forecasts[index];
-        return DayForecastItem(
-          forecast: forecast,
+      if (index < dayWeather.length) {
+        final item = dayWeather[index];
+        return DayWeatherItem(
+          dayWeather: item,
         );
       } else {
         return WeatherMapWidget(

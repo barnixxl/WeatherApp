@@ -1,10 +1,10 @@
 import 'weather_data.dart';
 
-class DayForecast {
+class DayWeather {
   final DateTime date;
   final List<WeatherData> hourlyData;
 
-  DayForecast({
+  DayWeather({
     required this.date,
     required this.hourlyData,
   });

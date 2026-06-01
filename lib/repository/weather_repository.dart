@@ -1,17 +1,18 @@
 import 'package:get_it/get_it.dart';
 
-import '../models/day_forecast.dart';
+import '../models/day_weather.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
+import '../network/weather/resp/weather_item_from_network.dart';
 import '../network/geocoding/geocoding_api.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
 
-  late final WeatherApi _forecastApi;
+  late final WeatherApi _weatherApi;
   late final GeocodingApi _geocodingApi;
 
   @override
@@ -25,7 +26,7 @@ class WeatherRepository extends BaseRepository {
 
   @override
   Future<void> initializeDependencies() async {
-    _forecastApi = _getIt<WeatherApi>();
+    _weatherApi = _getIt<WeatherApi>();
     _geocodingApi = _getIt<GeocodingApi>();
   }
 
@@ -33,11 +34,11 @@ class WeatherRepository extends BaseRepository {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<List<DayForecast>>> fetchForecast(
+  Future<WeatherResult<List<DayWeather>>> fetchForecast(
     double lat,
     double lon,
   ) async {
-    final result = await _forecastApi.fetchForecast(
+    final result = await _weatherApi.fetchForecast(
       lat,
       lon,
     );
@@ -54,9 +55,7 @@ class WeatherRepository extends BaseRepository {
     }
     final weatherList = (response.list ?? [])
         .map(
-          (e) => WeatherData.fromNetworkModel(
-            e,
-          ),
+          _toWeatherData,
         )
         .toList();
     final grouped = _groupByDay(
@@ -88,7 +87,7 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  List<DayForecast> _groupByDay(
+  List<DayWeather> _groupByDay(
     List<WeatherData> weatherList,
   ) {
     final Map<String, List<WeatherData>> grouped = {};
@@ -110,12 +109,28 @@ class WeatherRepository extends BaseRepository {
         final date = DateTime.parse(
           entry.key,
         );
-        return DayForecast(
+        return DayWeather(
           date: date,
           hourlyData: entry.value,
         );
       },
     ).toList();
+  }
+
+  WeatherData _toWeatherData(
+    WeatherItemFromNetwork model,
+  ) {
+    return WeatherData(
+      dateTime: DateTime.fromMillisecondsSinceEpoch(
+        (model.dt ?? 0) * 1000,
+      ),
+      temperature: model.main?.temp ?? 0.0,
+      weatherMain: model.weather?.firstOrNull?.main ?? '',
+      weatherDescription: model.weather?.firstOrNull?.description ?? '',
+      weatherIcon: model.weather?.firstOrNull?.icon ?? '',
+      windSpeed: model.wind?.speed ?? 0.0,
+      humidity: model.main?.humidity ?? 0,
+    );
   }
 
   String _getDateKey(
@@ -124,19 +139,19 @@ class WeatherRepository extends BaseRepository {
     return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
   }
 
-  List<DayForecast> _filterHourlyData(
-    List<DayForecast> forecasts,
+  List<DayWeather> _filterHourlyData(
+    List<DayWeather> dayWeatherList,
   ) {
-    return forecasts.map(
-      (dayForecast) {
-        final filtered = dayForecast.hourlyData.where(
+    return dayWeatherList.map(
+      (dayWeather) {
+        final filtered = dayWeather.hourlyData.where(
           (weather) {
             final hour = weather.dateTime.hour;
             return hour % 2 == 0;
           },
         ).toList();
-        return DayForecast(
-          date: dayForecast.date,
+        return DayWeather(
+          date: dayWeather.date,
           hourlyData: filtered,
         );
       },

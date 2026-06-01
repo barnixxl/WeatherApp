@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../models/day_forecast.dart';
+import '../../models/day_weather.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../../repository/weather_repository.dart';
@@ -11,7 +11,7 @@ class HomeController {
   static final GetIt _getIt = GetIt.instance;
   final WeatherRepository _repository = WeatherRepository.getInstance();
   final LocationService _locationService = _getIt<LocationService>();
-  final Observable<WeatherResult<List<DayForecast>>> _forecastResult =
+  final Observable<WeatherResult<List<DayWeather>>> _weatherResult =
       Observable(
     WeatherResult.notInitialized(),
   );
@@ -19,12 +19,12 @@ class HomeController {
   final Observable<double> _longitude = Observable(27.5667);
   final Observable<String> _cityName = Observable('Минск');
 
-  bool get isLoading => _forecastResult.value.isLoading;
-  bool get hasError => _forecastResult.value.isError;
-  bool get hasSuccess => _forecastResult.value.isSuccess;
-  List<DayForecast> get forecasts => _forecastResult.value.data ?? [];
-  DateTime? get lastUpdateDate => forecasts.firstOrNull?.date;
-  WeatherError? get error => _forecastResult.value.error;
+  bool get isLoading => _weatherResult.value.isLoading;
+  bool get hasError => _weatherResult.value.isError;
+  bool get hasSuccess => _weatherResult.value.isSuccess;
+  List<DayWeather> get dayWeather => _weatherResult.value.data ?? [];
+  DateTime? get lastUpdateDate => dayWeather.firstOrNull?.date;
+  WeatherError? get error => _weatherResult.value.error;
   double get latitude => _latitude.value;
   double get longitude => _longitude.value;
   String get cityName => _cityName.value;
@@ -32,7 +32,7 @@ class HomeController {
   Future<void> loadForecast() async {
     runInAction(
       () {
-        _forecastResult.value = WeatherResult.loading();
+        _weatherResult.value = WeatherResult.loading();
       },
     );
     await _loadCurrentLocation();
@@ -42,7 +42,7 @@ class HomeController {
     );
     runInAction(
       () {
-        _forecastResult.value = result;
+        _weatherResult.value = result;
       },
     );
   }
@@ -52,7 +52,7 @@ class HomeController {
   ) async {
     runInAction(
       () {
-        _forecastResult.value = WeatherResult.loading();
+        _weatherResult.value = WeatherResult.loading();
       },
     );
     final coordsResult = await _repository.getCoordinates(
@@ -61,7 +61,7 @@ class HomeController {
     if (coordsResult.isError) {
       runInAction(
         () {
-          _forecastResult.value = WeatherResult.failure(
+          _weatherResult.value = WeatherResult.failure(
             coordsResult.error,
           );
         },
@@ -85,7 +85,7 @@ class HomeController {
       );
       runInAction(
         () {
-          _forecastResult.value = result;
+          _weatherResult.value = result;
         },
       );
     }
