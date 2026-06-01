@@ -62,34 +62,34 @@ class HomeController {
     final coordsResult = await _repository.getCoordinates(
       city,
     );
-    if (coordsResult.isError) {
+    if (coordsResult.isSuccess) {
+      final coords = coordsResult.data;
+      if (coords != null) {
+        final lat = coords['lat'] ?? 0.0;
+        final lon = coords['lon'] ?? 0.0;
+        runInAction(
+          () {
+            _latitude.value = lat;
+            _longitude.value = lon;
+            _cityName.value = city;
+          },
+        );
+        final result = await _repository.fetchForecast(
+          lat,
+          lon,
+        );
+        runInAction(
+          () {
+            _weatherResult.value = result;
+          },
+        );
+      }
+    } else {
       runInAction(
         () {
           _weatherResult.value = WeatherResult.failure(
             coordsResult.error,
           );
-        },
-      );
-      return;
-    }
-    final coords = coordsResult.data;
-    if (coords != null) {
-      final lat = coords['lat'] ?? 0.0;
-      final lon = coords['lon'] ?? 0.0;
-      runInAction(
-        () {
-          _latitude.value = lat;
-          _longitude.value = lon;
-          _cityName.value = city;
-        },
-      );
-      final result = await _repository.fetchForecast(
-        lat,
-        lon,
-      );
-      runInAction(
-        () {
-          _weatherResult.value = result;
         },
       );
     }

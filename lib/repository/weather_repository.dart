@@ -36,30 +36,30 @@ class WeatherRepository extends BaseRepository {
       lat,
       lon,
     );
-    if (result.isError) {
-      return WeatherResult.failure(
-        result.error,
+    if (result.isSuccess) {
+      final response = result.data;
+      if (response == null) {
+        return WeatherResult.failure(
+          WeatherError.noData(),
+        );
+      }
+      final weatherList = (response.list ?? [])
+          .map(
+            _toWeatherData,
+          )
+          .toList();
+      final grouped = _groupByDay(
+        weatherList,
+      );
+      final filtered = _filterHourlyData(
+        grouped,
+      );
+      return WeatherResult.success(
+        filtered,
       );
     }
-    final response = result.data;
-    if (response == null) {
-      return WeatherResult.failure(
-        WeatherError.noData(),
-      );
-    }
-    final weatherList = (response.list ?? [])
-        .map(
-          _toWeatherData,
-        )
-        .toList();
-    final grouped = _groupByDay(
-      weatherList,
-    );
-    final filtered = _filterHourlyData(
-      grouped,
-    );
-    return WeatherResult.success(
-      filtered,
+    return WeatherResult.failure(
+      result.error,
     );
   }
 
