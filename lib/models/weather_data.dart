@@ -1,5 +1,3 @@
-import '../network/weather/resp/weather_item_from_network.dart';
-
 class WeatherData {
   final DateTime dateTime;
   final double temperature;
@@ -18,20 +16,4 @@ class WeatherData {
     required this.windSpeed,
     required this.humidity,
   });
-
-  static WeatherData fromNetworkModel(
-    WeatherItemFromNetwork model,
-  ) {
-    return WeatherData(
-      dateTime: DateTime.fromMillisecondsSinceEpoch(
-        (model.dt ?? 0) * 1000,
-      ),
-      temperature: model.main?.temp ?? 0.0,
-      weatherMain: model.weather?.firstOrNull?.main ?? '',
-      weatherDescription: model.weather?.firstOrNull?.description ?? '',
-      weatherIcon: model.weather?.firstOrNull?.icon ?? '',
-      windSpeed: model.wind?.speed ?? 0.0,
-      humidity: model.main?.humidity ?? 0,
-    );
-  }
 }

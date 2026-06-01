@@ -1,8 +1,10 @@
 import 'package:get_it/get_it.dart';
 
+import '../../main.dart';
 import '../../models/currency_error.dart';
 import '../../models/currency_result.dart';
 import '../../models/rate_data.dart';
+import '../../utils/string_extensions.dart';
 import '../currency_rate_network.dart';
 import 'resp/rate_data_from_network.dart';
 
@@ -35,8 +37,15 @@ class CurrencyApi {
                   e as Map<String, dynamic>,
                 ))
             .toList();
-        final rates =
-            networkRates.map((e) => RateData.fromNetworkModel(e)).toList();
+        final rates = networkRates.map(
+          (e) => RateData(
+            code: e.curAbbreviation ?? '',
+            name: e.curName ?? strings.common_unknown_currency_name,
+            rate: e.curOfficialRate ?? 0.0,
+            date: e.date?.toDayMonthYearDateParse(),
+            scale: (e.curScale ?? 1).toInt(),
+          ),
+        ).toList();
         return CurrencyResult.success(
           rates,
         );
