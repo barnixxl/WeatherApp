@@ -83,6 +83,11 @@ class NetworkService {
         );
       case DioExceptionType.badResponse:
         final statusCode = e.response?.statusCode ?? 0;
+        if (statusCode >= 500) {
+          return WeatherError.serverError(
+            statusCode,
+          );
+        }
         return WeatherError.badResponse(
           statusCode,
         );
