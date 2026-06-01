@@ -35,23 +35,14 @@ class GeocodingApi {
         },
       );
       if (result.isSuccess) {
-        final data = result.data;
-        if (data is List<dynamic> && data.isNotEmpty) {
-          final item = data.first;
-          if (item is Map<String, dynamic>) {
-            final response = GeocodingResponseFromNetwork.fromJson(
-              item,
-            );
-            return WeatherResult.success(
-              Coordinates(
-                lat: response.lat ?? 0.0,
-                lon: response.lon ?? 0.0,
-              ),
-            );
-          }
-        }
-        return WeatherResult.failure(
-          WeatherError.noData(),
+        final data = result.data as List<dynamic>;
+        final item = data.first as Map<String, dynamic>;
+        final response = GeocodingResponseFromNetwork.fromJson(item);
+        return WeatherResult.success(
+          Coordinates(
+            lat: response.lat ?? 0.0,
+            lon: response.lon ?? 0.0,
+          ),
         );
       }
       return WeatherResult.failure(
@@ -80,22 +71,13 @@ class GeocodingApi {
         },
       );
       if (result.isSuccess) {
-        final data = result.data;
-        if (data is List<dynamic> && data.isNotEmpty) {
-          final item = data.first;
-          if (item is Map<String, dynamic>) {
-            final response = GeocodingResponseFromNetwork.fromJson(
-              item,
-            );
-            final cityName =
-                response.localNames?['ru'] ?? response.name ?? 'Unknown';
-            return WeatherResult.success(
-              cityName,
-            );
-          }
-        }
-        return WeatherResult.failure(
-          WeatherError.noData(),
+        final data = result.data as List<dynamic>;
+        final item = data.first as Map<String, dynamic>;
+        final response = GeocodingResponseFromNetwork.fromJson(item);
+        final cityName =
+            response.localNames?['ru'] ?? response.name ?? 'Unknown';
+        return WeatherResult.success(
+          cityName,
         );
       }
       return WeatherResult.failure(
