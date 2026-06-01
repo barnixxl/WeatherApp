@@ -16,8 +16,11 @@ part 'home_screen.load_state.part.dart';
 part 'home_screen.success_state.part.dart';
 
 class HomeScreen extends StatefulWidget {
+  final HomeController homeController;
+
   const HomeScreen({
     super.key,
+    required this.homeController,
   });
 
   @override
@@ -25,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final HomeController _homeController = HomeController();
+  HomeController get _homeController => widget.homeController;
 
   @override
   void initState() {

@@ -10,6 +10,7 @@ import 'network/geocoding/geocoding_network_service.dart';
 import 'repository/weather_repository.dart';
 import 'resources/colors/app_colors.dart';
 import 'resources/strings/app_localizations.dart';
+import 'ui/home/home_controller.dart';
 import 'ui/home/home_screen.dart';
 import 'utils/location_service.dart';
 
@@ -44,17 +45,19 @@ Future<void> main() async {
   );
   await geocodingNetwork.initializeDependencies();
 
-  final weatherApi = WeatherApi();
+  final weatherApi = WeatherApi(
+    network: weatherNetwork,
+  );
   weatherApi.register(
     getIt,
   );
-  await weatherApi.initializeDependencies();
 
-  final geocodingApi = GeocodingApi();
+  final geocodingApi = GeocodingApi(
+    network: geocodingNetwork,
+  );
   geocodingApi.register(
     getIt,
   );
-  await geocodingApi.initializeDependencies();
 
   final locationService = LocationService();
   locationService.register(
@@ -62,20 +65,32 @@ Future<void> main() async {
   );
   await locationService.initializeDependencies();
 
-  final repository = WeatherRepository();
+  final repository = WeatherRepository(
+    weatherApi: weatherApi,
+    geocodingApi: geocodingApi,
+  );
   repository.register(
     getIt,
   );
-  await repository.initializeDependencies();
+
+  final controller = HomeController(
+    repository: repository,
+    locationService: locationService,
+  );
 
   runApp(
-    const MyApp(),
+    MyApp(
+      homeController: controller,
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
+  final HomeController homeController;
+
+  MyApp({
     super.key,
+    required this.homeController,
   });
 
   @override
@@ -102,7 +117,9 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(
+        homeController: homeController,
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

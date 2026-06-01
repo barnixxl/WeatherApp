@@ -10,10 +10,14 @@ import '../network/geocoding/geocoding_api.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
-  static final GetIt _getIt = GetIt.instance;
+  final WeatherApi _weatherApi;
+  final GeocodingApi _geocodingApi;
 
-  late final WeatherApi _weatherApi;
-  late final GeocodingApi _geocodingApi;
+  WeatherRepository({
+    required WeatherApi weatherApi,
+    required GeocodingApi geocodingApi,
+  })  : _weatherApi = weatherApi,
+        _geocodingApi = geocodingApi;
 
   @override
   void register(
@@ -22,16 +26,6 @@ class WeatherRepository extends BaseRepository {
     getIt.registerSingleton<WeatherRepository>(
       this,
     );
-  }
-
-  @override
-  Future<void> initializeDependencies() async {
-    _weatherApi = _getIt<WeatherApi>();
-    _geocodingApi = _getIt<GeocodingApi>();
-  }
-
-  static WeatherRepository getInstance() {
-    return _getIt<WeatherRepository>();
   }
 
   Future<WeatherResult<List<DayWeather>>> fetchForecast(

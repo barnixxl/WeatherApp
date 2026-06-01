@@ -6,9 +6,11 @@ import 'weather_network_service.dart';
 import 'resp/weather_response_from_network.dart';
 
 class WeatherApi {
-  static final GetIt _getIt = GetIt.instance;
+  final WeatherNetworkService _network;
 
-  late final WeatherNetworkService _network;
+  WeatherApi({
+    required WeatherNetworkService network,
+  }) : _network = network;
 
   void register(
     GetIt getIt,
@@ -16,10 +18,6 @@ class WeatherApi {
     getIt.registerSingleton<WeatherApi>(
       this,
     );
-  }
-
-  Future<void> initializeDependencies() async {
-    _network = _getIt<WeatherNetworkService>();
   }
 
   Future<WeatherResult<WeatherResponseFromNetwork>> fetchForecast(
