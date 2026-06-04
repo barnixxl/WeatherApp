@@ -10,8 +10,7 @@ class HomeController {
   final WeatherRepository _repository = WeatherRepository.getInstance();
   final LocationService _locationService = LocationService.getInstance();
 
-  final Observable<WeatherResult<List<DayWeather>>> _weatherResult =
-      Observable(
+  final Observable<WeatherResult<List<DayWeather>>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
   );
   final Observable<double> _latitude = Observable(53.9);
@@ -19,13 +18,21 @@ class HomeController {
   final Observable<String> _cityName = Observable('Минск');
 
   bool get isLoading => _weatherResult.value.isLoading;
+
   bool get hasError => _weatherResult.value.isError;
+
   bool get hasSuccess => _weatherResult.value.isSuccess;
+
   List<DayWeather> get dayWeather => _weatherResult.value.data ?? [];
+
   DateTime? get lastUpdateDate => dayWeather.firstOrNull?.date;
+
   WeatherError? get error => _weatherResult.value.error;
+
   double get latitude => _latitude.value;
+
   double get longitude => _longitude.value;
+
   String get cityName => _cityName.value;
 
   Future<void> loadForecast() async {
@@ -44,50 +51,6 @@ class HomeController {
         _weatherResult.value = result;
       },
     );
-  }
-
-  Future<void> loadForecastByCity(
-    String city,
-  ) async {
-    runInAction(
-      () {
-        _weatherResult.value = WeatherResult.loading();
-      },
-    );
-    final coordsResult = await _repository.getCoordinates(
-      city,
-    );
-    if (coordsResult.isSuccess) {
-      final coords = coordsResult.data;
-      if (coords != null) {
-        final lat = coords.lat;
-        final lon = coords.lon;
-        runInAction(
-          () {
-            _latitude.value = lat;
-            _longitude.value = lon;
-            _cityName.value = city;
-          },
-        );
-        final result = await _repository.fetchForecast(
-          lat,
-          lon,
-        );
-        runInAction(
-          () {
-            _weatherResult.value = result;
-          },
-        );
-      }
-    } else {
-      runInAction(
-        () {
-          _weatherResult.value = WeatherResult.failure(
-            coordsResult.error,
-          );
-        },
-      );
-    }
   }
 
   Future<void> _loadCurrentLocation() async {
