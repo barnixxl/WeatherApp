@@ -18,6 +18,7 @@ class WeatherError {
   static const int parsingCode = 6;
   static const int noDataCode = 7;
   static const int loadFailedCode = 8;
+  static const int noGeo = 9;
 
   @override
   String toString() => errorMessage;

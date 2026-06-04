@@ -26,6 +26,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error => 'Ошибка...';
 
   @override
+  String get geo_error =>
+      'Нет доступа к геолокации. Включи GPS и попробуй снова.';
+
+  @override
   String get retry => 'Повторить';
 
   @override

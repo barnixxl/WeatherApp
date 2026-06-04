@@ -124,6 +124,12 @@ abstract class AppLocalizations {
   /// **'Ошибка...'**
   String get error;
 
+  /// No description provided for @geo_error.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет доступа к геолокации. Включи GPS и попробуй снова.'**
+  String get geo_error;
+
   /// No description provided for @retry.
   ///
   /// In ru, this message translates to:
