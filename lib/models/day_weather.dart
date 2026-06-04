@@ -8,4 +8,10 @@ class DayWeather {
     required this.date,
     required this.hourlyData,
   });
+
+  @override
+  String toString() => 'DayWeather('
+      'date: $date,'
+      ' hourlyData: $hourlyData,'
+      ')';
 }

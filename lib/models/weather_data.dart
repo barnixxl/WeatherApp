@@ -19,6 +19,17 @@ class WeatherData {
     required this.humidity,
   });
 
+  @override
+  String toString() => 'WeatherData('
+      'dateTime: $dateTime,'
+      ' temperature: $temperature,'
+      ' weatherMain: $weatherMain,'
+      ' weatherDescription: $weatherDescription,'
+      ' weatherIcon: $weatherIcon,'
+      ' windSpeed: $windSpeed,'
+      ' humidity: $humidity,'
+      ')';
+
   factory WeatherData.fromNetworkModel(
     WeatherItemFromNetwork model,
   ) {
