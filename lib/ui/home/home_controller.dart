@@ -14,9 +14,9 @@ class HomeController {
   final Observable<WeatherResult<List<DayWeather>>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
   );
-  final Observable<double> _latitude = Observable(53.9);
-  final Observable<double> _longitude = Observable(27.5667);
-  final Observable<String> _cityName = Observable('Минск');
+  final Observable<double> _latitude = Observable(0.0);
+  final Observable<double> _longitude = Observable(0.0);
+  final Observable<String> _cityName = Observable('');
 
   bool get isLoading => _weatherResult.value.isLoading;
 
@@ -95,7 +95,7 @@ class HomeController {
       if (city != null) {
         runInAction(
           () {
-            _cityName.value = city; 
+            _cityName.value = city;
           },
         );
       }
