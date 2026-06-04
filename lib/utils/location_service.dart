@@ -2,6 +2,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 
 class LocationService {
+  static final GetIt _getIt = GetIt.instance;
+
   void register(
     GetIt getIt,
   ) {
@@ -11,6 +13,10 @@ class LocationService {
   }
 
   Future<void> initializeDependencies() async {}
+
+  static LocationService getInstance() {
+    return _getIt<LocationService>();
+  }
 
   Future<Position?> getCurrentLocation() async {
     bool serviceEnabled;
