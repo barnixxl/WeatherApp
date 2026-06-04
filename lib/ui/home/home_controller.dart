@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:weather_app/main.dart';
 
 import '../../models/day_weather.dart';
 import '../../models/weather_error.dart';
@@ -36,39 +37,49 @@ class HomeController {
   String get cityName => _cityName.value;
 
   Future<void> loadForecast() async {
-    runInAction(
-      () {
-        _weatherResult.value = WeatherResult.loading();
-      },
-    );
-    await _loadCurrentLocation();
+    runInAction(() {
+      _weatherResult.value = WeatherResult.loading();
+    });
+    try {
+      await _loadCurrentLocation();
+    } catch (e) {
+      runInAction(() {
+        _weatherResult.value = WeatherResult.failure(
+          WeatherError(
+            errorCode: WeatherError.noGeo,
+            errorMessage: strings.geo_error,
+          ),
+        );
+      });
+      return;
+    }
     final result = await _repository.fetchForecast(
       _latitude.value,
       _longitude.value,
     );
-    runInAction(
-      () {
-        _weatherResult.value = result;
-      },
-    );
+    runInAction(() {
+      _weatherResult.value = result;
+    });
   }
 
   Future<void> _loadCurrentLocation() async {
-    try {
-      final position = await _locationService.getCurrentLocation();
-      if (position != null) {
-        runInAction(
-          () {
-            _latitude.value = position.latitude;
-            _longitude.value = position.longitude;
-          },
-        );
-        await _updateCityName(
-          position.latitude,
-          position.longitude,
-        );
-      }
-    } catch (_) {}
+    final position = await _locationService.getCurrentLocation();
+    if (position != null) {
+      runInAction(
+        () {
+          _latitude.value = position.latitude;
+          _longitude.value = position.longitude;
+        },
+      );
+      await _updateCityName(
+        position.latitude,
+        position.longitude,
+      );
+    } else {
+      throw Exception(
+        strings.geo_error,
+      );
+    }
   }
 
   Future<void> _updateCityName(
@@ -84,7 +95,7 @@ class HomeController {
       if (city != null) {
         runInAction(
           () {
-            _cityName.value = city;
+            _cityName.value = city; 
           },
         );
       }
