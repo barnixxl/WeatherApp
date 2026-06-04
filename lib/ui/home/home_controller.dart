@@ -36,7 +36,7 @@ class HomeController {
 
   String get cityName => _cityName.value;
 
-  Future<void> loadForecast() async {
+  Future<void> onRefreshPressed() async {
     runInAction(() {
       _weatherResult.value = WeatherResult.loading();
     });

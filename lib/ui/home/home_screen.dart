@@ -94,6 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadData() async {
-    await _homeController.loadForecast();
+    await _homeController.onRefreshPressed();
   }
 }
