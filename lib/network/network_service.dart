@@ -1,16 +1,17 @@
 import 'package:dio/dio.dart';
 
-import '../config/app_config.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 
 class NetworkService {
   final String baseUrl;
+  final Map<String, dynamic> _defaultQueryParams;
   late final Dio _dio;
 
   NetworkService({
     required this.baseUrl,
-  });
+    Map<String, dynamic>? defaultQueryParams,
+  }) : _defaultQueryParams = defaultQueryParams ?? {};
 
   Future<void> initializeDependencies() async {
     _dio = Dio(
@@ -44,8 +45,8 @@ class NetworkService {
   }) async {
     try {
       final queryParams = {
+        ..._defaultQueryParams,
         ...?queryParameters,
-        'appid': AppConfig.apiKey,
       };
       final response = await _dio.get<dynamic>(
         path,
