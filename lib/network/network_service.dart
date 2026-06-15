@@ -4,19 +4,20 @@ import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 
 class NetworkService {
-  final String baseUrl;
+  final String _baseUrl;
   final Map<String, dynamic> _defaultQueryParams;
   late final Dio _dio;
 
   NetworkService({
-    required this.baseUrl,
+    required String baseUrl,
     Map<String, dynamic>? defaultQueryParams,
-  }) : _defaultQueryParams = defaultQueryParams ?? {};
+  })  : _baseUrl = baseUrl,
+        _defaultQueryParams = defaultQueryParams ?? {};
 
   Future<void> initializeDependencies() async {
     _dio = Dio(
       BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: _baseUrl,
         connectTimeout: const Duration(
           seconds: 20,
         ),
