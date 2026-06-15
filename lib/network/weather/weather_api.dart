@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../models/weather_data.dart';
+import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import 'weather_network_service.dart';
 import 'resp/weather_response_from_network.dart';
@@ -38,16 +39,24 @@ class WeatherApi {
       queryParameters: queryParams,
     );
     if (result.isSuccess) {
-      final data = result.data as Map<String, dynamic>;
-      final response = WeatherResponseFromNetwork.fromJson(data);
-      final weatherList = (response.list ?? [])
-          .map(
-            WeatherData.fromNetworkModel,
-          )
-          .toList();
-      return WeatherResult.success(
-        weatherList,
-      );
+      try {
+        final data = result.data as Map<String, dynamic>;
+        final response = WeatherResponseFromNetwork.fromJson(
+          data,
+        );
+        final weatherList = (response.list ?? [])
+            .map(
+              WeatherData.fromNetworkModel,
+            )
+            .toList();
+        return WeatherResult.success(
+          weatherList,
+        );
+      } catch (e) {
+        return WeatherResult.failure(
+          WeatherError.parsing(),
+        );
+      }
     }
     return WeatherResult.failure(
       result.error,

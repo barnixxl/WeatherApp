@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../models/coordinates.dart';
+import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import 'geocoding_network_service.dart';
 import 'resp/geocoding_response_from_network.dart';
@@ -33,15 +34,23 @@ class GeocodingApi {
       },
     );
     if (result.isSuccess) {
-      final data = result.data as List<dynamic>;
-      final item = data.first as Map<String, dynamic>;
-      final response = GeocodingResponseFromNetwork.fromJson(item);
-      return WeatherResult.success(
-        Coordinates(
-          lat: response.lat ?? 0.0,
-          lon: response.lon ?? 0.0,
-        ),
-      );
+      try {
+        final data = result.data as List<dynamic>;
+        final item = data.first as Map<String, dynamic>;
+        final response = GeocodingResponseFromNetwork.fromJson(
+          item,
+        );
+        return WeatherResult.success(
+          Coordinates(
+            lat: response.lat ?? 0.0,
+            lon: response.lon ?? 0.0,
+          ),
+        );
+      } catch (e) {
+        return WeatherResult.failure(
+          WeatherError.parsing(),
+        );
+      }
     }
     return WeatherResult.failure(
       result.error,
@@ -61,14 +70,22 @@ class GeocodingApi {
       },
     );
     if (result.isSuccess) {
-      final data = result.data as List<dynamic>;
-      final item = data.first as Map<String, dynamic>;
-      final response = GeocodingResponseFromNetwork.fromJson(item);
-      final cityName =
-          response.localNames?['ru'] ?? response.name ?? 'Unknown';
-      return WeatherResult.success(
-        cityName,
-      );
+      try {
+        final data = result.data as List<dynamic>;
+        final item = data.first as Map<String, dynamic>;
+        final response = GeocodingResponseFromNetwork.fromJson(
+          item,
+        );
+        final cityName =
+            response.localNames?['ru'] ?? response.name ?? 'Unknown';
+        return WeatherResult.success(
+          cityName,
+        );
+      } catch (e) {
+        return WeatherResult.failure(
+          WeatherError.parsing(),
+        );
+      }
     }
     return WeatherResult.failure(
       result.error,
