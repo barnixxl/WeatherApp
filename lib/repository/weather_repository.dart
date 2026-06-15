@@ -67,7 +67,7 @@ class WeatherRepository extends BaseRepository {
   Future<WeatherResult<Coordinates>> getCoordinates(
     String cityName,
   ) async {
-    return await _geocodingApi.getCoordinates(
+    return _geocodingApi.getCoordinates(
       cityName,
     );
   }
