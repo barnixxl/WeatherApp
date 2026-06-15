@@ -45,10 +45,7 @@ class HomeController {
     } catch (e) {
       runInAction(() {
         _weatherResult.value = WeatherResult.failure(
-          WeatherError(
-            errorCode: WeatherError.noGeo,
-            errorMessage: strings.geo_error,
-          ),
+          WeatherError.noGeo(),
         );
       });
       return;
