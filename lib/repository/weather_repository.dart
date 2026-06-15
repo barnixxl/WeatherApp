@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 
-import '../models/coordinates.dart';
+//import '../models/coordinates.dart';
 import '../models/day_weather.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
@@ -64,13 +64,13 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  Future<WeatherResult<Coordinates>> getCoordinates(
-    String cityName,
-  ) async {
-    return _geocodingApi.getCoordinates(
-      cityName,
-    );
-  }
+  // Future<WeatherResult<Coordinates>> getCoordinates( - если добавится обработка ошибок
+  //   String cityName,
+  // ) async {
+  //   return _geocodingApi.getCoordinates(
+  //     cityName,
+  //   );
+  // }
 
   Future<WeatherResult<String>> getCityName(
     double lat,
