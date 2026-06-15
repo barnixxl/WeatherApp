@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    _onRefreshPressed();
   }
 
   @override
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: RefreshIndicator(
-        onRefresh: _loadData,
+        onRefresh: _onRefreshPressed,
         child: Stack(
           children: [
             Observer(
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   visible: homeController.hasError,
                   child: _buildErrorWidget(
                     error: homeController.error,
-                    onRetryPressed: _loadData,
+                    onRetryPressed: _onRefreshPressed,
                   ),
                 );
               },
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _loadData() async {
+  Future<void> _onRefreshPressed() async {
     await _homeController.onRefreshPressed();
   }
 }
