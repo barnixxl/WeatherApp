@@ -4,6 +4,7 @@ import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import 'weather_network_service.dart';
+import 'resp/weather_item_from_network.dart';
 import 'resp/weather_response_from_network.dart';
 
 class WeatherApi {
@@ -21,6 +22,22 @@ class WeatherApi {
 
   Future<void> initializeDependencies() async {
     _network = _getIt<WeatherNetworkService>();
+  }
+
+  WeatherData _mapToWeatherData(
+    WeatherItemFromNetwork model,
+  ) {
+    return WeatherData(
+      dateTime: DateTime.fromMillisecondsSinceEpoch(
+        (model.dt ?? 0) * 1000,
+      ),
+      temperature: model.main?.temp ?? 0.0,
+      weatherMain: model.weather?.firstOrNull?.main ?? '',
+      weatherDescription: model.weather?.firstOrNull?.description ?? '',
+      weatherIcon: model.weather?.firstOrNull?.icon ?? '',
+      windSpeed: model.wind?.speed ?? 0.0,
+      humidity: model.main?.humidity ?? 0,
+    );
   }
 
   Future<WeatherResult<List<WeatherData>>> fetchForecast(
@@ -46,7 +63,7 @@ class WeatherApi {
         );
         final weatherList = (response.list ?? [])
             .map(
-              WeatherData.fromNetworkModel,
+              _mapToWeatherData,
             )
             .toList();
         return WeatherResult.success(
