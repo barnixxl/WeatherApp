@@ -76,7 +76,7 @@ class WeatherRepository extends BaseRepository {
     double lat,
     double lon,
   ) async {
-    return await _geocodingApi.getCityName(
+    return _geocodingApi.getCityName(
       lat,
       lon,
     );
