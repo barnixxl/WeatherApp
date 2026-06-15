@@ -61,7 +61,7 @@ Future<void> main() async {
   locationService.register(
     getIt,
   );
-  await locationService.initializeDependencies();
+  //await locationService.initializeDependencies();
 
   final repository = WeatherRepository();
   repository.register(
