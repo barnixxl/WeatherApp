@@ -7,7 +7,7 @@ class WeatherData {
   final double windSpeed;
   final int humidity;
 
-  WeatherData({
+  const WeatherData({
     required this.dateTime,
     required this.temperature,
     required this.weatherMain,
@@ -27,4 +27,32 @@ class WeatherData {
       ' windSpeed: $windSpeed,'
       ' humidity: $humidity,'
       ')';
+
+  @override
+  bool operator ==(
+    Object other,
+  ) =>
+      identical(
+        this,
+        other,
+      ) ||
+      other is WeatherData &&
+          dateTime == other.dateTime &&
+          temperature == other.temperature &&
+          weatherMain == other.weatherMain &&
+          weatherDescription == other.weatherDescription &&
+          weatherIcon == other.weatherIcon &&
+          windSpeed == other.windSpeed &&
+          humidity == other.humidity;
+
+  @override
+  int get hashCode => Object.hash(
+        dateTime,
+        temperature,
+        weatherMain,
+        weatherDescription,
+        weatherIcon,
+        windSpeed,
+        humidity,
+      );
 }
