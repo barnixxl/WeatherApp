@@ -55,7 +55,13 @@ class HomeController {
       _longitude.value,
     );
     runInAction(() {
-      _weatherResult.value = result;
+      if (result.isSuccess && result.data != null) {
+        final (dayWeather, cityName) = result.data!;
+        _weatherResult.value = WeatherResult.success(dayWeather);
+        _cityName.value = cityName;
+      } else {
+        _weatherResult.value = WeatherResult.failure(result.error);
+      }
     });
   }
 
@@ -68,34 +74,10 @@ class HomeController {
           _longitude.value = position.longitude;
         },
       );
-      await _updateCityName(
-        position.latitude,
-        position.longitude,
-      );
     } else {
       throw Exception(
         strings.geo_error,
       );
-    }
-  }
-
-  Future<void> _updateCityName(
-    double lat,
-    double lon,
-  ) async {
-    final cityResult = await _repository.getCityName(
-      lat,
-      lon,
-    );
-    if (cityResult.isSuccess) {
-      final city = cityResult.data;
-      if (city != null) {
-        runInAction(
-          () {
-            _cityName.value = city;
-          },
-        );
-      }
     }
   }
 }

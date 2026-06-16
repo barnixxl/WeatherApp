@@ -9,8 +9,6 @@ part 'main_data_from_network.g.dart';
 class MainDataFromNetwork {
   @JsonKey(name: 'temp')
   final double? temp;
-  @JsonKey(name: 'feels_like')
-  final double? feelsLike;
   @JsonKey(name: 'temp_min')
   final double? tempMin;
   @JsonKey(name: 'temp_max')
@@ -20,7 +18,6 @@ class MainDataFromNetwork {
 
   MainDataFromNetwork({
     this.temp,
-    this.feelsLike,
     this.tempMin,
     this.tempMax,
     this.humidity,
@@ -34,7 +31,6 @@ class MainDataFromNetwork {
   @override
   String toString() => 'MainDataFromNetwork('
       'temp: $temp,'
-      'feelsLike: $feelsLike,'
       'tempMin: $tempMin,'
       'tempMax: $tempMax,'
       'humidity: $humidity,'

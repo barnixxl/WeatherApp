@@ -3,10 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'network/geocoding/geocoding_api.dart';
-import 'network/geocoding/geocoding_network_service.dart';
 import 'network/weather/weather_api.dart';
-import 'network/weather/weather_network_service.dart';
+import 'network/weather_network.dart';
 import 'repository/weather_repository.dart';
 import 'resources/colors/app_colors.dart';
 import 'resources/strings/app_localizations.dart';
@@ -39,23 +37,11 @@ Future<void> main() async {
   );
   await weatherNetwork.initializeDependencies();
 
-  final geocodingNetwork = GeocodingNetworkService();
-  geocodingNetwork.register(
-    getIt,
-  );
-  await geocodingNetwork.initializeDependencies();
-
   final weatherApi = WeatherApi();
   weatherApi.register(
     getIt,
   );
   await weatherApi.initializeDependencies();
-
-  final geocodingApi = GeocodingApi();
-  geocodingApi.register(
-    getIt,
-  );
-  await geocodingApi.initializeDependencies();
 
   final locationService = LocationService();
   locationService.register(

@@ -9,7 +9,6 @@ part of 'main_data_from_network.dart';
 MainDataFromNetwork _$MainDataFromNetworkFromJson(Map<String, dynamic> json) =>
     MainDataFromNetwork(
       temp: (json['temp'] as num?)?.toDouble(),
-      feelsLike: (json['feels_like'] as num?)?.toDouble(),
       tempMin: (json['temp_min'] as num?)?.toDouble(),
       tempMax: (json['temp_max'] as num?)?.toDouble(),
       humidity: (json['humidity'] as num?)?.toInt(),

@@ -7,8 +7,6 @@ part 'weather_info_from_network.g.dart';
   explicitToJson: false,
 )
 class WeatherInfoFromNetwork {
-  @JsonKey(name: 'id')
-  final int? id;
   @JsonKey(name: 'main')
   final String? main;
   @JsonKey(name: 'description')
@@ -17,7 +15,6 @@ class WeatherInfoFromNetwork {
   final String? icon;
 
   WeatherInfoFromNetwork({
-    this.id,
     this.main,
     this.description,
     this.icon,
@@ -30,7 +27,6 @@ class WeatherInfoFromNetwork {
 
   @override
   String toString() => 'WeatherInfoFromNetwork('
-      'id: $id,'
       'main: $main,'
       'description: $description,'
       'icon: $icon,'
