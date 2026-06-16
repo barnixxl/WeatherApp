@@ -47,13 +47,25 @@ class DayWeatherItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              dayWeather.date.toDayOfWeekFormat() ?? '',
-              style: const TextStyle(
-                color: AppColors.onPrimary,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                Text(
+                  dayWeather.date.toDayOfWeekFormat() ?? '',
+                  style: const TextStyle(
+                    color: AppColors.onPrimary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  '${dayWeather.dayMinTemp.toStringAsFixed(0)}° - ${dayWeather.dayMaxTemp.toStringAsFixed(0)}°',
+                  style: const TextStyle(
+                    color: AppColors.onPrimary,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 8,

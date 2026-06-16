@@ -1,6 +1,8 @@
 class WeatherData {
   final DateTime dateTime;
   final double temperature;
+  final double tempMin;
+  final double tempMax;
   final String weatherMain;
   final String weatherDescription;
   final String weatherIcon;
@@ -10,6 +12,8 @@ class WeatherData {
   const WeatherData({
     required this.dateTime,
     required this.temperature,
+    required this.tempMin,
+    required this.tempMax,
     required this.weatherMain,
     required this.weatherDescription,
     required this.weatherIcon,
@@ -21,6 +25,8 @@ class WeatherData {
   String toString() => 'WeatherData('
       'dateTime: $dateTime,'
       ' temperature: $temperature,'
+      ' tempMin: $tempMin,'
+      ' tempMax: $tempMax,'
       ' weatherMain: $weatherMain,'
       ' weatherDescription: $weatherDescription,'
       ' weatherIcon: $weatherIcon,'
@@ -39,6 +45,8 @@ class WeatherData {
       other is WeatherData &&
           dateTime == other.dateTime &&
           temperature == other.temperature &&
+          tempMin == other.tempMin &&
+          tempMax == other.tempMax &&
           weatherMain == other.weatherMain &&
           weatherDescription == other.weatherDescription &&
           weatherIcon == other.weatherIcon &&
@@ -49,6 +57,8 @@ class WeatherData {
   int get hashCode => Object.hash(
         dateTime,
         temperature,
+        tempMin,
+        tempMax,
         weatherMain,
         weatherDescription,
         weatherIcon,
