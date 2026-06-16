@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'city_data_from_network.dart';
 import 'weather_item_from_network.dart';
 
 part 'weather_response_from_network.g.dart';
@@ -27,54 +28,6 @@ class WeatherResponseFromNetwork {
   @override
   String toString() => 'WeatherResponseFromNetwork('
       'list: $list,'
-      ' city: $city,'
+      'city: $city,'
       ')';
-}
-
-@JsonSerializable(
-  createToJson: false,
-  explicitToJson: false,
-)
-class CityDataFromNetwork {
-  @JsonKey(name: 'name')
-  final String? name;
-  @JsonKey(name: 'coord')
-  final CoordDataFromNetwork? coord;
-
-  CityDataFromNetwork({
-    this.name,
-    this.coord,
-  });
-
-  factory CityDataFromNetwork.fromJson(Map<String, dynamic> json) =>
-      _$CityDataFromNetworkFromJson(
-        json,
-      );
-
-  @override
-  String toString() => 'CityDataFromNetwork(name: $name, coord: $coord)';
-}
-
-@JsonSerializable(
-  createToJson: false,
-  explicitToJson: false,
-)
-class CoordDataFromNetwork {
-  @JsonKey(name: 'lat')
-  final double? lat;
-  @JsonKey(name: 'lon')
-  final double? lon;
-
-  CoordDataFromNetwork({
-    this.lat,
-    this.lon,
-  });
-
-  factory CoordDataFromNetwork.fromJson(Map<String, dynamic> json) =>
-      _$CoordDataFromNetworkFromJson(
-        json,
-      );
-
-  @override
-  String toString() => 'CoordDataFromNetwork(lat: $lat, lon: $lon)';
 }

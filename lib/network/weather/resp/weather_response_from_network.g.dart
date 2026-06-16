@@ -17,19 +17,3 @@ WeatherResponseFromNetwork _$WeatherResponseFromNetworkFromJson(
           ? null
           : CityDataFromNetwork.fromJson(json['city'] as Map<String, dynamic>),
     );
-
-CityDataFromNetwork _$CityDataFromNetworkFromJson(Map<String, dynamic> json) =>
-    CityDataFromNetwork(
-      name: json['name'] as String?,
-      coord: json['coord'] == null
-          ? null
-          : CoordDataFromNetwork.fromJson(
-              json['coord'] as Map<String, dynamic>),
-    );
-
-CoordDataFromNetwork _$CoordDataFromNetworkFromJson(
-        Map<String, dynamic> json) =>
-    CoordDataFromNetwork(
-      lat: (json['lat'] as num?)?.toDouble(),
-      lon: (json['lon'] as num?)?.toDouble(),
-    );

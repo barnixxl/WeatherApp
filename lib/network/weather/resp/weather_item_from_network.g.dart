@@ -22,26 +22,3 @@ WeatherItemFromNetwork _$WeatherItemFromNetworkFromJson(
           : WindDataFromNetwork.fromJson(json['wind'] as Map<String, dynamic>),
       dtTxt: json['dt_txt'] as String?,
     );
-
-MainDataFromNetwork _$MainDataFromNetworkFromJson(Map<String, dynamic> json) =>
-    MainDataFromNetwork(
-      temp: (json['temp'] as num?)?.toDouble(),
-      feelsLike: (json['feels_like'] as num?)?.toDouble(),
-      tempMin: (json['temp_min'] as num?)?.toDouble(),
-      tempMax: (json['temp_max'] as num?)?.toDouble(),
-      humidity: (json['humidity'] as num?)?.toInt(),
-    );
-
-WeatherInfoFromNetwork _$WeatherInfoFromNetworkFromJson(
-        Map<String, dynamic> json) =>
-    WeatherInfoFromNetwork(
-      id: (json['id'] as num?)?.toInt(),
-      main: json['main'] as String?,
-      description: json['description'] as String?,
-      icon: json['icon'] as String?,
-    );
-
-WindDataFromNetwork _$WindDataFromNetworkFromJson(Map<String, dynamic> json) =>
-    WindDataFromNetwork(
-      speed: (json['speed'] as num?)?.toDouble(),
-    );
