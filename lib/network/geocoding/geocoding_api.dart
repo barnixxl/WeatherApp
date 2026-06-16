@@ -41,10 +41,7 @@ class GeocodingApi {
           item,
         );
         return WeatherResult.success(
-          Coordinates(
-            lat: response.lat ?? 0.0,
-            lon: response.lon ?? 0.0,
-          ),
+          response.toDomain(),
         );
       }
       return WeatherResult.failure(

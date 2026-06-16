@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../models/coordinates.dart';
+
 part 'geocoding_response_from_network.g.dart';
 
 @JsonSerializable(
@@ -39,4 +41,11 @@ class GeocodingResponseFromNetwork {
       ' lon: $lon,'
       ' country: $country,'
       ')';
+
+  Coordinates toDomain() {
+    return Coordinates(
+      lat: lat ?? 0.0,
+      lon: lon ?? 0.0,
+    );
+  }
 }
