@@ -1,19 +1,15 @@
 import 'package:get_it/get_it.dart';
 
-//import '../models/coordinates.dart';
 import '../models/day_weather.dart';
 import '../models/weather_data.dart';
-import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
-import '../network/geocoding/geocoding_api.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
 
   late final WeatherApi _weatherApi;
-  late final GeocodingApi _geocodingApi;
 
   @override
   void register(
@@ -27,14 +23,13 @@ class WeatherRepository extends BaseRepository {
   @override
   Future<void> initializeDependencies() async {
     _weatherApi = _getIt<WeatherApi>();
-    _geocodingApi = _getIt<GeocodingApi>();
   }
 
   static WeatherRepository getInstance() {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<List<DayWeather>>> fetchForecast(
+  Future<WeatherResult<(List<DayWeather>, String)>> fetchForecast(
     double lat,
     double lon,
   ) async {
@@ -43,42 +38,25 @@ class WeatherRepository extends BaseRepository {
       lon,
     );
     if (result.isSuccess) {
-      final weatherList = result.data;
-      if (weatherList == null) {
-        return WeatherResult.failure(
-          WeatherError.loadFailed(),
-        );
-      }
+      final (
+        weatherData,
+        cityName,
+      ) = result.data!;
       final grouped = _groupByDay(
-        weatherList,
+        weatherData,
       );
       final filtered = _filterHourlyData(
         grouped,
       );
       return WeatherResult.success(
-        filtered,
+        (
+          filtered,
+          cityName,
+        ),
       );
     }
     return WeatherResult.failure(
       result.error,
-    );
-  }
-
-  // Future<WeatherResult<Coordinates>> getCoordinates( - если добавится обработка ошибок
-  //   String cityName,
-  // ) async {
-  //   return _geocodingApi.getCoordinates(
-  //     cityName,
-  //   );
-  // }
-
-  Future<WeatherResult<String>> getCityName(
-    double lat,
-    double lon,
-  ) async {
-    return _geocodingApi.getCityName(
-      lat,
-      lon,
     );
   }
 
@@ -100,13 +78,17 @@ class WeatherRepository extends BaseRepository {
           );
     }
     return grouped.entries.map(
-      (entry) {
+      (
+        entry,
+      ) {
         final date = DateTime.parse(
           entry.key,
         );
         return DayWeather(
           date: date,
           hourlyData: entry.value,
+          dayMinTemp: 0.0,
+          dayMaxTemp: 0.0,
         );
       },
     ).toList();
@@ -129,9 +111,24 @@ class WeatherRepository extends BaseRepository {
             return hour % 2 == 0;
           },
         ).toList();
+        final temps = filtered.map(
+          (e) => e.temperature,
+        );
+        final dayMinTemp = temps.isEmpty
+            ? 0.0
+            : temps.reduce(
+                (a, b) => a < b ? a : b,
+              );
+        final dayMaxTemp = temps.isEmpty
+            ? 0.0
+            : temps.reduce(
+                (a, b) => a > b ? a : b,
+              );
         return DayWeather(
           date: dayWeather.date,
           hourlyData: filtered,
+          dayMinTemp: dayMinTemp,
+          dayMaxTemp: dayMaxTemp,
         );
       },
     ).toList();

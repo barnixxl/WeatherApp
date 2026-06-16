@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_item_from_network.dart';
+part of 'weather_items_from_network.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -20,5 +20,4 @@ WeatherItemFromNetwork _$WeatherItemFromNetworkFromJson(
       wind: json['wind'] == null
           ? null
           : WindDataFromNetwork.fromJson(json['wind'] as Map<String, dynamic>),
-      dtTxt: json['dt_txt'] as String?,
     );

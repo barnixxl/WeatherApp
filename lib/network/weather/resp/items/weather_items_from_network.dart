@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../models/weather_data.dart';
-import 'main_data_from_network.dart';
-import 'weather_info_from_network.dart';
-import 'wind_data_from_network.dart';
+import '../../../../models/weather_data.dart';
+import '../data/main_data_from_network.dart';
+import '../info/weather_info_from_network.dart';
+import '../wind/wind_data_from_network.dart';
 
-part 'weather_item_from_network.g.dart';
+part 'weather_items_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
@@ -20,15 +20,12 @@ class WeatherItemFromNetwork {
   final List<WeatherInfoFromNetwork>? weather;
   @JsonKey(name: 'wind')
   final WindDataFromNetwork? wind;
-  @JsonKey(name: 'dt_txt')
-  final String? dtTxt;
 
   WeatherItemFromNetwork({
     this.dt,
     this.main,
     this.weather,
     this.wind,
-    this.dtTxt,
   });
 
   factory WeatherItemFromNetwork.fromJson(Map<String, dynamic> json) =>
@@ -42,7 +39,6 @@ class WeatherItemFromNetwork {
       'main: $main,'
       'weather: $weather,'
       'wind: $wind,'
-      'dtTxt: $dtTxt,'
       ')';
 
   WeatherData toDomain() {
@@ -51,6 +47,8 @@ class WeatherItemFromNetwork {
         (dt ?? 0) * 1000,
       ),
       temperature: main?.temp ?? 0.0,
+      tempMin: main?.tempMin ?? 0.0,
+      tempMax: main?.tempMax ?? 0.0,
       weatherMain: weather?.firstOrNull?.main ?? '',
       weatherDescription: weather?.firstOrNull?.description ?? '',
       weatherIcon: weather?.firstOrNull?.icon ?? '',

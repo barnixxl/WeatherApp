@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
-import '../../config/app_config.dart';
-import '../network_service.dart';
+import '../config/app_config.dart';
+import 'network_service.dart';
 
 class WeatherNetworkService extends NetworkService {
   WeatherNetworkService()
