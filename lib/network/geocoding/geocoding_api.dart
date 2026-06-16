@@ -26,15 +26,15 @@ class GeocodingApi {
   Future<WeatherResult<Coordinates>> getCoordinates(
     String cityName,
   ) async {
-    final result = await _network.get(
-      'direct',
-      queryParameters: {
-        'q': cityName,
-        'limit': '1',
-      },
-    );
-    if (result.isSuccess) {
-      try {
+    try {
+      final result = await _network.get(
+        'direct',
+        queryParameters: {
+          'q': cityName,
+          'limit': '1',
+        },
+      );
+      if (result.isSuccess) {
         final data = result.data as List<dynamic>;
         final item = data.first as Map<String, dynamic>;
         final response = GeocodingResponseFromNetwork.fromJson(
@@ -46,31 +46,31 @@ class GeocodingApi {
             lon: response.lon ?? 0.0,
           ),
         );
-      } catch (e) {
-        return WeatherResult.failure(
-          WeatherError.parsing(),
-        );
       }
+      return WeatherResult.failure(
+        result.error,
+      );
+    } catch (e) {
+      return WeatherResult.failure(
+        WeatherError.parsing(),
+      );
     }
-    return WeatherResult.failure(
-      result.error,
-    );
   }
 
   Future<WeatherResult<String>> getCityName(
     double lat,
     double lon,
   ) async {
-    final result = await _network.get(
-      'reverse',
-      queryParameters: {
-        'lat': lat.toString(),
-        'lon': lon.toString(),
-        'limit': '1',
-      },
-    );
-    if (result.isSuccess) {
-      try {
+    try {
+      final result = await _network.get(
+        'reverse',
+        queryParameters: {
+          'lat': lat.toString(),
+          'lon': lon.toString(),
+          'limit': '1',
+        },
+      );
+      if (result.isSuccess) {
         final data = result.data as List<dynamic>;
         final item = data.first as Map<String, dynamic>;
         final response = GeocodingResponseFromNetwork.fromJson(
@@ -81,14 +81,14 @@ class GeocodingApi {
         return WeatherResult.success(
           cityName,
         );
-      } catch (e) {
-        return WeatherResult.failure(
-          WeatherError.parsing(),
-        );
       }
+      return WeatherResult.failure(
+        result.error,
+      );
+    } catch (e) {
+      return WeatherResult.failure(
+        WeatherError.parsing(),
+      );
     }
-    return WeatherResult.failure(
-      result.error,
-    );
   }
 }

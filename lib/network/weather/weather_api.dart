@@ -24,6 +24,46 @@ class WeatherApi {
     _network = _getIt<WeatherNetworkService>();
   }
 
+  Future<WeatherResult<List<WeatherData>>> fetchForecast(
+    double lat,
+    double lon,
+  ) async {
+    const path = 'forecast';
+    final queryParams = {
+      'lat': lat.toString(),
+      'lon': lon.toString(),
+      'units': 'metric',
+      'lang': 'ru',
+    };
+    try {
+      final result = await _network.get(
+        path,
+        queryParameters: queryParams,
+      );
+      if (result.isSuccess) {
+        final data = result.data as Map<String, dynamic>;
+        final response = WeatherResponseFromNetwork.fromJson(
+          data,
+        );
+        final weatherList = (response.list ?? [])
+            .map(
+              _mapToWeatherData,
+            )
+            .toList();
+        return WeatherResult.success(
+          weatherList,
+        );
+      }
+      return WeatherResult.failure(
+        result.error,
+      );
+    } catch (e) {
+      return WeatherResult.failure(
+        WeatherError.parsing(),
+      );
+    }
+  }
+
   WeatherData _mapToWeatherData(
     WeatherItemFromNetwork model,
   ) {
@@ -37,46 +77,6 @@ class WeatherApi {
       weatherIcon: model.weather?.firstOrNull?.icon ?? '',
       windSpeed: model.wind?.speed ?? 0.0,
       humidity: model.main?.humidity ?? 0,
-    );
-  }
-
-  Future<WeatherResult<List<WeatherData>>> fetchForecast(
-    double lat,
-    double lon,
-  ) async {
-    const path = 'forecast';
-    final queryParams = {
-      'lat': lat.toString(),
-      'lon': lon.toString(),
-      'units': 'metric',
-      'lang': 'ru',
-    };
-    final result = await _network.get(
-      path,
-      queryParameters: queryParams,
-    );
-    if (result.isSuccess) {
-      try {
-        final data = result.data as Map<String, dynamic>;
-        final response = WeatherResponseFromNetwork.fromJson(
-          data,
-        );
-        final weatherList = (response.list ?? [])
-            .map(
-              _mapToWeatherData,
-            )
-            .toList();
-        return WeatherResult.success(
-          weatherList,
-        );
-      } catch (e) {
-        return WeatherResult.failure(
-          WeatherError.parsing(),
-        );
-      }
-    }
-    return WeatherResult.failure(
-      result.error,
     );
   }
 }
