@@ -52,12 +52,15 @@ class WeatherRepository extends BaseRepository {
       final grouped = _groupByDay(
         weatherData,
       );
-      final filtered = _filterHourlyData(
+      final filtered = _filterEvenHours(
         grouped,
+      );
+      final processed = _computeDayTemperatures(
+        filtered,
       );
       return WeatherResult.success(
         (
-          filtered,
+          processed,
           cityName,
         ),
       );
@@ -107,7 +110,7 @@ class WeatherRepository extends BaseRepository {
     return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
   }
 
-  List<DayWeather> _filterHourlyData(
+  List<DayWeather> _filterEvenHours(
     List<DayWeather> dayWeatherList,
   ) {
     return dayWeatherList.map(
@@ -118,7 +121,22 @@ class WeatherRepository extends BaseRepository {
             return hour % 2 == 0;
           },
         ).toList();
-        final temps = filtered.map(
+        return DayWeather(
+          date: dayWeather.date,
+          hourlyData: filtered,
+          dayMinTemp: dayWeather.dayMinTemp,
+          dayMaxTemp: dayWeather.dayMaxTemp,
+        );
+      },
+    ).toList();
+  }
+
+  List<DayWeather> _computeDayTemperatures(
+    List<DayWeather> dayWeatherList,
+  ) {
+    return dayWeatherList.map(
+      (dayWeather) {
+        final temps = dayWeather.hourlyData.map(
           (e) => e.temperature,
         );
         final dayMinTemp = temps.isEmpty
@@ -133,7 +151,7 @@ class WeatherRepository extends BaseRepository {
               );
         return DayWeather(
           date: dayWeather.date,
-          hourlyData: filtered,
+          hourlyData: dayWeather.hourlyData,
           dayMinTemp: dayMinTemp,
           dayMaxTemp: dayMaxTemp,
         );
