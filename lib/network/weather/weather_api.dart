@@ -65,7 +65,7 @@ class WeatherApi {
         );
       }
       return WeatherResult.failure(
-        result.error ?? WeatherError.unknown(),
+        result.error,
       );
     } catch (e) {
       return WeatherResult.failure(
@@ -92,7 +92,6 @@ class WeatherApi {
       weatherDescription: item.weather?.firstOrNull?.description ?? '',
       weatherIcon: item.weather?.firstOrNull?.icon ?? '',
       windSpeed: item.wind?.speed ?? 0.0,
-      humidity: item.main?.humidity ?? 0,
     );
   }
 }

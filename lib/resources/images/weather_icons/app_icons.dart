@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppImages {
+class AppIcons {
   static IconData getIcon(
     String iconCode,
   ) {

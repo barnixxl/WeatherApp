@@ -4,7 +4,7 @@ import '../../../main.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
-import '../../../resources/images/app_images.dart';
+import '../../../resources/images/weather_icons/app_icons.dart';
 
 class HourlyWeatherRow extends StatelessWidget {
   final List<WeatherData> hourlyData;
@@ -37,7 +37,7 @@ class HourlyWeatherRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  AppImages.getIcon(
+                  AppIcons.getIcon(
                     weather.weatherIcon,
                   ),
                   color: AppColors.onPrimary,
