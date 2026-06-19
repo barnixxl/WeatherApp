@@ -36,7 +36,7 @@ class HourlyWeatherRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  WeatherIconMapper.getIcon(
+                  AppImages.getIcon(
                     weather.weatherIcon,
                   ),
                   color: AppColors.onPrimary,

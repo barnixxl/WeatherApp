@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WeatherIconMapper {
+class AppImages {
   static IconData getIcon(
     String iconCode,
   ) {
