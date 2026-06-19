@@ -3,14 +3,14 @@ import 'package:get_it/get_it.dart';
 import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
-import '../weather_network.dart';
+import '../weather_rate_network.dart';
 import 'resp/weather_response_from_network.dart';
 import 'resp/items/weather_items_from_network.dart';
 
 class WeatherApi {
   static final GetIt _getIt = GetIt.instance;
 
-  late final WeatherNetwork _network;
+  late final WeatherRateNetwork _network;
 
   void register(
     GetIt getIt,
@@ -43,7 +43,7 @@ class WeatherApi {
   }
 
   Future<void> initializeDependencies() async {
-    _network = _getIt<WeatherNetwork>();
+    _network = _getIt<WeatherRateNetwork>();
   }
 
   Future<WeatherResult<(List<WeatherData>, String)>> fetchForecast(

@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'network/weather/weather_api.dart';
-import 'network/weather_network.dart';
+import 'network/weather_rate_network.dart';
 import 'repository/weather_repository.dart';
 import 'resources/colors/app_colors.dart';
 import 'resources/strings/app_localizations.dart';
@@ -31,7 +31,7 @@ Future<void> main() async {
   );
   final getIt = GetIt.instance;
 
-  final weatherNetwork = WeatherNetwork();
+  final weatherNetwork = WeatherRateNetwork();
   weatherNetwork.register(
     getIt,
   );
