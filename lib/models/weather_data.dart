@@ -7,7 +7,6 @@ class WeatherData {
   final String weatherDescription;
   final String weatherIcon;
   final double windSpeed;
-  final int humidity;
 
   const WeatherData({
     required this.dateTime,
@@ -18,7 +17,6 @@ class WeatherData {
     required this.weatherDescription,
     required this.weatherIcon,
     required this.windSpeed,
-    required this.humidity,
   });
 
   @override
@@ -31,6 +29,5 @@ class WeatherData {
       ' weatherDescription: $weatherDescription,'
       ' weatherIcon: $weatherIcon,'
       ' windSpeed: $windSpeed,'
-      ' humidity: $humidity,'
       ')';
 }
