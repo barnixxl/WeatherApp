@@ -20,28 +20,6 @@ class WeatherApi {
     );
   }
 
-  WeatherData _mapToWeatherData(
-    WeatherItemFromNetwork item,
-  ) {
-    final dt = item.dt;
-    return WeatherData(
-      dateTime: dt != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              dt * 1000,
-              isUtc: true,
-            ).toLocal()
-          : DateTime.now(),
-      temperature: item.main?.temp ?? 0.0,
-      tempMin: item.main?.tempMin ?? 0.0,
-      tempMax: item.main?.tempMax ?? 0.0,
-      weatherMain: item.weather?.firstOrNull?.main ?? '',
-      weatherDescription: item.weather?.firstOrNull?.description ?? '',
-      weatherIcon: item.weather?.firstOrNull?.icon ?? '',
-      windSpeed: item.wind?.speed ?? 0.0,
-      humidity: item.main?.humidity ?? 0,
-    );
-  }
-
   Future<void> initializeDependencies() async {
     _network = _getIt<WeatherNetwork>();
   }
@@ -93,5 +71,27 @@ class WeatherApi {
         WeatherError.fromException(e),
       );
     }
+  }
+
+  WeatherData _mapToWeatherData(
+    WeatherItemFromNetwork item,
+  ) {
+    final dt = item.dt;
+    return WeatherData(
+      dateTime: dt != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              dt * 1000,
+              isUtc: true,
+            ).toLocal()
+          : DateTime.now(),
+      temperature: item.main?.temp ?? 0.0,
+      tempMin: item.main?.tempMin ?? 0.0,
+      tempMax: item.main?.tempMax ?? 0.0,
+      weatherMain: item.weather?.firstOrNull?.main ?? '',
+      weatherDescription: item.weather?.firstOrNull?.description ?? '',
+      weatherIcon: item.weather?.firstOrNull?.icon ?? '',
+      windSpeed: item.wind?.speed ?? 0.0,
+      humidity: item.main?.humidity ?? 0,
+    );
   }
 }
