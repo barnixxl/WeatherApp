@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
+import '../../../resources/images/weather_state/weather_state_images.dart';
 import '../../../utils/date_formatter.dart';
-import '../../../resources/images/weather_icons/app_icons.dart';
 
 class HourlyWeatherRow extends StatelessWidget {
   final List<WeatherData> hourlyData;
@@ -36,12 +36,10 @@ class HourlyWeatherRow extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  AppIcons.getIcon(
-                    weather.weatherIcon,
-                  ),
-                  color: AppColors.onPrimary,
-                  size: 32,
+                AppIcons.icon(
+                  weather.weatherIcon,
+                  width: 32,
+                  height: 32,
                 ),
                 const SizedBox(
                   height: 4,
@@ -57,7 +55,8 @@ class HourlyWeatherRow extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  strings.temperature_format(weather.temperature.toStringAsFixed(0)),
+                  strings.temperature_format(
+                      weather.temperature.toStringAsFixed(0)),
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 16,
