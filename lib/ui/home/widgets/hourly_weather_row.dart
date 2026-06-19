@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
-import '../../../utils/app_images.dart';
+import '../../../resources/images/app_images.dart';
 
 class HourlyWeatherRow extends StatelessWidget {
   final List<WeatherData> hourlyData;
