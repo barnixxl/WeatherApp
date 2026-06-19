@@ -40,7 +40,7 @@ class NetworkService {
     );
   }
 
-  Future<WeatherResult<dynamic>> get<T>(
+  Future<WeatherResult<T>> get<T>(
     String path, {
     Map<String, dynamic>? queryParameters,
   }) async {
