@@ -14,9 +14,15 @@ class HomeController {
   final Observable<WeatherResult<List<DayWeather>>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
   );
-  final Observable<double> _latitude = Observable(0.0);
-  final Observable<double> _longitude = Observable(0.0);
-  final Observable<String> _cityName = Observable('');
+  final Observable<double> _latitude = Observable(
+    0.0,
+  );
+  final Observable<double> _longitude = Observable(
+    0.0,
+  );
+  final Observable<String> _cityName = Observable(
+    '',
+  );
 
   bool get isLoading => _weatherResult.value.isLoading;
 
@@ -55,12 +61,20 @@ class HomeController {
       _longitude.value,
     );
     runInAction(() {
-      if (result.isSuccess && result.data != null) {
-        final (dayWeather, cityName) = result.data!;
-        _weatherResult.value = WeatherResult.success(dayWeather);
+      final data = result.data;
+      if (result.isSuccess && data != null) {
+        final (
+          dayWeather,
+          cityName,
+        ) = data;
+        _weatherResult.value = WeatherResult.success(
+          dayWeather,
+        );
         _cityName.value = cityName;
       } else {
-        _weatherResult.value = WeatherResult.failure(result.error);
+        _weatherResult.value = WeatherResult.failure(
+          result.error,
+        );
       }
     });
   }
