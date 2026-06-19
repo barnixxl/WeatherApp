@@ -40,7 +40,7 @@ class NetworkService {
     );
   }
 
-  Future<WeatherResult<dynamic>> get(
+  Future<WeatherResult<dynamic>> get<T>(
     String path, {
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -54,7 +54,7 @@ class NetworkService {
         queryParameters: queryParams,
       );
       return WeatherResult.success(
-        response.data,
+        response.data as T,
       );
     } on DioException catch (e) {
       return WeatherResult.failure(

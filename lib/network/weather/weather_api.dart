@@ -35,12 +35,12 @@ class WeatherApi {
       'lang': 'ru',
     };
     try {
-      final result = await _network.get(
+      final result = await _network.get<Map<String, dynamic>>(
         path,
         queryParameters: queryParams,
       );
       if (result.isSuccess) {
-        final data = result.data as Map<String, dynamic>;
+        final data = result.data!;
         final response = WeatherResponseFromNetwork.fromJson(
           data,
         );
