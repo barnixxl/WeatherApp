@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:weather_app/main.dart';
+import '../../main.dart';
 
 import '../../models/day_weather.dart';
 import '../../models/weather_error.dart';
