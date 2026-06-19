@@ -7,7 +7,6 @@ part 'weather_response_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
-  explicitToJson: false,
 )
 class WeatherResponseFromNetwork {
   @JsonKey(name: 'list')
