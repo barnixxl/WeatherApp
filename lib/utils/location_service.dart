@@ -12,8 +12,6 @@ class LocationService {
     );
   }
 
-  // Future<void> initializeDependencies() async {}  - для будущих полей если понадобиться
-
   static LocationService getInstance() {
     return _getIt<LocationService>();
   }
