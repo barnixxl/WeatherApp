@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../models/day_weather.dart';
 import '../models/weather_data.dart';
 import '../models/weather_result.dart';
+import '../models/weather_error.dart';
 import '../network/weather/weather_api.dart';
 import 'base_repository.dart';
 
@@ -38,10 +39,16 @@ class WeatherRepository extends BaseRepository {
       lon,
     );
     if (result.isSuccess) {
+      final data = result.data;
+      if (data == null) {
+        return WeatherResult.failure(
+          WeatherError.noData(),
+        );
+      }
       final (
         weatherData,
         cityName,
-      ) = result.data!;
+      ) = data;
       final grouped = _groupByDay(
         weatherData,
       );
