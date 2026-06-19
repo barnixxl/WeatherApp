@@ -67,25 +67,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_load_failed => 'Ошибка загрузки данных';
 
   @override
-  String get monday => 'Понедельник';
-
-  @override
-  String get tuesday => 'Вторник';
-
-  @override
-  String get wednesday => 'Среда';
-
-  @override
-  String get thursday => 'Четверг';
-
-  @override
-  String get friday => 'Пятница';
-
-  @override
-  String get saturday => 'Суббота';
-
-  @override
-  String get sunday => 'Воскресенье';
+  String get common_unknow_city_name => 'Неизвестное название города';
 
   @override
   String get current_location => 'Текущее местоположение';

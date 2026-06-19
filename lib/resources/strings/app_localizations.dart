@@ -196,47 +196,11 @@ abstract class AppLocalizations {
   /// **'Ошибка загрузки данных'**
   String get error_load_failed;
 
-  /// No description provided for @monday.
+  /// No description provided for @common_unknow_city_name.
   ///
   /// In ru, this message translates to:
-  /// **'Понедельник'**
-  String get monday;
-
-  /// No description provided for @tuesday.
-  ///
-  /// In ru, this message translates to:
-  /// **'Вторник'**
-  String get tuesday;
-
-  /// No description provided for @wednesday.
-  ///
-  /// In ru, this message translates to:
-  /// **'Среда'**
-  String get wednesday;
-
-  /// No description provided for @thursday.
-  ///
-  /// In ru, this message translates to:
-  /// **'Четверг'**
-  String get thursday;
-
-  /// No description provided for @friday.
-  ///
-  /// In ru, this message translates to:
-  /// **'Пятница'**
-  String get friday;
-
-  /// No description provided for @saturday.
-  ///
-  /// In ru, this message translates to:
-  /// **'Суббота'**
-  String get saturday;
-
-  /// No description provided for @sunday.
-  ///
-  /// In ru, this message translates to:
-  /// **'Воскресенье'**
-  String get sunday;
+  /// **'Неизвестное название города'**
+  String get common_unknow_city_name;
 
   /// No description provided for @current_location.
   ///
