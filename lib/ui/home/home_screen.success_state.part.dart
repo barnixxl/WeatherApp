@@ -12,8 +12,11 @@ Widget _buildSuccessWidget({
     children: [
       ...dayWeather.map(
         (item) => DayWeatherItem(
-          dayWeather: item,
-        ),
+              date: item.date,
+              dayMinTemp: item.dayMinTemp,
+              dayMaxTemp: item.dayMaxTemp,
+              hourlyData: item.hourlyData,
+            ),
       ),
       WeatherMapWidget(
         latitude: latitude,

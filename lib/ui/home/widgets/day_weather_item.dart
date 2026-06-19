@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/day_weather.dart';
+import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
 import 'hourly_weather_row.dart';
 
 class DayWeatherItem extends StatelessWidget {
-  final DayWeather dayWeather;
+  final DateTime date;
+  final double dayMinTemp;
+  final double dayMaxTemp;
+  final List<WeatherData> hourlyData;
 
   const DayWeatherItem({
     super.key,
-    required this.dayWeather,
+    required this.date,
+    required this.dayMinTemp,
+    required this.dayMaxTemp,
+    required this.hourlyData,
   });
 
   @override
@@ -50,7 +56,7 @@ class DayWeatherItem extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  dayWeather.date.toDayOfWeekFormat() ?? '',
+                  date.toDayOfWeekFormat() ?? '',
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 18,
@@ -59,7 +65,7 @@ class DayWeatherItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '${dayWeather.dayMinTemp.toStringAsFixed(0)}° - ${dayWeather.dayMaxTemp.toStringAsFixed(0)}°',
+                  '${dayMinTemp.toStringAsFixed(0)}° - ${dayMaxTemp.toStringAsFixed(0)}°',
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 16,
@@ -71,7 +77,7 @@ class DayWeatherItem extends StatelessWidget {
               height: 8,
             ),
             HourlyWeatherRow(
-              hourlyData: dayWeather.hourlyData,
+              hourlyData: hourlyData,
             ),
           ],
         ),
