@@ -91,8 +91,11 @@ class WeatherRepository extends BaseRepository {
       (
         entry,
       ) {
-        final date = DateTime.parse(
-          entry.key,
+        final parts = entry.key.split('-');
+        final date = DateTime.utc(
+          int.parse(parts[0]),
+          int.parse(parts[1]),
+          int.parse(parts[2]),
         );
         return DayWeather(
           date: date,

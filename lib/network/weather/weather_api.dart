@@ -4,8 +4,8 @@ import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../weather_network.dart';
-import 'resp/items/weather_items_from_network.dart';
 import 'resp/weather_response_from_network.dart';
+import 'resp/items/weather_items_from_network.dart';
 
 class WeatherApi {
   static final GetIt _getIt = GetIt.instance;
@@ -23,10 +23,14 @@ class WeatherApi {
   WeatherData _mapToWeatherData(
     WeatherItemFromNetwork item,
   ) {
+    final dt = item.dt;
     return WeatherData(
-      dateTime: DateTime.fromMillisecondsSinceEpoch(
-        (item.dt ?? 0) * 1000,
-      ),
+      dateTime: dt != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              dt * 1000,
+              isUtc: true,
+            )
+          : DateTime.now(),
       temperature: item.main?.temp ?? 0.0,
       tempMin: item.main?.tempMin ?? 0.0,
       tempMax: item.main?.tempMax ?? 0.0,
