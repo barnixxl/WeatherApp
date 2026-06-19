@@ -17,8 +17,7 @@ class WeatherError {
   static const int cancelledCode = 5;
   static const int parsingCode = 6;
   static const int noDataCode = 7;
-  static const int loadFailedCode = 8;
-  static const int noGeoCode = 9;
+  static const int noGeoCode = 8;
 
   @override
   String toString() => errorMessage;
@@ -83,11 +82,6 @@ class WeatherError {
   factory WeatherError.noData() => WeatherError(
         errorCode: noDataCode,
         errorMessage: strings.error_no_data,
-      );
-
-  factory WeatherError.loadFailed() => WeatherError(
-        errorCode: loadFailedCode,
-        errorMessage: strings.error_load_failed,
       );
 
   factory WeatherError.noGeo() => WeatherError(

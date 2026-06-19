@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import '../../main.dart';
 
 import '../../models/day_weather.dart';
 import '../../models/weather_error.dart';
@@ -89,9 +88,7 @@ class HomeController {
         },
       );
     } else {
-      throw Exception(
-        strings.geo_error,
-      );
+      throw WeatherError.noGeo();
     }
   }
 }
