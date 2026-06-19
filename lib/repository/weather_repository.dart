@@ -101,11 +101,8 @@ class WeatherRepository extends BaseRepository {
             : temps.reduce(
                 (a, b) => a > b ? a : b,
               );
-        final parts = entry.key.split('-');
-        final date = DateTime.utc(
-          int.parse(parts[0]),
-          int.parse(parts[1]),
-          int.parse(parts[2]),
+        final date = DateTime.parse(
+          entry.key,
         );
         return DayWeather(
           date: date,
@@ -120,7 +117,13 @@ class WeatherRepository extends BaseRepository {
   String _getDateKey(
     DateTime dateTime,
   ) {
-    return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
+    return '${dateTime.year}-${dateTime.month.toString().padLeft(
+          2,
+          '0',
+        )}-${dateTime.day.toString().padLeft(
+          2,
+          '0',
+        )}';
   }
 
   List<DayWeather> _filterEvenHours(

@@ -29,7 +29,7 @@ class WeatherApi {
           ? DateTime.fromMillisecondsSinceEpoch(
               dt * 1000,
               isUtc: true,
-            )
+            ).toLocal()
           : DateTime.now(),
       temperature: item.main?.temp ?? 0.0,
       tempMin: item.main?.tempMin ?? 0.0,
