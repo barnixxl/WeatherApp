@@ -89,4 +89,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get current_location => 'Текущее местоположение';
+
+  @override
+  String temperature_format(String temp) {
+    return '$temp°C';
+  }
 }

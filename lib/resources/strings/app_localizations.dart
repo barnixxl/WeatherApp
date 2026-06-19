@@ -243,6 +243,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Текущее местоположение'**
   String get current_location;
+
+  /// No description provided for @temperature_format.
+  ///
+  /// In ru, this message translates to:
+  /// **'{temp}°C'**
+  String temperature_format(String temp);
 }
 
 class _AppLocalizationsDelegate

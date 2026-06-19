@@ -44,5 +44,13 @@
   "friday": "Пятница",
   "saturday": "Суббота",
   "sunday": "Воскресенье",
-  "current_location": "Текущее местоположение"
+  "current_location": "Текущее местоположение",
+  "temperature_format": "{temp}°C",
+  "@temperature_format": {
+    "placeholders": {
+      "temp": {
+        "type": "String"
+      }
+    }
+  }
 }
