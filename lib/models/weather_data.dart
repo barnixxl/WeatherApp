@@ -33,36 +33,4 @@ class WeatherData {
       ' windSpeed: $windSpeed,'
       ' humidity: $humidity,'
       ')';
-
-  @override
-  bool operator ==(
-    Object other,
-  ) =>
-      identical(
-        this,
-        other,
-      ) ||
-      other is WeatherData &&
-          dateTime == other.dateTime &&
-          temperature == other.temperature &&
-          tempMin == other.tempMin &&
-          tempMax == other.tempMax &&
-          weatherMain == other.weatherMain &&
-          weatherDescription == other.weatherDescription &&
-          weatherIcon == other.weatherIcon &&
-          windSpeed == other.windSpeed &&
-          humidity == other.humidity;
-
-  @override
-  int get hashCode => Object.hash(
-        dateTime,
-        temperature,
-        tempMin,
-        tempMax,
-        weatherMain,
-        weatherDescription,
-        weatherIcon,
-        windSpeed,
-        humidity,
-      );
 }

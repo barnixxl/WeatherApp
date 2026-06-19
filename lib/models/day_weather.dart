@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'weather_data.dart';
 
 class DayWeather {
@@ -20,31 +18,4 @@ class DayWeather {
       'date: $date,'
       ' hourlyData: $hourlyData,'
       ')';
-
-  @override
-  bool operator ==(
-    Object other,
-  ) =>
-      identical(
-        this,
-        other,
-      ) ||
-      other is DayWeather &&
-          date == other.date &&
-          dayMinTemp == other.dayMinTemp &&
-          dayMaxTemp == other.dayMaxTemp &&
-          listEquals(
-            hourlyData,
-            other.hourlyData,
-          );
-
-  @override
-  int get hashCode => Object.hash(
-        date,
-        dayMinTemp,
-        dayMaxTemp,
-        Object.hashAll(
-          hourlyData,
-        ),
-      );
 }
