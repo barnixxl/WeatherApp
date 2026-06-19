@@ -9,7 +9,7 @@ import 'resp/weather_response_from_network.dart';
 class WeatherApi {
   static final GetIt _getIt = GetIt.instance;
 
-  late final WeatherNetworkService _network;
+  late final WeatherNetwork _network;
 
   void register(
     GetIt getIt,
@@ -20,7 +20,7 @@ class WeatherApi {
   }
 
   Future<void> initializeDependencies() async {
-    _network = _getIt<WeatherNetworkService>();
+    _network = _getIt<WeatherNetwork>();
   }
 
   Future<WeatherResult<(List<WeatherData>, String)>> fetchForecast(

@@ -31,7 +31,7 @@ Future<void> main() async {
   );
   final getIt = GetIt.instance;
 
-  final weatherNetwork = WeatherNetworkService();
+  final weatherNetwork = WeatherNetwork();
   weatherNetwork.register(
     getIt,
   );
