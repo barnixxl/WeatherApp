@@ -2,8 +2,8 @@ import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
 import '../models/weather_data.dart';
-import '../models/weather_result.dart';
 import '../models/weather_error.dart';
+import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
 import 'base_repository.dart';
 
@@ -52,15 +52,12 @@ class WeatherRepository extends BaseRepository {
       final grouped = _groupByDay(
         weatherData,
       );
-      final filtered = _filterEvenHours(
+      final resultWeather = _filterEvenHours(
         grouped,
-      );
-      final processed = _computeDayTemperatures(
-        filtered,
       );
       return WeatherResult.success(
         (
-          processed,
+          resultWeather,
           cityName,
         ),
       );
@@ -91,6 +88,19 @@ class WeatherRepository extends BaseRepository {
       (
         entry,
       ) {
+        final temps = entry.value.map(
+          (e) => e.temperature,
+        );
+        final dayMinTemp = temps.isEmpty
+            ? 0.0
+            : temps.reduce(
+                (a, b) => a < b ? a : b,
+              );
+        final dayMaxTemp = temps.isEmpty
+            ? 0.0
+            : temps.reduce(
+                (a, b) => a > b ? a : b,
+              );
         final parts = entry.key.split('-');
         final date = DateTime.utc(
           int.parse(parts[0]),
@@ -100,8 +110,8 @@ class WeatherRepository extends BaseRepository {
         return DayWeather(
           date: date,
           hourlyData: entry.value,
-          dayMinTemp: 0.0,
-          dayMaxTemp: 0.0,
+          dayMinTemp: dayMinTemp,
+          dayMaxTemp: dayMaxTemp,
         );
       },
     ).toList();
@@ -129,34 +139,6 @@ class WeatherRepository extends BaseRepository {
           hourlyData: filtered,
           dayMinTemp: dayWeather.dayMinTemp,
           dayMaxTemp: dayWeather.dayMaxTemp,
-        );
-      },
-    ).toList();
-  }
-
-  List<DayWeather> _computeDayTemperatures(
-    List<DayWeather> dayWeatherList,
-  ) {
-    return dayWeatherList.map(
-      (dayWeather) {
-        final temps = dayWeather.hourlyData.map(
-          (e) => e.temperature,
-        );
-        final dayMinTemp = temps.isEmpty
-            ? 0.0
-            : temps.reduce(
-                (a, b) => a < b ? a : b,
-              );
-        final dayMaxTemp = temps.isEmpty
-            ? 0.0
-            : temps.reduce(
-                (a, b) => a > b ? a : b,
-              );
-        return DayWeather(
-          date: dayWeather.date,
-          hourlyData: dayWeather.hourlyData,
-          dayMinTemp: dayMinTemp,
-          dayMaxTemp: dayMaxTemp,
         );
       },
     ).toList();
