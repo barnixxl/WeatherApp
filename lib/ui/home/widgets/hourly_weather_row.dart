@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
@@ -56,7 +57,7 @@ class HourlyWeatherRow extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  '${weather.temperature.toStringAsFixed(0)}°',
+                  strings.temperature_format(weather.temperature.toStringAsFixed(0)),
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 16,

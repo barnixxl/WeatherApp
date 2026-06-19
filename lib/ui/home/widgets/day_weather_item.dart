@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
 import '../../../utils/date_formatter.dart';
@@ -65,7 +66,7 @@ class DayWeatherItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '${dayMinTemp.toStringAsFixed(0)}° - ${dayMaxTemp.toStringAsFixed(0)}°',
+                  '${strings.temperature_format(dayMinTemp.toStringAsFixed(0))} - ${strings.temperature_format(dayMaxTemp.toStringAsFixed(0))}',
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 16,
