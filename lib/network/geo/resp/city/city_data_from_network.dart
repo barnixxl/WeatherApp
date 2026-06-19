@@ -4,7 +4,6 @@ part 'city_data_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
-  explicitToJson: false,
 )
 class CityDataFromNetwork {
   @JsonKey(name: 'name')

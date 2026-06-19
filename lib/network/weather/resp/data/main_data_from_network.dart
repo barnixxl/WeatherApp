@@ -4,7 +4,6 @@ part 'main_data_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
-  explicitToJson: false,
 )
 class MainDataFromNetwork {
   @JsonKey(name: 'temp')

@@ -4,7 +4,6 @@ part 'wind_data_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
-  explicitToJson: false,
 )
 class WindDataFromNetwork {
   @JsonKey(

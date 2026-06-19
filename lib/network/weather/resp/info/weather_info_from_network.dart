@@ -4,7 +4,6 @@ part 'weather_info_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
-  explicitToJson: false,
 )
 class WeatherInfoFromNetwork {
   @JsonKey(name: 'main')
