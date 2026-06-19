@@ -4,6 +4,7 @@ import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../weather_network.dart';
+import 'resp/items/weather_items_from_network.dart';
 import 'resp/weather_response_from_network.dart';
 
 class WeatherApi {
@@ -16,6 +17,24 @@ class WeatherApi {
   ) {
     getIt.registerSingleton<WeatherApi>(
       this,
+    );
+  }
+
+  WeatherData _mapToWeatherData(
+    WeatherItemFromNetwork item,
+  ) {
+    return WeatherData(
+      dateTime: DateTime.fromMillisecondsSinceEpoch(
+        (item.dt ?? 0) * 1000,
+      ),
+      temperature: item.main?.temp ?? 0.0,
+      tempMin: item.main?.tempMin ?? 0.0,
+      tempMax: item.main?.tempMax ?? 0.0,
+      weatherMain: item.weather?.firstOrNull?.main ?? '',
+      weatherDescription: item.weather?.firstOrNull?.description ?? '',
+      weatherIcon: item.weather?.firstOrNull?.icon ?? '',
+      windSpeed: item.wind?.speed ?? 0.0,
+      humidity: item.main?.humidity ?? 0,
     );
   }
 
@@ -40,14 +59,19 @@ class WeatherApi {
         queryParameters: queryParams,
       );
       if (result.isSuccess) {
-        final data = result.data!;
+        final data = result.data;
+        if (data == null) {
+          return WeatherResult.failure(
+            WeatherError.noData(),
+          );
+        }
         final response = WeatherResponseFromNetwork.fromJson(
           data,
         );
         final cityName = response.city?.name ?? 'Unknown';
         final weatherList = (response.list ?? [])
             .map(
-              (e) => e.toDomain(),
+              _mapToWeatherData,
             )
             .toList();
         return WeatherResult.success(
@@ -58,7 +82,7 @@ class WeatherApi {
         );
       }
       return WeatherResult.failure(
-        result.error,
+        result.error ?? WeatherError.unknown(),
       );
     } catch (e) {
       return WeatherResult.failure(

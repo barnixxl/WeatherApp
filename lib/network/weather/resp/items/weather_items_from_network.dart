@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../models/weather_data.dart';
 import '../data/main_data_from_network.dart';
 import '../info/weather_info_from_network.dart';
 import '../wind/wind_data_from_network.dart';
@@ -9,7 +8,6 @@ part 'weather_items_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
-  explicitToJson: false,
 )
 class WeatherItemFromNetwork {
   @JsonKey(name: 'dt')
@@ -40,20 +38,4 @@ class WeatherItemFromNetwork {
       'weather: $weather,'
       'wind: $wind,'
       ')';
-
-  WeatherData toDomain() {
-    return WeatherData(
-      dateTime: DateTime.fromMillisecondsSinceEpoch(
-        (dt ?? 0) * 1000,
-      ),
-      temperature: main?.temp ?? 0.0,
-      tempMin: main?.tempMin ?? 0.0,
-      tempMax: main?.tempMax ?? 0.0,
-      weatherMain: weather?.firstOrNull?.main ?? '',
-      weatherDescription: weather?.firstOrNull?.description ?? '',
-      weatherIcon: weather?.firstOrNull?.icon ?? '',
-      windSpeed: wind?.speed ?? 0.0,
-      humidity: main?.humidity ?? 0,
-    );
-  }
 }
