@@ -52,7 +52,7 @@ class WeatherNetwork {
         'appid': AppConfig.apiKey,
         ...?queryParameters,
       };
-      final response = await _dio.get<dynamic>(
+      final response = await _dio.get<T>(
         path,
         queryParameters: queryParams,
       );
