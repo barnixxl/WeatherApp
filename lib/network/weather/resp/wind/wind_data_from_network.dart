@@ -6,9 +6,7 @@ part 'wind_data_from_network.g.dart';
   createToJson: false,
 )
 class WindDataFromNetwork {
-  @JsonKey(
-    name: 'speed',
-  )
+  @JsonKey(name: 'speed')
   final double? speed;
 
   WindDataFromNetwork({
@@ -22,6 +20,6 @@ class WindDataFromNetwork {
 
   @override
   String toString() => 'WindDataFromNetwork('
-      'speed: $speed, '
+      'speed: $speed,'
       ')';
 }
