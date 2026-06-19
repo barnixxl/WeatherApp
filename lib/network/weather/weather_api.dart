@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../../main.dart';
 import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
@@ -50,7 +51,7 @@ class WeatherApi {
         final response = WeatherResponseFromNetwork.fromJson(
           data,
         );
-        final cityName = response.city?.name ?? 'Unknown';
+        final cityName = response.city?.name ?? strings.common_unknow_city_name;
         final weatherList = (response.list ?? [])
             .map(
               _mapToWeatherData,
