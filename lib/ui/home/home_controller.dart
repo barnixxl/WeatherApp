@@ -5,11 +5,9 @@ import '../../models/forecast_result.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../../repository/weather_repository.dart';
-import '../../utils/location_service.dart';
 
 class HomeController {
   final WeatherRepository _repository = WeatherRepository.getInstance();
-  final LocationService _locationService = LocationService.getInstance();
 
   final Observable<WeatherResult<ForecastResult>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
@@ -38,19 +36,7 @@ class HomeController {
     runInAction(() {
       _weatherResult.value = WeatherResult.loading();
     });
-    final position = await _locationService.getCurrentLocation();
-    if (position == null) {
-      runInAction(() {
-        _weatherResult.value = WeatherResult.failure(
-          WeatherError.noGeo(),
-        );
-      });
-      return;
-    }
-    final result = await _repository.fetchForecast(
-      position.latitude,
-      position.longitude,
-    );
+    final result = await _repository.fetchForecast();
     runInAction(() {
       _weatherResult.value = result;
     });

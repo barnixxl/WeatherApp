@@ -6,12 +6,14 @@ import '../models/weather_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
+import '../utils/location_service.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
 
   late final WeatherApi _weatherApi;
+  late final LocationService _locationService;
 
   @override
   void register(
@@ -25,19 +27,23 @@ class WeatherRepository extends BaseRepository {
   @override
   Future<void> initializeDependencies() async {
     _weatherApi = _getIt<WeatherApi>();
+    _locationService = _getIt<LocationService>();
   }
 
   static WeatherRepository getInstance() {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<ForecastResult>> fetchForecast(
-    double lat,
-    double lon,
-  ) async {
+  Future<WeatherResult<ForecastResult>> fetchForecast() async {
+    final position = await _locationService.getCurrentLocation();
+    if (position == null) {
+      return WeatherResult.failure(
+        WeatherError.noGeo(),
+      );
+    }
     final result = await _weatherApi.fetchForecast(
-      lat,
-      lon,
+      position.latitude,
+      position.longitude,
     );
     if (result.isSuccess) {
       final data = result.data;
