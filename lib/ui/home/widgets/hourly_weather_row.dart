@@ -37,7 +37,9 @@ class HourlyWeatherRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  WeatherIconMapper.getIconPath(weather.weatherIcon),
+                  WeatherIconMapper.getIconPath(
+                    weather.weatherIcon,
+                  ),
                   width: 32,
                   height: 32,
                 ),
@@ -55,8 +57,10 @@ class HourlyWeatherRow extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  strings.temperature_format(
-                      weather.temperature.toStringAsFixed(0)),
+                  strings
+                      .temperature_format(weather.temperature.toStringAsFixed(
+                    0,
+                  )),
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 16,
