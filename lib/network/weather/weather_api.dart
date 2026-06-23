@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../../config/app_config.dart';
 import '../../main.dart';
 import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
@@ -32,6 +33,7 @@ class WeatherApi {
   ) async {
     const path = 'forecast';
     final queryParams = {
+      'appid': AppConfig.apiKey,
       'lat': lat.toString(),
       'lon': lon.toString(),
       'units': 'metric',

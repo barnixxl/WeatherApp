@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import '../config/app_config.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 
@@ -48,13 +47,9 @@ class WeatherNetwork {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      final queryParams = {
-        'appid': AppConfig.apiKey,
-        ...?queryParameters,
-      };
       final response = await _dio.get<T>(
         path,
-        queryParameters: queryParams,
+        queryParameters: queryParameters,
       );
       return WeatherResult.success(
         response.data as T,
