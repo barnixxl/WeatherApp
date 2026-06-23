@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../main.dart';
 import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
+import '../../models/weather_forecast_data.dart';
 import '../../models/weather_result.dart';
 import '../weather_network.dart';
 import 'resp/items/weather_items_from_network.dart';
@@ -25,7 +26,7 @@ class WeatherApi {
     _network = _getIt<WeatherNetwork>();
   }
 
-  Future<WeatherResult<(List<WeatherData>, String)>> fetchForecast(
+  Future<WeatherResult<WeatherForecastData>> fetchForecast(
     double lat,
     double lon,
   ) async {
@@ -52,15 +53,19 @@ class WeatherApi {
           data,
         );
         final cityName = response.city?.name ?? strings.common_unknow_city_name;
+        final latitude = response.city?.coord?.lat ?? 0.0;
+        final longitude = response.city?.coord?.lon ?? 0.0;
         final weatherList = (response.list ?? [])
             .map(
               _mapToWeatherData,
             )
             .toList();
         return WeatherResult.success(
-          (
-            weatherList,
-            cityName,
+          WeatherForecastData(
+            weatherData: weatherList,
+            cityName: cityName,
+            latitude: latitude,
+            longitude: longitude,
           ),
         );
       }

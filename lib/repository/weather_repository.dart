@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
+import '../models/forecast_result.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
@@ -30,7 +31,7 @@ class WeatherRepository extends BaseRepository {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<(List<DayWeather>, String)>> fetchForecast(
+  Future<WeatherResult<ForecastResult>> fetchForecast(
     double lat,
     double lon,
   ) async {
@@ -45,20 +46,18 @@ class WeatherRepository extends BaseRepository {
           WeatherError.noData(),
         );
       }
-      final (
-        weatherData,
-        cityName,
-      ) = data;
       final grouped = _groupByDay(
-        weatherData,
+        data.weatherData,
       );
       final resultWeather = _filterEvenHours(
         grouped,
       );
       return WeatherResult.success(
-        (
-          resultWeather,
-          cityName,
+        ForecastResult(
+          dayWeather: resultWeather,
+          cityName: data.cityName,
+          latitude: data.latitude,
+          longitude: data.longitude,
         ),
       );
     }
