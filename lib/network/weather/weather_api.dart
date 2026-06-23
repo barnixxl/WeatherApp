@@ -8,7 +8,6 @@ import '../../models/weather_forecast_data.dart';
 import '../../models/weather_result.dart';
 import '../../utils/int_extensions.dart';
 import '../weather_network.dart';
-import 'resp/items/weather_items_from_network.dart';
 import 'resp/weather_response_from_network.dart';
 
 class WeatherApi {
@@ -60,7 +59,16 @@ class WeatherApi {
         final longitude = response.city?.coord?.lon ?? 0.0;
         final weatherList = (response.list ?? [])
             .map(
-              _mapToWeatherData,
+              (e) => WeatherData(
+                dateTime: e.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
+                temperature: e.main?.temp ?? 0.0,
+                tempMin: e.main?.tempMin ?? 0.0,
+                tempMax: e.main?.tempMax ?? 0.0,
+                weatherMain: e.weather?.firstOrNull?.main ?? '',
+                weatherDescription: e.weather?.firstOrNull?.description ?? '',
+                weatherIcon: e.weather?.firstOrNull?.icon ?? '',
+                windSpeed: e.wind?.speed ?? 0.0,
+              ),
             )
             .toList();
         return WeatherResult.success(
@@ -80,20 +88,5 @@ class WeatherApi {
         WeatherError.fromException(e),
       );
     }
-  }
-
-  WeatherData _mapToWeatherData(
-    WeatherItemFromNetwork item,
-  ) {
-    return WeatherData(
-      dateTime: item.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
-      temperature: item.main?.temp ?? 0.0,
-      tempMin: item.main?.tempMin ?? 0.0,
-      tempMax: item.main?.tempMax ?? 0.0,
-      weatherMain: item.weather?.firstOrNull?.main ?? '',
-      weatherDescription: item.weather?.firstOrNull?.description ?? '',
-      weatherIcon: item.weather?.firstOrNull?.icon ?? '',
-      windSpeed: item.wind?.speed ?? 0.0,
-    );
   }
 }
