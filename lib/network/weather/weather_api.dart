@@ -6,6 +6,7 @@ import '../../models/weather_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_forecast_data.dart';
 import '../../models/weather_result.dart';
+import '../../utils/int_extensions.dart';
 import '../weather_network.dart';
 import 'resp/items/weather_items_from_network.dart';
 import 'resp/weather_response_from_network.dart';
@@ -84,14 +85,8 @@ class WeatherApi {
   WeatherData _mapToWeatherData(
     WeatherItemFromNetwork item,
   ) {
-    final dt = item.dt;
     return WeatherData(
-      dateTime: dt != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              dt * 1000,
-              isUtc: true,
-            ).toLocal()
-          : DateTime.now(),
+      dateTime: item.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
       temperature: item.main?.temp ?? 0.0,
       tempMin: item.main?.tempMin ?? 0.0,
       tempMax: item.main?.tempMax ?? 0.0,
