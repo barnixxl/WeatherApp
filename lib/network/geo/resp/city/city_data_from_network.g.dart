@@ -9,4 +9,8 @@ part of 'city_data_from_network.dart';
 CityDataFromNetwork _$CityDataFromNetworkFromJson(Map<String, dynamic> json) =>
     CityDataFromNetwork(
       name: json['name'] as String?,
+      coord: json['coord'] == null
+          ? null
+          : CoordDataFromNetwork.fromJson(
+              json['coord'] as Map<String, dynamic>),
     );
