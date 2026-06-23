@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../models/day_weather.dart';
+import '../../models/forecast_result.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../../repository/weather_repository.dart';
@@ -10,17 +11,8 @@ class HomeController {
   final WeatherRepository _repository = WeatherRepository.getInstance();
   final LocationService _locationService = LocationService.getInstance();
 
-  final Observable<WeatherResult<List<DayWeather>>> _weatherResult = Observable(
+  final Observable<WeatherResult<ForecastResult>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
-  );
-  final Observable<double> _latitude = Observable(
-    0.0,
-  );
-  final Observable<double> _longitude = Observable(
-    0.0,
-  );
-  final Observable<String> _cityName = Observable(
-    '',
   );
 
   bool get isLoading => _weatherResult.value.isLoading;
@@ -29,66 +21,38 @@ class HomeController {
 
   bool get hasSuccess => _weatherResult.value.isSuccess;
 
-  List<DayWeather> get dayWeather => _weatherResult.value.data ?? [];
+  List<DayWeather> get dayWeather =>
+      _weatherResult.value.data?.dayWeather ?? [];
 
   DateTime? get lastUpdateDate => dayWeather.firstOrNull?.date;
 
   WeatherError? get error => _weatherResult.value.error;
 
-  double get latitude => _latitude.value;
+  double get latitude => _weatherResult.value.data?.latitude ?? 0.0;
 
-  double get longitude => _longitude.value;
+  double get longitude => _weatherResult.value.data?.longitude ?? 0.0;
 
-  String get cityName => _cityName.value;
+  String get cityName => _weatherResult.value.data?.cityName ?? '';
 
   Future<void> onRefreshPressed() async {
     runInAction(() {
       _weatherResult.value = WeatherResult.loading();
     });
-    try {
-      await _loadCurrentLocation();
-    } catch (e) {
+    final position = await _locationService.getCurrentLocation();
+    if (position == null) {
       runInAction(() {
         _weatherResult.value = WeatherResult.failure(
-          WeatherError.fromException(e),
+          WeatherError.noGeo(),
         );
       });
       return;
     }
     final result = await _repository.fetchForecast(
-      _latitude.value,
-      _longitude.value,
+      position.latitude,
+      position.longitude,
     );
     runInAction(() {
-      final data = result.data;
-      if (result.isSuccess && data != null) {
-        final (
-          dayWeather,
-          cityName,
-        ) = data;
-        _weatherResult.value = WeatherResult.success(
-          dayWeather,
-        );
-        _cityName.value = cityName;
-      } else {
-        _weatherResult.value = WeatherResult.failure(
-          result.error,
-        );
-      }
+      _weatherResult.value = result;
     });
-  }
-
-  Future<void> _loadCurrentLocation() async {
-    final position = await _locationService.getCurrentLocation();
-    if (position != null) {
-      runInAction(
-        () {
-          _latitude.value = position.latitude;
-          _longitude.value = position.longitude;
-        },
-      );
-    } else {
-      throw WeatherError.noGeo();
-    }
   }
 }
