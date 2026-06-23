@@ -190,12 +190,6 @@ abstract class AppLocalizations {
   /// **'Нет данных'**
   String get error_no_data;
 
-  /// No description provided for @error_load_failed.
-  ///
-  /// In ru, this message translates to:
-  /// **'Ошибка загрузки данных'**
-  String get error_load_failed;
-
   /// No description provided for @common_unknow_city_name.
   ///
   /// In ru, this message translates to:
