@@ -45,39 +45,8 @@ class WeatherApi {
         queryParameters: queryParams,
       );
       if (result.isSuccess) {
-        final data = result.data;
-        if (data == null) {
-          return WeatherResult.failure(
-            WeatherError.noData(),
-          );
-        }
-        final response = WeatherResponseFromNetwork.fromJson(
-          data,
-        );
-        final cityName = response.city?.name ?? strings.common_unknow_city_name;
-        final latitude = response.city?.coord?.lat ?? 0.0;
-        final longitude = response.city?.coord?.lon ?? 0.0;
-        final weatherList = (response.list ?? [])
-            .map(
-              (e) => WeatherData(
-                dateTime: e.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
-                temperature: e.main?.temp ?? 0.0,
-                tempMin: e.main?.tempMin ?? 0.0,
-                tempMax: e.main?.tempMax ?? 0.0,
-                weatherMain: e.weather?.firstOrNull?.main ?? '',
-                weatherDescription: e.weather?.firstOrNull?.description ?? '',
-                weatherIcon: e.weather?.firstOrNull?.icon ?? '',
-                windSpeed: e.wind?.speed ?? 0.0,
-              ),
-            )
-            .toList();
-        return WeatherResult.success(
-          WeatherForecastData(
-            weatherData: weatherList,
-            cityName: cityName,
-            latitude: latitude,
-            longitude: longitude,
-          ),
+        return _parseForecastResponse(
+          result.data,
         );
       }
       return WeatherResult.failure(
@@ -88,5 +57,39 @@ class WeatherApi {
         WeatherError.fromException(e),
       );
     }
+  }
+
+  WeatherResult<WeatherForecastData> _parseForecastResponse(
+    Map<String, dynamic>? data,
+  ) {
+    if (data != null) {
+      final response = WeatherResponseFromNetwork.fromJson(
+        data,
+      );
+      return WeatherResult.success(
+        WeatherForecastData(
+          weatherData: (response.list ?? [])
+              .map(
+                (e) => WeatherData(
+                  dateTime: e.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
+                  temperature: e.main?.temp ?? 0.0,
+                  tempMin: e.main?.tempMin ?? 0.0,
+                  tempMax: e.main?.tempMax ?? 0.0,
+                  weatherMain: e.weather?.firstOrNull?.main ?? '',
+                  weatherDescription: e.weather?.firstOrNull?.description ?? '',
+                  weatherIcon: e.weather?.firstOrNull?.icon ?? '',
+                  windSpeed: e.wind?.speed ?? 0.0,
+                ),
+              )
+              .toList(),
+          cityName: response.city?.name ?? strings.common_unknow_city_name,
+          latitude: response.city?.coord?.lat ?? 0.0,
+          longitude: response.city?.coord?.lon ?? 0.0,
+        ),
+      );
+    }
+    return WeatherResult.failure(
+      WeatherError.noData(),
+    );
   }
 }

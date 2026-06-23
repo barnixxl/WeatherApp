@@ -51,8 +51,14 @@ class WeatherNetwork {
         path,
         queryParameters: queryParameters,
       );
-      return WeatherResult.success(
-        response.data as T,
+      final data = response.data;
+      if (data != null) {
+        return WeatherResult.success(
+          data,
+        );
+      }
+      return WeatherResult.failure(
+        WeatherError.noData(),
       );
     } on DioException catch (e) {
       return WeatherResult.failure(

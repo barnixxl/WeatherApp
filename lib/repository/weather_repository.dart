@@ -41,24 +41,30 @@ class WeatherRepository extends BaseRepository {
     );
     if (result.isSuccess) {
       final data = result.data;
-      if (data == null) {
-        return WeatherResult.failure(
-          WeatherError.noData(),
+      if (data != null) {
+        final grouped = _groupByDay(
+          data.weatherData,
+        );
+        final dayWeather = grouped.entries
+            .map((e) => _createDayWeather(
+                  e.key,
+                  e.value,
+                ))
+            .toList();
+        final resultWeather = _filterEvenHours(
+          dayWeather,
+        );
+        return WeatherResult.success(
+          ForecastResult(
+            dayWeather: resultWeather,
+            cityName: data.cityName,
+            latitude: data.latitude,
+            longitude: data.longitude,
+          ),
         );
       }
-      final grouped = _groupByDay(
-        data.weatherData,
-      );
-      final resultWeather = _filterEvenHours(
-        grouped,
-      );
-      return WeatherResult.success(
-        ForecastResult(
-          dayWeather: resultWeather,
-          cityName: data.cityName,
-          latitude: data.latitude,
-          longitude: data.longitude,
-        ),
+      return WeatherResult.failure(
+        WeatherError.noData(),
       );
     }
     return WeatherResult.failure(
@@ -66,7 +72,7 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  List<DayWeather> _groupByDay(
+  Map<String, List<WeatherData>> _groupByDay(
     List<WeatherData> weatherList,
   ) {
     final Map<String, List<WeatherData>> grouped = {};
@@ -83,34 +89,24 @@ class WeatherRepository extends BaseRepository {
             weather,
           );
     }
-    return grouped.entries.map(
-      (
-        entry,
-      ) {
-        final temps = entry.value.map(
-          (e) => e.temperature,
-        );
-        final dayMinTemp = temps.isEmpty
-            ? 0.0
-            : temps.reduce(
-                (a, b) => a < b ? a : b,
-              );
-        final dayMaxTemp = temps.isEmpty
-            ? 0.0
-            : temps.reduce(
-                (a, b) => a > b ? a : b,
-              );
-        final date = DateTime.parse(
-          entry.key,
-        );
-        return DayWeather(
-          date: date,
-          hourlyData: entry.value,
-          dayMinTemp: dayMinTemp,
-          dayMaxTemp: dayMaxTemp,
-        );
-      },
-    ).toList();
+    return grouped;
+  }
+
+  DayWeather _createDayWeather(
+    String dateKey,
+    List<WeatherData> hourlyData,
+  ) {
+    final temps = hourlyData.map(
+      (e) => e.temperature,
+    );
+    return DayWeather(
+      date: DateTime.parse(
+        dateKey,
+      ),
+      hourlyData: hourlyData,
+      dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a < b ? a : b),
+      dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a > b ? a : b),
+    );
   }
 
   String _getDateKey(
