@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
-import '../../../resources/images/weather_state/weather_state_images.dart';
+import '../../../resources/images/weather_state/weather_icon_mapper.dart';
 import '../../../utils/date_formatter.dart';
 
 class HourlyWeatherRow extends StatelessWidget {
@@ -36,8 +36,8 @@ class HourlyWeatherRow extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppIcons.icon(
-                  weather.weatherIcon,
+                Image.asset(
+                  WeatherIconMapper.getIconPath(weather.weatherIcon),
                   width: 32,
                   height: 32,
                 ),
