@@ -14,7 +14,6 @@ import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
-
   late final WeatherApi _weatherApi;
   late final LocationService _locationService;
 
