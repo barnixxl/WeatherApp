@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../geo/resp/city/city_data_from_network.dart';
+import 'city/city_data_from_network.dart';
 import 'items/weather_items_from_network.dart';
 
 part 'weather_response_from_network.g.dart';
