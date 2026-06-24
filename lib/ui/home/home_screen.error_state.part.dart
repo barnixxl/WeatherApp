@@ -12,10 +12,10 @@ Widget _buildErrorWidget({
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            Icons.error_outline,
-            size: 64,
-            color: AppColors.error,
+          Image.asset(
+            MapImages.errorOutline,
+            width: 64,
+            height: 64,
           ),
           const SizedBox(
             height: 16,

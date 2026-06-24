@@ -6,4 +6,3 @@ class AppConfig {
   static const mapTileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const mapUserAgent = 'com.example.weather_app';
 }
-

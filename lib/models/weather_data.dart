@@ -27,7 +27,7 @@ class WeatherData {
       ' tempMax: $tempMax,'
       ' weatherMain: $weatherMain,'
       ' weatherDescription: $weatherDescription,'
-      ' weatherIcon: $weatherImage,'
+      ' weatherImage: $weatherImage,'
       ' windSpeed: $windSpeed,'
       ')';
 }

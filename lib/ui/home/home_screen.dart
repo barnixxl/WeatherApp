@@ -5,6 +5,7 @@ import '../../main.dart';
 import '../../models/day_weather.dart';
 import '../../models/weather_error.dart';
 import '../../resources/colors/app_colors.dart';
+import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
 import 'home_controller.dart';
 import 'widgets/day_weather_item.dart';
