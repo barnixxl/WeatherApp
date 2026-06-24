@@ -38,7 +38,7 @@ class HourlyWeatherRow extends StatelessWidget {
               children: [
                 Image.asset(
                   WeatherImageMapper.getImagePath(
-                    weather.weatherImage,
+                    weather.weatherImageCode,
                   ),
                   width: 32,
                   height: 32,

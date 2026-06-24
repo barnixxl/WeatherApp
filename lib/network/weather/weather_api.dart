@@ -77,7 +77,7 @@ class WeatherApi {
                   tempMax: e.main?.tempMax ?? 0.0,
                   weatherMain: e.weather?.firstOrNull?.main ?? '',
                   weatherDescription: e.weather?.firstOrNull?.description ?? '',
-                  weatherImage: e.weather?.firstOrNull?.icon ?? '',
+                  weatherImageCode: e.weather?.firstOrNull?.icon ?? '',
                   windSpeed: e.wind?.speed ?? 0.0,
                 ),
               )

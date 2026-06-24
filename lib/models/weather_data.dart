@@ -5,7 +5,7 @@ class WeatherData {
   final double tempMax;
   final String weatherMain;
   final String weatherDescription;
-  final String weatherImage;
+  final String weatherImageCode;
   final double windSpeed;
 
   const WeatherData({
@@ -15,7 +15,7 @@ class WeatherData {
     required this.tempMax,
     required this.weatherMain,
     required this.weatherDescription,
-    required this.weatherImage,
+    required this.weatherImageCode,
     required this.windSpeed,
   });
 
@@ -27,7 +27,7 @@ class WeatherData {
       ' tempMax: $tempMax,'
       ' weatherMain: $weatherMain,'
       ' weatherDescription: $weatherDescription,'
-      ' weatherImage: $weatherImage,'
+      ' weatherImage: $weatherImageCode,'
       ' windSpeed: $windSpeed,'
       ')';
 }
