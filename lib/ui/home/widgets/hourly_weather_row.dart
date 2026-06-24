@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../models/weather_data.dart';
 import '../../../resources/colors/app_colors.dart';
-import '../../../resources/images/weather_state/weather_image_mapper.dart';
+import '../../../resources/images/weather_state_images/weather_image_mapper.dart';
 import '../../../utils/date_formatter.dart';
 
 class HourlyWeatherRow extends StatelessWidget {
