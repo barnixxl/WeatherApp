@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../config/app_config.dart';
 import '../../../main.dart';
 import '../../../resources/colors/app_colors.dart';
+import '../../../resources/images/map_images/map_images.dart';
 
 class WeatherMapWidget extends StatelessWidget {
   final double latitude;
@@ -57,10 +58,10 @@ class WeatherMapWidget extends StatelessWidget {
               color: AppColors.primaryDark,
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: AppColors.onPrimary,
-                    size: 20,
+                  Image.asset(
+                    MapImages.locationOn,
+                    width: 20,
+                    height: 20,
                   ),
                   const SizedBox(
                     width: 8,
@@ -99,10 +100,10 @@ class WeatherMapWidget extends StatelessWidget {
                         ),
                         width: 40,
                         height: 40,
-                        child: const Icon(
-                          Icons.location_pin,
-                          color: AppColors.error,
-                          size: 40,
+                        child: Image.asset(
+                          MapImages.locationPin,
+                          width: 40,
+                          height: 40,
                         ),
                       ),
                     ],

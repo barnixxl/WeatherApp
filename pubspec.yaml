@@ -51,4 +51,5 @@ flutter:
 
   assets:
     - assets/images/weather_state_images/
+    - assets/images/map_images/
     - .env
