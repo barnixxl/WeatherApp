@@ -8,8 +8,8 @@ import '../../resources/colors/app_colors.dart';
 import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
 import 'home_controller.dart';
-import 'widgets/day_weather_item.dart';
-import 'widgets/weather_map_widget.dart';
+import 'widgets/map_widgets/weather_map_widget.dart';
+import 'widgets/weather_widgets/day_weather_item.dart';
 
 part 'home_screen.app_bar_state.part.dart';
 
