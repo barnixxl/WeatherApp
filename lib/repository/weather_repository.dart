@@ -36,45 +36,45 @@ class WeatherRepository extends BaseRepository {
 
   Future<WeatherResult<ForecastResult>> fetchForecast() async {
     final position = await _locationService.getCurrentLocation();
-    if (position == null) {
-      return WeatherResult.failure(
-        WeatherError.noGeo(),
+    if (position != null) {
+      final result = await _weatherApi.fetchForecast(
+        position.latitude,
+        position.longitude,
       );
-    }
-    final result = await _weatherApi.fetchForecast(
-      position.latitude,
-      position.longitude,
-    );
-    if (result.isSuccess) {
-      final data = result.data;
-      if (data != null) {
-        final grouped = _groupByDay(
-          data.weatherData,
-        );
-        final dayWeather = grouped.entries
-            .map((e) => _createDayWeather(
-                  e.key,
-                  e.value,
-                ))
-            .toList();
-        final resultWeather = _filterEvenHours(
-          dayWeather,
-        );
-        return WeatherResult.success(
-          ForecastResult(
-            dayWeather: resultWeather,
-            cityName: data.cityName,
-            latitude: data.latitude,
-            longitude: data.longitude,
-          ),
+      if (result.isSuccess) {
+        final data = result.data;
+        if (data != null) {
+          final grouped = _groupByDay(
+            data.weatherData,
+          );
+          final dayWeather = grouped.entries
+              .map((e) => _createDayWeather(
+                    e.key,
+                    e.value,
+                  ))
+              .toList();
+          final resultWeather = _filterEvenHours(
+            dayWeather,
+          );
+          return WeatherResult.success(
+            ForecastResult(
+              dayWeather: resultWeather,
+              cityName: data.cityName,
+              latitude: data.latitude,
+              longitude: data.longitude,
+            ),
+          );
+        }
+        return WeatherResult.failure(
+          WeatherError.noData(),
         );
       }
       return WeatherResult.failure(
-        WeatherError.noData(),
+        result.error,
       );
     }
     return WeatherResult.failure(
-      result.error,
+      WeatherError.noGeo(),
     );
   }
 
