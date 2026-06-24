@@ -1,8 +1,10 @@
-class WeatherIconMapper {
+class WeatherImageMapper {
   static const _basePath = 'assets/images/weather_state_images';
 
-  static String getIconPath(String iconCode) {
-    switch (iconCode) {
+  static String getImagePath(
+      String imageCode,
+      ) {
+    switch (imageCode) {
       case '01d':
         return '$_basePath/sun.png';
       case '01n':
