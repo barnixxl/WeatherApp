@@ -14,19 +14,17 @@ Widget _buildSuccessWidget({
       context,
       index,
     ) {
-      if (index == dayWeather.length) {
-        return WeatherMapWidget(
-          latitude: latitude,
-          longitude: longitude,
-        );
-      }
-      final item = dayWeather[index];
-      return DayWeatherItem(
-        date: item.date,
-        dayMinTemp: item.dayMinTemp,
-        dayMaxTemp: item.dayMaxTemp,
-        hourlyData: item.hourlyData,
-      );
+      return index == dayWeather.length
+          ? WeatherMapWidget(
+              latitude: latitude,
+              longitude: longitude,
+            )
+          : DayWeatherItem(
+              date: dayWeather[index].date,
+              dayMinTemp: dayWeather[index].dayMinTemp,
+              dayMaxTemp: dayWeather[index].dayMaxTemp,
+              hourlyData: dayWeather[index].hourlyData,
+            );
     },
   );
 }
