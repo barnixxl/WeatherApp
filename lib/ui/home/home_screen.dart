@@ -11,8 +11,11 @@ import 'widgets/day_weather_item.dart';
 import 'widgets/weather_map_widget.dart';
 
 part 'home_screen.app_bar_state.part.dart';
+
 part 'home_screen.error_state.part.dart';
+
 part 'home_screen.load_state.part.dart';
+
 part 'home_screen.success_state.part.dart';
 
 class HomeScreen extends StatefulWidget {
