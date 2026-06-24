@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../main.dart';
-import '../../models/day_weather.dart';
 import '../../models/weather_error.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
 import 'home_controller.dart';
 import 'widgets/map_widgets/weather_map_widget.dart';
-import 'widgets/weather_widgets/day_weather_item.dart';
+import 'widgets/weather_widgets/day_weather_item_widget.dart';
 
 part 'home_screen.app_bar_state.part.dart';
 
@@ -84,9 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Visibility(
                   visible: homeController.hasSuccess,
                   child: _buildSuccessWidget(
-                    dayWeather: homeController.dayWeather,
-                    latitude: homeController.latitude,
-                    longitude: homeController.longitude,
+                    children: [
+                      for (final item in homeController.dayWeather)
+                        DayWeatherItem(
+                          date: item.date,
+                          dayMinTemp: item.dayMinTemp,
+                          dayMaxTemp: item.dayMaxTemp,
+                          hourlyData: item.hourlyData,
+                        ),
+                      WeatherMapWidget(
+                        latitude: homeController.latitude,
+                        longitude: homeController.longitude,
+                      ),
+                    ],
                   ),
                 );
               },
