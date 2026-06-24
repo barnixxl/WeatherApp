@@ -52,43 +52,58 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-      body: RefreshIndicator(
-        onRefresh: _onRefreshPressed,
-        child: Stack(
-          children: [
-            Observer(
-              builder: (_) {
-                return Visibility(
-                  visible: homeController.isLoading,
-                  child: _buildLoadingWidget(),
-                );
-              },
-            ),
-            Observer(
-              builder: (_) {
-                return Visibility(
-                  visible: homeController.hasError,
-                  child: _buildErrorWidget(
-                    error: homeController.error,
-                    onRetryPressed: _onRefreshPressed,
+      body: Column(
+        children: [
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _onRefreshPressed,
+              child: Stack(
+                children: [
+                  Observer(
+                    builder: (_) {
+                      return Visibility(
+                        visible: homeController.isLoading,
+                        child: _buildLoadingWidget(),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-            Observer(
-              builder: (_) {
-                return Visibility(
-                  visible: homeController.hasSuccess,
-                  child: _buildSuccessWidget(
-                    dayWeather: homeController.dayWeather,
-                    latitude: homeController.latitude,
-                    longitude: homeController.longitude,
+                  Observer(
+                    builder: (_) {
+                      return Visibility(
+                        visible: homeController.hasError,
+                        child: _buildErrorWidget(
+                          error: homeController.error,
+                          onRetryPressed: _onRefreshPressed,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                  Observer(
+                    builder: (_) {
+                      return Visibility(
+                        visible: homeController.hasSuccess,
+                        child: _buildSuccessWidget(
+                          dayWeather: homeController.dayWeather,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+          Observer(
+            builder: (_) {
+              return Visibility(
+                visible: homeController.hasSuccess,
+                child: WeatherMapWidget(
+                  latitude: homeController.latitude,
+                  longitude: homeController.longitude,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
