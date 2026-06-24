@@ -41,40 +41,47 @@ class WeatherRepository extends BaseRepository {
         position.latitude,
         position.longitude,
       );
-      if (result.isSuccess) {
-        final data = result.data;
-        if (data != null) {
-          final grouped = _groupByDay(
-            data.weatherData,
-          );
-          final dayWeather = grouped.entries
-              .map((e) => _createDayWeather(
-                    e.key,
-                    e.value,
-                  ))
-              .toList();
-          final resultWeather = _filterEvenHours(
-            dayWeather,
-          );
-          return WeatherResult.success(
-            ForecastResult(
-              dayWeather: resultWeather,
-              cityName: data.cityName,
-              latitude: data.latitude,
-              longitude: data.longitude,
-            ),
-          );
-        }
-        return WeatherResult.failure(
-          WeatherError.noData(),
-        );
-      }
-      return WeatherResult.failure(
-        result.error,
-      );
+      return result.isSuccess
+          ? _processForecastResult(
+              result,
+            )
+          : WeatherResult.failure(
+              result.error,
+            );
     }
     return WeatherResult.failure(
       WeatherError.noGeo(),
+    );
+  }
+
+  WeatherResult<ForecastResult> _processForecastResult(
+    WeatherResult<WeatherForecastData> result,
+  ) {
+    final data = result.data;
+    if (data != null) {
+      final grouped = _groupByDay(
+        data.weatherData,
+      );
+      final dayWeather = grouped.entries
+          .map((e) => _createDayWeather(
+                e.key,
+                e.value,
+              ))
+          .toList();
+      final resultWeather = _filterEvenHours(
+        dayWeather,
+      );
+      return WeatherResult.success(
+        ForecastResult(
+          dayWeather: resultWeather,
+          cityName: data.cityName,
+          latitude: data.latitude,
+          longitude: data.longitude,
+        ),
+      );
+    }
+    return WeatherResult.failure(
+      WeatherError.noData(),
     );
   }
 
