@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../resources/colors/app_colors.dart';
 import 'map_header_widget.dart';
-import 'weather_map_view.dart';
+import 'weather_map_view_widget.dart';
 
 class WeatherMapWidget extends StatelessWidget {
   final double latitude;
