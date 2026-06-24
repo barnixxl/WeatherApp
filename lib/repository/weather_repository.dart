@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
 import '../models/forecast_result.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
+import '../models/weather_forecast_data.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
 import '../utils/location_service.dart';
@@ -117,8 +120,8 @@ class WeatherRepository extends BaseRepository {
         dateKey,
       ),
       hourlyData: hourlyData,
-      dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a < b ? a : b),
-      dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a > b ? a : b),
+      dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce(min),
+      dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce(max),
     );
   }
 
