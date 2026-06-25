@@ -45,12 +45,12 @@ class WeatherRepository extends BaseRepository {
         result.error,
       );
     }
-    return _processForecastData(
+    return _groupAndFilterForecast(
       result.data,
     );
   }
 
-  WeatherResult<ForecastResult> _processForecastData(
+  WeatherResult<ForecastResult> _groupAndFilterForecast(
     WeatherForecastData? data,
   ) {
     if (data == null) {
