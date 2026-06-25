@@ -11,5 +11,4 @@ MainDataFromNetwork _$MainDataFromNetworkFromJson(Map<String, dynamic> json) =>
       temp: (json['temp'] as num?)?.toDouble(),
       tempMin: (json['temp_min'] as num?)?.toDouble(),
       tempMax: (json['temp_max'] as num?)?.toDouble(),
-      humidity: (json['humidity'] as num?)?.toInt(),
     );

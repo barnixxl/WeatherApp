@@ -12,14 +12,10 @@ class MainDataFromNetwork {
   final double? tempMin;
   @JsonKey(name: 'temp_max')
   final double? tempMax;
-  @JsonKey(name: 'humidity')
-  final int? humidity;
-
   MainDataFromNetwork({
     this.temp,
     this.tempMin,
     this.tempMax,
-    this.humidity,
   });
 
   factory MainDataFromNetwork.fromJson(Map<String, dynamic> json) =>
@@ -29,9 +25,8 @@ class MainDataFromNetwork {
 
   @override
   String toString() => 'MainDataFromNetwork('
-      'temp: $temp,'
-      'tempMin: $tempMin,'
-      'tempMax: $tempMax,'
-      'humidity: $humidity,'
+      'temp: $temp, '
+      'tempMin: $tempMin, '
+      'tempMax: $tempMax'
       ')';
 }
