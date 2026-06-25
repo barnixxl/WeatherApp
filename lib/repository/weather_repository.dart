@@ -1,21 +1,17 @@
-import 'dart:math';
-
 import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
 import '../models/forecast_result.dart';
 import '../models/weather_data.dart';
 import '../models/weather_error.dart';
-import '../models/weather_forecast_data.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
-import '../utils/location_service.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
+
   late final WeatherApi _weatherApi;
-  late final LocationService _locationService;
 
   @override
   void register(
@@ -29,38 +25,27 @@ class WeatherRepository extends BaseRepository {
   @override
   Future<void> initializeDependencies() async {
     _weatherApi = _getIt<WeatherApi>();
-    _locationService = _getIt<LocationService>();
   }
 
   static WeatherRepository getInstance() {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<ForecastResult>> fetchForecast() async {
-    final position = await _locationService.getCurrentLocation();
-    if (position != null) {
-      final result = await _weatherApi.fetchForecast(
-        position.latitude,
-        position.longitude,
-      );
-      return result.isSuccess
-          ? _processForecastResult(
-              result,
-            )
-          : WeatherResult.failure(
-              result.error,
-            );
-    }
-    return WeatherResult.failure(
-      WeatherError.noGeo(),
+  Future<WeatherResult<ForecastResult>> fetchForecast(
+    double lat,
+    double lon,
+  ) async {
+    final result = await _weatherApi.fetchForecast(
+      lat,
+      lon,
     );
-  }
-
-  WeatherResult<ForecastResult> _processForecastResult(
-    WeatherResult<WeatherForecastData> result,
-  ) {
-    final data = result.data;
-    if (data != null) {
+    if (result.isSuccess) {
+      final data = result.data;
+      if (data == null) {
+        return WeatherResult.failure(
+          WeatherError.noData(),
+        );
+      }
       final grouped = _groupByDay(
         data.weatherData,
       );
@@ -83,7 +68,7 @@ class WeatherRepository extends BaseRepository {
       );
     }
     return WeatherResult.failure(
-      WeatherError.noData(),
+      result.error,
     );
   }
 
@@ -119,8 +104,8 @@ class WeatherRepository extends BaseRepository {
         dateKey,
       ),
       hourlyData: hourlyData,
-      dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce(min),
-      dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce(max),
+      dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a < b ? a : b),
+      dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a > b ? a : b),
     );
   }
 
