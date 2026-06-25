@@ -64,6 +64,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_no_data => 'Нет данных';
 
   @override
+  String get error_load_failed => 'Ошибка загрузки данных';
+
+  @override
   String get common_unknow_city_name => 'Неизвестное название города';
 
   @override
