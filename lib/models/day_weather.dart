@@ -17,5 +17,7 @@ class DayWeather {
   String toString() => 'DayWeather('
       'date: $date,'
       ' hourlyData: $hourlyData,'
+      ' dayMinTemp: $dayMinTemp,'
+      ' dayMaxTemp: $dayMaxTemp,'
       ')';
 }
