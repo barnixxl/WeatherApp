@@ -121,9 +121,13 @@ class WeatherRepository extends BaseRepository {
     List<DayWeather> dayWeatherList,
   ) {
     return dayWeatherList.map(
-      (dayWeather) {
+      (
+        dayWeather,
+      ) {
         final filtered = dayWeather.hourlyData.where(
-          (weather) {
+          (
+            weather,
+          ) {
             final hour = weather.dateTime.hour;
             return hour % 2 == 0;
           },
