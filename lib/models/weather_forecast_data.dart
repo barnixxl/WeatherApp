@@ -1,3 +1,5 @@
+import '../main.dart';
+import '../network/weather/resp/weather_response_from_network.dart';
 import 'weather_data.dart';
 
 class WeatherForecastData {
@@ -13,11 +15,16 @@ class WeatherForecastData {
     required this.longitude,
   });
 
-  @override
-  String toString() => 'WeatherForecastData('
-      'weatherData: $weatherData,'
-      ' cityName: $cityName,'
-      ' latitude: $latitude,'
-      ' longitude: $longitude,'
-      ')';
+  static WeatherForecastData fromNetworkModel(
+    WeatherResponseFromNetwork response,
+  ) {
+    return WeatherForecastData(
+      weatherData: (response.list ?? [])
+          .map((e) => WeatherData.fromNetworkModel(e))
+          .toList(),
+      cityName: response.city?.name ?? strings.common_unknow_city_name,
+      latitude: response.city?.coord?.lat ?? 0.0,
+      longitude: response.city?.coord?.lon ?? 0.0,
+    );
+  }
 }

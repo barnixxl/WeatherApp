@@ -30,13 +30,6 @@ class WeatherResult<T> {
   bool get isLoading => status == Status.loading;
 
   bool get isError => status == Status.failure;
-
-  @override
-  String toString() => 'WeatherResult('
-      'status: $status,'
-      ' data: $data,'
-      ' error: $error,'
-      ')';
 }
 
 enum Status {

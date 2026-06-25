@@ -12,12 +12,4 @@ class DayWeather {
     required this.dayMinTemp,
     required this.dayMaxTemp,
   });
-
-  @override
-  String toString() => 'DayWeather('
-      'date: $date,'
-      ' hourlyData: $hourlyData,'
-      ' dayMinTemp: $dayMinTemp,'
-      ' dayMaxTemp: $dayMaxTemp,'
-      ')';
 }

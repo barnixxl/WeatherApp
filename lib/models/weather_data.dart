@@ -1,3 +1,6 @@
+import '../network/weather/resp/items/weather_items_from_network.dart';
+import '../utils/int_extensions.dart';
+
 class WeatherData {
   final DateTime dateTime;
   final double temperature;
@@ -19,15 +22,18 @@ class WeatherData {
     required this.windSpeed,
   });
 
-  @override
-  String toString() => 'WeatherData('
-      'dateTime: $dateTime,'
-      ' temperature: $temperature,'
-      ' tempMin: $tempMin,'
-      ' tempMax: $tempMax,'
-      ' weatherMain: $weatherMain,'
-      ' weatherDescription: $weatherDescription,'
-      ' weatherImageCode: $weatherImageCode,'
-      ' windSpeed: $windSpeed,'
-      ')';
+  static WeatherData fromNetworkModel(
+    WeatherItemFromNetwork item,
+  ) {
+    return WeatherData(
+      dateTime: item.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
+      temperature: item.main?.temp ?? 0.0,
+      tempMin: item.main?.tempMin ?? 0.0,
+      tempMax: item.main?.tempMax ?? 0.0,
+      weatherMain: item.weather?.firstOrNull?.main ?? '',
+      weatherDescription: item.weather?.firstOrNull?.description ?? '',
+      weatherImageCode: item.weather?.firstOrNull?.icon ?? '',
+      windSpeed: item.wind?.speed ?? 0.0,
+    );
+  }
 }

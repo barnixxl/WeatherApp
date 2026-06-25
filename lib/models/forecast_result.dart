@@ -12,12 +12,4 @@ class ForecastResult {
     required this.latitude,
     required this.longitude,
   });
-
-  @override
-  String toString() => 'ForecastResult('
-      'dayWeather: $dayWeather,'
-      ' cityName: $cityName,'
-      ' latitude: $latitude,'
-      ' longitude: $longitude,'
-      ')';
 }
