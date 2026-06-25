@@ -44,14 +44,15 @@ class WeatherApi {
         path,
         queryParameters: queryParams,
       );
-      if (result.isSuccess) {
+      if (result.error == null) {
         return _parseForecastResponse(
           result.data,
         );
+      } else {
+        return WeatherResult.failure(
+          result.error,
+        );
       }
-      return WeatherResult.failure(
-        result.error,
-      );
     } catch (e) {
       return WeatherResult.failure(
         WeatherError.fromException(e),

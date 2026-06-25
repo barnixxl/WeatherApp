@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../models/day_weather.dart';
 import '../models/forecast_result.dart';
 import '../models/weather_data.dart';
+import '../models/weather_forecast_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
@@ -39,50 +40,59 @@ class WeatherRepository extends BaseRepository {
       lat,
       lon,
     );
-    if (result.isSuccess) {
-      final data = result.data;
-      if (data == null) {
-        return WeatherResult.failure(
-          WeatherError.noData(),
-        );
-      }
-      final grouped = _groupByDay(
-        data.weatherData,
-      );
-      final dayWeather = grouped.entries
-          .map((e) => _createDayWeather(
-                e.key,
-                e.value,
-              ))
-          .toList();
-      final resultWeather = _filterEvenHours(
-        dayWeather,
-      );
-      return WeatherResult.success(
-        ForecastResult(
-          dayWeather: resultWeather,
-          cityName: data.cityName,
-          latitude: data.latitude,
-          longitude: data.longitude,
-        ),
+    if (result.isError) {
+      return WeatherResult.failure(
+        result.error,
       );
     }
-    return WeatherResult.failure(
-      result.error,
+    return _processForecastData(
+      result.data,
     );
   }
 
-  Map<String, List<WeatherData>> _groupByDay(
+  WeatherResult<ForecastResult> _processForecastData(
+    WeatherForecastData? data,
+  ) {
+    if (data == null) {
+      return WeatherResult.failure(
+        WeatherError.noData(),
+      );
+    }
+    final grouped = _groupByDay(
+      data.weatherData,
+    );
+    final dayWeather = grouped.entries
+        .map((e) => _createDayWeather(
+              e.key,
+              e.value,
+            ))
+        .toList();
+    final resultWeather = _filterEvenHours(
+      dayWeather,
+    );
+    return WeatherResult.success(
+      ForecastResult(
+        dayWeather: resultWeather,
+        cityName: data.cityName,
+        latitude: data.latitude,
+        longitude: data.longitude,
+      ),
+    );
+  }
+
+  Map<DateTime, List<WeatherData>> _groupByDay(
     List<WeatherData> weatherList,
   ) {
-    final Map<String, List<WeatherData>> grouped = {};
+    final Map<DateTime, List<WeatherData>> grouped = {};
     for (final weather in weatherList) {
-      final dateKey = _getDateKey(
-        weather.dateTime,
+      final date = DateTime(
+        weather.dateTime.year,
+        weather.dateTime.month,
+        weather.dateTime.day,
       );
       grouped
           .putIfAbsent(
-            dateKey,
+            date,
             () => [],
           )
           .add(
@@ -93,32 +103,18 @@ class WeatherRepository extends BaseRepository {
   }
 
   DayWeather _createDayWeather(
-    String dateKey,
+    DateTime date,
     List<WeatherData> hourlyData,
   ) {
     final temps = hourlyData.map(
       (e) => e.temperature,
     );
     return DayWeather(
-      date: DateTime.parse(
-        dateKey,
-      ),
+      date: date,
       hourlyData: hourlyData,
       dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a < b ? a : b),
       dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a > b ? a : b),
     );
-  }
-
-  String _getDateKey(
-    DateTime dateTime,
-  ) {
-    return '${dateTime.year}-${dateTime.month.toString().padLeft(
-          2,
-          '0',
-        )}-${dateTime.day.toString().padLeft(
-          2,
-          '0',
-        )}';
   }
 
   List<DayWeather> _filterEvenHours(
