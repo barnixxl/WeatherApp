@@ -55,7 +55,7 @@ class WeatherRepository extends BaseRepository {
   ) {
     if (data == null) {
       return WeatherResult.failure(
-        WeatherError.noData(),
+        WeatherError.loadFailed(),
       );
     }
     final grouped = _groupByDay(

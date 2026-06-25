@@ -58,7 +58,7 @@ class WeatherNetwork {
         );
       }
       return WeatherResult.failure(
-        WeatherError.noData(),
+        WeatherError.loadFailed(),
       );
     } on DioException catch (e) {
       return WeatherResult.failure(

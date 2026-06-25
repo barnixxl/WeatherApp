@@ -55,7 +55,7 @@ class WeatherApi {
         }
       }
       return WeatherResult.failure(
-        result.error ?? WeatherError.noData(),
+        result.error ?? WeatherError.loadFailed(),
       );
     } catch (e) {
       return WeatherResult.failure(
