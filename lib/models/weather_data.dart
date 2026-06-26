@@ -26,7 +26,7 @@ class WeatherData {
     WeatherItemFromNetwork item,
   ) {
     return WeatherData(
-      dateTime: item.dt.toDateTimeFromUnixSeconds() ?? DateTime.now(),
+      dateTime: item.dt?.toDateTimeFromUnixSeconds() ?? DateTime.now(),
       temperature: item.main?.temp ?? 0.0,
       tempMin: item.main?.tempMin ?? 0.0,
       tempMax: item.main?.tempMax ?? 0.0,
