@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../config/app_config.dart';
+import '../../main.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_forecast_data.dart';
 import '../../models/weather_result.dart';
@@ -28,42 +29,50 @@ class WeatherApi {
     double lat,
     double lon,
   ) async {
-    const path = 'forecast';
-    final queryParams = {
-      'appid': AppConfig.apiKey,
-      'lat': lat.toString(),
-      'lon': lon.toString(),
-      'units': 'metric',
-      'lang': 'ru',
-    };
-    try {
-      final result = await _network.get<Map<String, dynamic>>(
-        path,
-        queryParameters: queryParams,
-      );
-      if (result.error == null) {
-        final data = result.data;
-        if (data != null) {
-          final response = WeatherResponseFromNetwork.fromJson(
-            data,
-          );
-          return WeatherResult.success(
-            WeatherForecastData.fromNetworkModel(
-              response,
-            ),
+    final apiKey = AppConfig.apiKey;
+    if (apiKey != null) {
+      const path = 'forecast';
+      final queryParams = {
+        'appid': apiKey,
+        'lat': lat.toString(),
+        'lon': lon.toString(),
+        'units': 'metric',
+        'lang': 'ru',
+      };
+      try {
+        final result = await _network.get<Map<String, dynamic>>(
+          path,
+          queryParameters: queryParams,
+        );
+        if (result.error == null) {
+          final data = result.data;
+          if (data != null) {
+            final response = WeatherResponseFromNetwork.fromJson(
+              data,
+            );
+            return WeatherResult.success(
+              WeatherForecastData.fromNetworkModel(
+                response,
+              ),
+            );
+          }
+          return WeatherResult.failure(
+            WeatherError.loadFailed(),
           );
         }
         return WeatherResult.failure(
-          WeatherError.loadFailed(),
+          result.error,
+        );
+      } catch (e) {
+        return WeatherResult.failure(
+          WeatherError.fromException(e),
         );
       }
-      return WeatherResult.failure(
-        result.error,
-      );
-    } catch (e) {
-      return WeatherResult.failure(
-        WeatherError.fromException(e),
-      );
     }
+    return WeatherResult.failure(
+      WeatherError.configError(
+        strings.error_config,
+      ),
+    );
   }
 }
