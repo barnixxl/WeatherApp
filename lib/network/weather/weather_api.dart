@@ -73,19 +73,19 @@ class WeatherApi {
   WeatherResult<WeatherForecastData> _processNetworkResult(
     WeatherResult<Map<String, dynamic>> result,
   ) {
-    if (result.error != null) {
+    if (result.error == null) {
+      final data = result.data;
+      if (data != null) {
+        return _parseForecastData(
+          data,
+        );
+      }
       return WeatherResult.failure(
         result.error,
       );
     }
-    final data = result.data;
-    if (data == null) {
-      return WeatherResult.failure(
-        WeatherError.loadFailed(),
-      );
-    }
-    return _parseForecastData(
-      data,
+    return WeatherResult.failure(
+      WeatherError.loadFailed(),
     );
   }
 
