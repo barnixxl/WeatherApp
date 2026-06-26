@@ -7,6 +7,7 @@ import '../models/weather_forecast_data.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
+import '../resources/images/weather_state_images/weather_state_images.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
