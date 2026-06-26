@@ -202,6 +202,12 @@ abstract class AppLocalizations {
   /// **'Ошибка конфигурации приложения'**
   String get error_config;
 
+  /// No description provided for @error_invalid_data.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка обработки данных'**
+  String get error_invalid_data;
+
   /// No description provided for @common_unknow_city_name.
   ///
   /// In ru, this message translates to:

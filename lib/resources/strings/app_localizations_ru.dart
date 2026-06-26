@@ -70,6 +70,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_config => 'Ошибка конфигурации приложения';
 
   @override
+  String get error_invalid_data => 'Ошибка обработки данных';
+
+  @override
   String get common_unknow_city_name => 'Неизвестное название города';
 
   @override

@@ -20,6 +20,7 @@ class WeatherError {
   static const int noGeoCode = 8;
   static const int loadFailedCode = 9;
   static const int configErrorCode = 10;
+  static const int invalidDataCode = 11;
 
   @override
   String toString() => errorMessage;
@@ -102,5 +103,10 @@ class WeatherError {
       WeatherError(
         errorCode: configErrorCode,
         errorMessage: message,
+      );
+
+  factory WeatherError.invalidData() => WeatherError(
+        errorCode: invalidDataCode,
+        errorMessage: strings.error_invalid_data,
       );
 }

@@ -38,6 +38,7 @@
   "error_no_data": "Нет данных",
   "error_load_failed": "Ошибка загрузки данных",
   "error_config": "Ошибка конфигурации приложения",
+  "error_invalid_data": "Ошибка обработки данных",
   "common_unknow_city_name": "Неизвестное название города",
   "current_location": "Текущее местоположение",
   "temperature_format": "{temp}°C",
