@@ -2,7 +2,7 @@ part of 'home_screen.dart';
 
 Widget _buildAppBarWidget({
   required String cityName,
-  required DateTime? lastUpdateDate,
+  required String formattedDate,
 }) {
   return AppBar(
     title: Text(
@@ -23,10 +23,10 @@ Widget _buildAppBarWidget({
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '$cityName • ${strings.updated_at(
-                lastUpdateDate?.toDayMonthYearTextDateFormat() ??
-                    strings.common_absent_date,
-              )}',
+              strings.app_bar_subtitle(
+                cityName,
+                formattedDate,
+              ),
               style: const TextStyle(
                 color: AppColors.onPrimary,
                 fontSize: 12,
