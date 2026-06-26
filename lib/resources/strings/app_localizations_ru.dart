@@ -82,4 +82,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String temperature_format(String temp) {
     return '$temp°C';
   }
+
+  @override
+  String app_bar_subtitle(String cityName, String date) {
+    return '$cityName • Обновлено: $date';
+  }
 }

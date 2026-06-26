@@ -48,5 +48,16 @@
         "type": "String"
       }
     }
+  },
+  "app_bar_subtitle": "{cityName} • Обновлено: {date}",
+  "@app_bar_subtitle": {
+    "placeholders": {
+      "cityName": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

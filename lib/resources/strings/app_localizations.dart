@@ -225,6 +225,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'{temp}°C'**
   String temperature_format(String temp);
+
+  /// No description provided for @app_bar_subtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'{cityName} • Обновлено: {date}'**
+  String app_bar_subtitle(String cityName, String date);
 }
 
 class _AppLocalizationsDelegate
