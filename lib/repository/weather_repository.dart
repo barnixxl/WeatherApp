@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
@@ -110,11 +112,19 @@ class WeatherRepository extends BaseRepository {
     final temps = hourlyData.map(
       (e) => e.temperature,
     );
+    if (temps.isNotEmpty) {
+      return DayWeather(
+        date: date,
+        hourlyData: hourlyData,
+        dayMinTemp: temps.reduce(min),
+        dayMaxTemp: temps.reduce(max),
+      );
+    }
     return DayWeather(
       date: date,
       hourlyData: hourlyData,
-      dayMinTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a < b ? a : b),
-      dayMaxTemp: temps.isEmpty ? 0.0 : temps.reduce((a, b) => a > b ? a : b),
+      dayMinTemp: 0.0,
+      dayMaxTemp: 0.0,
     );
   }
 
