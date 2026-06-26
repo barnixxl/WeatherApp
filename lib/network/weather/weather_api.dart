@@ -53,9 +53,12 @@ class WeatherApi {
             ),
           );
         }
+        return WeatherResult.failure(
+          WeatherError.loadFailed(),
+        );
       }
       return WeatherResult.failure(
-        result.error ?? WeatherError.loadFailed(),
+        result.error,
       );
     } catch (e) {
       return WeatherResult.failure(
