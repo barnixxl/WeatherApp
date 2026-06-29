@@ -16,6 +16,9 @@ class LocationService {
     return _getIt<LocationService>();
   }
 
+  Future<void> initializeDependencies() async {
+  }
+
   Future<bool> isLocationServiceEnabled() async {
     return await Geolocator.isLocationServiceEnabled();
   }
