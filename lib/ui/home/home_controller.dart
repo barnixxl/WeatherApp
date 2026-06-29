@@ -1,12 +1,10 @@
 import 'package:mobx/mobx.dart';
 
-import '../../main.dart';
 import '../../models/day_weather.dart';
 import '../../models/forecast_result.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../../repository/weather_repository.dart';
-import '../../utils/date_formatter.dart';
 import '../../utils/location_service.dart';
 
 class HomeController {
@@ -26,9 +24,7 @@ class HomeController {
   List<DayWeather> get dayWeather =>
       _weatherResult.value.data?.dayWeather ?? [];
 
-  String get formattedDate =>
-      dayWeather.firstOrNull?.date.toDayMonthYearTextDateFormat() ??
-      strings.common_absent_date;
+  DateTime? get lastUpdateDate => dayWeather.firstOrNull?.date;
 
   WeatherError? get error => _weatherResult.value.error;
 

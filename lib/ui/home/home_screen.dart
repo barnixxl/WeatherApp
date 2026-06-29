@@ -5,6 +5,7 @@ import '../../main.dart';
 import '../../models/weather_error.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/images/map_images/map_images.dart';
+import '../../utils/date_formatter.dart';
 import 'home_controller.dart';
 import 'widgets/map_widgets/weather_map_widget.dart';
 import 'widgets/weather_widgets/day_weather_item_widget.dart';
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (_) {
             return _buildAppBarWidget(
               cityName: homeController.cityName,
-              formattedDate: homeController.formattedDate,
+              lastUpdateDate: homeController.lastUpdateDate,
             );
           },
         ),
