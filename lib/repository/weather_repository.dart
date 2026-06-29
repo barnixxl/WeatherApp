@@ -101,12 +101,9 @@ class WeatherRepository extends BaseRepository {
           b.date,
         ),
       );
-    final resultWeather = _filterEvenHours(
-      dayWeather,
-    );
     return WeatherResult.success(
       ForecastData(
-        dayWeather: resultWeather,
+        dayWeather: dayWeather,
         cityName: data.cityName,
         latitude: data.latitude,
         longitude: data.longitude,
@@ -161,38 +158,5 @@ class WeatherRepository extends BaseRepository {
       dayMinTemp: 0.0,
       dayMaxTemp: 0.0,
     );
-  }
-
-  List<DayWeather> _filterEvenHours(
-    List<DayWeather> dayWeatherList,
-  ) {
-    return dayWeatherList.map((
-      dayWeather,
-    ) {
-      final filtered = dayWeather.hourlyData
-          .where((weather) => weather.dateTime.hour.isEven)
-          .toList();
-      final temps = filtered.map(
-        (e) => e.temperature,
-      );
-      if (temps.isNotEmpty) {
-        return DayWeather(
-          date: dayWeather.date,
-          hourlyData: filtered,
-          dayMinTemp: temps.reduce(
-            min,
-          ),
-          dayMaxTemp: temps.reduce(
-            max,
-          ),
-        );
-      }
-      return DayWeather(
-        date: dayWeather.date,
-        hourlyData: filtered,
-        dayMinTemp: 0.0,
-        dayMaxTemp: 0.0,
-      );
-    }).toList();
   }
 }
