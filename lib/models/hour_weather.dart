@@ -5,7 +5,6 @@ class HourWeather {
   final double temperature;
   final double tempMin;
   final double tempMax;
-  final String weatherMain;
   final WeatherStateAssets weatherState;
 
   const HourWeather({
@@ -13,7 +12,6 @@ class HourWeather {
     required this.temperature,
     required this.tempMin,
     required this.tempMax,
-    required this.weatherMain,
     required this.weatherState,
   });
 }
