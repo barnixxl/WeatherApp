@@ -95,7 +95,10 @@ class WeatherApi {
       );
       final list = response.list;
       if (list != null && list.isNotEmpty) {
-        if (list.every((item) => item.dt != null)) {
+        if (list.every((
+          item,
+        ) =>
+            item.dt != null)) {
           return WeatherResult.success(
             _buildApiForecast(
               response,
@@ -120,9 +123,8 @@ class WeatherApi {
     WeatherResponseFromNetwork response,
   ) {
     return ApiForecast(
-      weatherData: (response.list ?? [])
-          .map((e) => _buildHourWeather(e))
-          .toList(),
+      weatherData:
+          (response.list ?? []).map((e) => _buildHourWeather(e)).toList(),
       cityName: response.city?.name ?? strings.common_unknow_city_name,
       latitude: response.city?.coord?.lat ?? 0.0,
       longitude: response.city?.coord?.lon ?? 0.0,
