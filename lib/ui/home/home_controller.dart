@@ -33,12 +33,20 @@ class HomeController {
   String get cityName => _weatherResult.value.data?.cityName ?? '';
 
   Future<void> onRefreshPressed() async {
-    runInAction(() {
-      _weatherResult.value = WeatherResult.loading();
-    });
+    _setState(
+      WeatherResult.loading(),
+    );
     final result = await _repository.fetchForecast();
+    _setState(
+      result,
+    );
+  }
+
+  void _setState(
+    WeatherResult<ForecastData> value,
+  ) {
     runInAction(() {
-      _weatherResult.value = result;
+      _weatherResult.value = value;
     });
   }
 }
