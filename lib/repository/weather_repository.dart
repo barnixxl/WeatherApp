@@ -48,19 +48,20 @@ class WeatherRepository extends BaseRepository {
         result.error,
       );
     }
-    return _groupAndFilterForecast(
-      result.data,
+    final data = result.data;
+    if (data != null) {
+      return _groupAndFilterForecast(
+        data,
+      );
+    }
+    return WeatherResult.failure(
+      WeatherError.loadFailed(),
     );
   }
 
   WeatherResult<ForecastResult> _groupAndFilterForecast(
-    WeatherForecastData? data,
+    WeatherForecastData data,
   ) {
-    if (data == null) {
-      return WeatherResult.failure(
-        WeatherError.loadFailed(),
-      );
-    }
     final grouped = _groupByDay(
       data.weatherData,
     );
