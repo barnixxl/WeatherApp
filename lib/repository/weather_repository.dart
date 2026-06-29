@@ -69,7 +69,12 @@ class WeatherRepository extends BaseRepository {
               e.key,
               e.value,
             ))
-        .toList();
+        .toList()
+      ..sort(
+        (a, b) => a.date.compareTo(
+            b.date,
+        ),
+      );
     final resultWeather = _filterEvenHours(
       dayWeather,
     );
