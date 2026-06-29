@@ -116,10 +116,14 @@ class WeatherRepository extends BaseRepository {
   ) {
     final Map<DateTime, List<HourWeather>> grouped = {};
     for (final weather in weatherList) {
+      final dt = weather.dateTime;
+      if (dt == null) {
+        continue;
+      }
       final date = DateTime(
-        weather.dateTime.year,
-        weather.dateTime.month,
-        weather.dateTime.day,
+        dt.year,
+        dt.month,
+        dt.day,
       );
       grouped
           .putIfAbsent(

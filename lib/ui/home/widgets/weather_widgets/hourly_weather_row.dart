@@ -44,7 +44,7 @@ class HourlyWeatherRow extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  weather.dateTime.toHourMinuteFormat() ?? '',
+                  weather.dateTime?.toHourMinuteFormat() ?? '',
                   style: const TextStyle(
                     color: AppColors.onPrimary,
                     fontSize: 12,

@@ -3,7 +3,7 @@ import '../resources/images/weather_state_images/weather_state_images.dart';
 import '../utils/int_extensions.dart';
 
 class HourWeather {
-  final DateTime dateTime;
+  final DateTime? dateTime;
   final double temperature;
   final double tempMin;
   final double tempMax;
@@ -23,7 +23,7 @@ class HourWeather {
     WeatherItemFromNetwork item,
   ) {
     return HourWeather(
-      dateTime: item.dt?.toDateTimeFromUnixSeconds() ?? DateTime.now(),
+      dateTime: item.dt?.toDateTimeFromUnixSeconds(),
       temperature: item.main?.temp ?? 0.0,
       tempMin: item.main?.tempMin ?? 0.0,
       tempMax: item.main?.tempMax ?? 0.0,
