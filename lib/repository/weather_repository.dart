@@ -131,26 +131,17 @@ class WeatherRepository extends BaseRepository {
   List<DayWeather> _filterEvenHours(
     List<DayWeather> dayWeatherList,
   ) {
-    return dayWeatherList.map(
-      (
-        dayWeather,
-      ) {
-        final filtered = dayWeather.hourlyData.where(
-          (
-            weather,
-          ) {
-            final hour = weather.dateTime.hour;
-            return hour % 2 == 0;
-          },
-        ).toList();
-        return DayWeather(
-          date: dayWeather.date,
-          hourlyData: filtered,
-          dayMinTemp: dayWeather.dayMinTemp,
-          dayMaxTemp: dayWeather.dayMaxTemp,
-        );
-      },
-    ).toList();
+    return dayWeatherList.map((dayWeather) {
+      final filtered = dayWeather.hourlyData
+          .where((weather) => weather.dateTime.hour.isEven)
+          .toList();
+      return DayWeather(
+        date: dayWeather.date,
+        hourlyData: filtered,
+        dayMinTemp: dayWeather.dayMinTemp,
+        dayMaxTemp: dayWeather.dayMaxTemp,
+      );
+    }).toList();
   }
 }
 
