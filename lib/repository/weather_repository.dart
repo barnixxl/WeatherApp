@@ -5,17 +5,19 @@ import 'package:get_it/get_it.dart';
 import '../models/day_weather.dart';
 import '../models/forecast_result.dart';
 import '../models/weather_data.dart';
-import '../models/weather_forecast_data.dart';
 import '../models/weather_error.dart';
+import '../models/weather_forecast_data.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
 import '../resources/images/weather_state_images/weather_state_images.dart';
+import '../utils/location_service.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
 
   late final WeatherApi _weatherApi;
+  late final LocationService _locationService;
 
   @override
   void register(
@@ -29,13 +31,33 @@ class WeatherRepository extends BaseRepository {
   @override
   Future<void> initializeDependencies() async {
     _weatherApi = _getIt<WeatherApi>();
+    _locationService = _getIt<LocationService>();
   }
 
   static WeatherRepository getInstance() {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<ForecastResult>> fetchForecast(
+  Future<WeatherResult<ForecastResult>> fetchForecast() async {
+    final serviceEnabled = await _locationService.isLocationServiceEnabled();
+    if (serviceEnabled) {
+      final position = await _locationService.getCurrentLocation();
+      if (position != null) {
+        return _fetchAndGroup(
+          position.latitude,
+          position.longitude,
+        );
+      }
+      return WeatherResult.failure(
+        WeatherError.noGeo(),
+      );
+    }
+    return WeatherResult.failure(
+      WeatherError.gpsDisabled(),
+    );
+  }
+
+  Future<WeatherResult<ForecastResult>> _fetchAndGroup(
     double lat,
     double lon,
   ) async {
@@ -73,7 +95,7 @@ class WeatherRepository extends BaseRepository {
         .toList()
       ..sort(
         (a, b) => a.date.compareTo(
-            b.date,
+          b.date,
         ),
       );
     final resultWeather = _filterEvenHours(
@@ -122,8 +144,12 @@ class WeatherRepository extends BaseRepository {
       return DayWeather(
         date: date,
         hourlyData: hourlyData,
-        dayMinTemp: temps.reduce(min),
-        dayMaxTemp: temps.reduce(max),
+        dayMinTemp: temps.reduce(
+          min,
+        ),
+        dayMaxTemp: temps.reduce(
+          max,
+        ),
       );
     }
     return DayWeather(
@@ -137,7 +163,9 @@ class WeatherRepository extends BaseRepository {
   List<DayWeather> _filterEvenHours(
     List<DayWeather> dayWeatherList,
   ) {
-    return dayWeatherList.map((dayWeather) {
+    return dayWeatherList.map((
+      dayWeather,
+    ) {
       final filtered = dayWeather.hourlyData
           .where((weather) => weather.dateTime.hour.isEven)
           .toList();
