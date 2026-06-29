@@ -163,17 +163,20 @@ class WeatherRepository extends BaseRepository {
         );
       },
     );
-    final temps = sorted.map(
-      (e) => e.temperature,
+    final minTemps = sorted.map(
+      (e) => e.tempMin,
     );
-    if (temps.isNotEmpty) {
+    final maxTemps = sorted.map(
+      (e) => e.tempMax,
+    );
+    if (minTemps.isNotEmpty) {
       return DayWeather(
         date: date,
         hourlyData: sorted,
-        dayMinTemp: temps.reduce(
+        dayMinTemp: minTemps.reduce(
           min,
         ),
-        dayMaxTemp: temps.reduce(
+        dayMaxTemp: maxTemps.reduce(
           max,
         ),
       );
