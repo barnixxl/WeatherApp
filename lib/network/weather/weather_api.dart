@@ -74,7 +74,7 @@ class WeatherApi {
   WeatherResult<ApiForecast> _processNetworkResult(
     WeatherResult<Map<String, dynamic>> result,
   ) {
-    if (result.error == null) {
+    if (result.isSuccess) {
       final data = result.data;
       if (data != null) {
         return _parseForecastData(
