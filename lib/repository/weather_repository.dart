@@ -65,19 +65,19 @@ class WeatherRepository extends BaseRepository {
       lat,
       lon,
     );
-    if (result.isError) {
+    if (result.isSuccess) {
+      final data = result.data;
+      if (data != null) {
+        return _groupAndFilterForecast(
+          data,
+        );
+      }
       return WeatherResult.failure(
-        result.error,
-      );
-    }
-    final data = result.data;
-    if (data != null) {
-      return _groupAndFilterForecast(
-        data,
+        WeatherError.loadFailed(),
       );
     }
     return WeatherResult.failure(
-      WeatherError.loadFailed(),
+      result.error,
     );
   }
 
@@ -94,7 +94,11 @@ class WeatherRepository extends BaseRepository {
             ))
         .toList()
       ..sort(
-        (a, b) => a.date.compareTo(
+        (
+          a,
+          b,
+        ) =>
+            a.date.compareTo(
           b.date,
         ),
       );
