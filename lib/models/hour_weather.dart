@@ -2,7 +2,7 @@ import '../network/weather/resp/items/weather_items_from_network.dart';
 import '../resources/images/weather_state_images/weather_state_images.dart';
 import '../utils/int_extensions.dart';
 
-class WeatherData {
+class HourWeather {
   final DateTime dateTime;
   final double temperature;
   final double tempMin;
@@ -10,7 +10,7 @@ class WeatherData {
   final String weatherMain;
   final WeatherStateAssets weatherState;
 
-  const WeatherData({
+  const HourWeather({
     required this.dateTime,
     required this.temperature,
     required this.tempMin,
@@ -19,10 +19,10 @@ class WeatherData {
     required this.weatherState,
   });
 
-  static WeatherData fromNetworkModel(
+  static HourWeather fromNetworkModel(
     WeatherItemFromNetwork item,
   ) {
-    return WeatherData(
+    return HourWeather(
       dateTime: item.dt?.toDateTimeFromUnixSeconds() ?? DateTime.now(),
       temperature: item.main?.temp ?? 0.0,
       tempMin: item.main?.tempMin ?? 0.0,

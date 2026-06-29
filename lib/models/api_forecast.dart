@@ -1,26 +1,26 @@
 import '../main.dart';
 import '../network/weather/resp/weather_response_from_network.dart';
-import 'weather_data.dart';
+import 'hour_weather.dart';
 
-class WeatherForecastData {
-  final List<WeatherData> weatherData;
+class ApiForecast {
+  final List<HourWeather> weatherData;
   final String cityName;
   final double latitude;
   final double longitude;
 
-  const WeatherForecastData({
+  const ApiForecast({
     required this.weatherData,
     required this.cityName,
     required this.latitude,
     required this.longitude,
   });
 
-  static WeatherForecastData fromNetworkModel(
+  static ApiForecast fromNetworkModel(
     WeatherResponseFromNetwork response,
   ) {
-    return WeatherForecastData(
+    return ApiForecast(
       weatherData: (response.list ?? [])
-          .map((e) => WeatherData.fromNetworkModel(e))
+          .map((e) => HourWeather.fromNetworkModel(e))
           .toList(),
       cityName: response.city?.name ?? strings.common_unknow_city_name,
       latitude: response.city?.coord?.lat ?? 0.0,

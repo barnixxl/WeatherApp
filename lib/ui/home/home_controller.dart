@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../models/day_weather.dart';
-import '../../models/forecast_result.dart';
+import '../../models/forecast_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../../repository/weather_repository.dart';
@@ -9,7 +9,7 @@ import '../../repository/weather_repository.dart';
 class HomeController {
   final WeatherRepository _repository = WeatherRepository.getInstance();
 
-  final Observable<WeatherResult<ForecastResult>> _weatherResult = Observable(
+  final Observable<WeatherResult<ForecastData>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
   );
 

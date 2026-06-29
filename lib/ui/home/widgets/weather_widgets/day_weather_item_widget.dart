@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../main.dart';
-import '../../../../models/weather_data.dart';
+import '../../../../models/hour_weather.dart';
 import '../../../../resources/colors/app_colors.dart';
 import '../../../../utils/date_formatter.dart';
 import 'hourly_weather_row.dart';
@@ -10,7 +10,7 @@ class DayWeatherItem extends StatelessWidget {
   final DateTime date;
   final double dayMinTemp;
   final double dayMaxTemp;
-  final List<WeatherData> hourlyData;
+  final List<HourWeather> hourlyData;
 
   const DayWeatherItem({
     super.key,

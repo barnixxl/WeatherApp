@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../config/app_config.dart';
 import '../../main.dart';
 import '../../models/weather_error.dart';
-import '../../models/weather_forecast_data.dart';
+import '../../models/api_forecast.dart';
 import '../../models/weather_result.dart';
 import '../weather_network.dart';
 import 'resp/weather_response_from_network.dart';
@@ -25,7 +25,7 @@ class WeatherApi {
     _network = _getIt<WeatherNetwork>();
   }
 
-  Future<WeatherResult<WeatherForecastData>> fetchForecast(
+  Future<WeatherResult<ApiForecast>> fetchForecast(
     double lat,
     double lon,
   ) async {
@@ -64,7 +64,7 @@ class WeatherApi {
     };
   }
 
-  WeatherResult<WeatherForecastData> _processNetworkResult(
+  WeatherResult<ApiForecast> _processNetworkResult(
     WeatherResult<Map<String, dynamic>> result,
   ) {
     if (result.error == null) {
@@ -83,7 +83,7 @@ class WeatherApi {
     );
   }
 
-  WeatherResult<WeatherForecastData> _parseForecastData(
+  WeatherResult<ApiForecast> _parseForecastData(
     Map<String, dynamic> data,
   ) {
     try {
@@ -94,7 +94,7 @@ class WeatherApi {
       if (list != null && list.isNotEmpty) {
         if (list.every((item) => item.dt != null)) {
           return WeatherResult.success(
-            WeatherForecastData.fromNetworkModel(
+            ApiForecast.fromNetworkModel(
               response,
             ),
           );

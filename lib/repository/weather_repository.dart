@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
-import '../models/forecast_result.dart';
-import '../models/weather_data.dart';
+import '../models/forecast_data.dart';
+import '../models/hour_weather.dart';
 import '../models/weather_error.dart';
-import '../models/weather_forecast_data.dart';
+import '../models/api_forecast.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
 import '../utils/location_service.dart';
@@ -37,7 +37,7 @@ class WeatherRepository extends BaseRepository {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<ForecastResult>> fetchForecast() async {
+  Future<WeatherResult<ForecastData>> fetchForecast() async {
     final serviceEnabled = await _locationService.isLocationServiceEnabled();
     if (serviceEnabled) {
       final position = await _locationService.getCurrentLocation();
@@ -56,7 +56,7 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  Future<WeatherResult<ForecastResult>> _fetchAndGroup(
+  Future<WeatherResult<ForecastData>> _fetchAndGroup(
     double lat,
     double lon,
   ) async {
@@ -80,8 +80,8 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  WeatherResult<ForecastResult> _groupAndFilterForecast(
-    WeatherForecastData data,
+  WeatherResult<ForecastData> _groupAndFilterForecast(
+    ApiForecast data,
   ) {
     final grouped = _groupByDay(
       data.weatherData,
@@ -105,7 +105,7 @@ class WeatherRepository extends BaseRepository {
       dayWeather,
     );
     return WeatherResult.success(
-      ForecastResult(
+      ForecastData(
         dayWeather: resultWeather,
         cityName: data.cityName,
         latitude: data.latitude,
@@ -114,10 +114,10 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  Map<DateTime, List<WeatherData>> _groupByDay(
-    List<WeatherData> weatherList,
+  Map<DateTime, List<HourWeather>> _groupByDay(
+    List<HourWeather> weatherList,
   ) {
-    final Map<DateTime, List<WeatherData>> grouped = {};
+    final Map<DateTime, List<HourWeather>> grouped = {};
     for (final weather in weatherList) {
       final date = DateTime(
         weather.dateTime.year,
@@ -138,7 +138,7 @@ class WeatherRepository extends BaseRepository {
 
   DayWeather _createDayWeather(
     DateTime date,
-    List<WeatherData> hourlyData,
+    List<HourWeather> hourlyData,
   ) {
     final temps = hourlyData.map(
       (e) => e.temperature,

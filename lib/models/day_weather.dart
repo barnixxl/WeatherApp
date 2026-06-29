@@ -1,8 +1,8 @@
-import 'weather_data.dart';
+import 'hour_weather.dart';
 
 class DayWeather {
   final DateTime date;
-  final List<WeatherData> hourlyData;
+  final List<HourWeather> hourlyData;
   final double dayMinTemp;
   final double dayMaxTemp;
 
