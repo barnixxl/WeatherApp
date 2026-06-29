@@ -38,8 +38,19 @@ class HomeController {
     runInAction(() {
       _weatherResult.value = WeatherResult.loading();
     });
-    final position = await _locationService.getCurrentLocation();
-    if (position == null) {
+    final serviceEnabled = await _locationService.isLocationServiceEnabled();
+    if (serviceEnabled) {
+      final position = await _locationService.getCurrentLocation();
+      if (position != null) {
+        final result = await _repository.fetchForecast(
+          position.latitude,
+          position.longitude,
+        );
+        runInAction(() {
+          _weatherResult.value = result;
+        });
+        return;
+      }
       runInAction(() {
         _weatherResult.value = WeatherResult.failure(
           WeatherError.noGeo(),
@@ -47,12 +58,10 @@ class HomeController {
       });
       return;
     }
-    final result = await _repository.fetchForecast(
-      position.latitude,
-      position.longitude,
-    );
     runInAction(() {
-      _weatherResult.value = result;
+      _weatherResult.value = WeatherResult.failure(
+        WeatherError.gpsDisabled(),
+      );
     });
   }
 }
