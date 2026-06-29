@@ -65,14 +65,8 @@ class WeatherRepository extends BaseRepository {
       lon,
     );
     if (result.isSuccess) {
-      final data = result.data;
-      if (data != null) {
-        return _groupAndFilterForecast(
-          data,
-        );
-      }
-      return WeatherResult.failure(
-        WeatherError.loadFailed(),
+      return _groupAndFilterForecast(
+        result.data,
       );
     }
     return WeatherResult.failure(
@@ -81,33 +75,38 @@ class WeatherRepository extends BaseRepository {
   }
 
   WeatherResult<ForecastData> _groupAndFilterForecast(
-    ApiForecast data,
+    ApiForecast? data,
   ) {
-    final grouped = _groupByDay(
-      data.weatherData,
-    );
-    final dayWeather = grouped.entries
-        .map((e) => _createDayWeather(
-              e.key,
-              e.value,
-            ))
-        .toList()
-      ..sort(
-        (
-          a,
-          b,
-        ) =>
-            a.date.compareTo(
-          b.date,
+    if (data != null) {
+      final grouped = _groupByDay(
+        data.weatherData,
+      );
+      final dayWeather = grouped.entries
+          .map((e) => _createDayWeather(
+                e.key,
+                e.value,
+              ))
+          .toList()
+        ..sort(
+          (
+            a,
+            b,
+          ) =>
+              a.date.compareTo(
+            b.date,
+          ),
+        );
+      return WeatherResult.success(
+        ForecastData(
+          dayWeather: dayWeather,
+          cityName: data.cityName,
+          latitude: data.latitude,
+          longitude: data.longitude,
         ),
       );
-    return WeatherResult.success(
-      ForecastData(
-        dayWeather: dayWeather,
-        cityName: data.cityName,
-        latitude: data.latitude,
-        longitude: data.longitude,
-      ),
+    }
+    return WeatherResult.failure(
+      WeatherError.loadFailed(),
     );
   }
 
