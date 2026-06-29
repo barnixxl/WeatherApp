@@ -81,11 +81,11 @@ class WeatherApi {
         );
       }
       return WeatherResult.failure(
-        result.error,
+        WeatherError.loadFailed(),
       );
     }
     return WeatherResult.failure(
-      WeatherError.loadFailed(),
+      result.error,
     );
   }
 
