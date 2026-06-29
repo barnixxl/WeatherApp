@@ -13,11 +13,7 @@ class HomeController {
     WeatherResult.notInitialized(),
   );
 
-  bool get isLoading => _weatherResult.value.isLoading;
-
-  bool get hasError => _weatherResult.value.isError;
-
-  bool get hasSuccess => _weatherResult.value.isSuccess;
+  WeatherResult<ForecastData> get result => _weatherResult.value;
 
   List<DayWeather> get dayWeather =>
       _weatherResult.value.data?.dayWeather ?? [];
