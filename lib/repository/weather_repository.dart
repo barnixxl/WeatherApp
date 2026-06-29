@@ -172,11 +172,26 @@ class WeatherRepository extends BaseRepository {
       final filtered = dayWeather.hourlyData
           .where((weather) => weather.dateTime.hour.isEven)
           .toList();
+      final temps = filtered.map(
+        (e) => e.temperature,
+      );
+      if (temps.isNotEmpty) {
+        return DayWeather(
+          date: dayWeather.date,
+          hourlyData: filtered,
+          dayMinTemp: temps.reduce(
+            min,
+          ),
+          dayMaxTemp: temps.reduce(
+            max,
+          ),
+        );
+      }
       return DayWeather(
         date: dayWeather.date,
         hourlyData: filtered,
-        dayMinTemp: dayWeather.dayMinTemp,
-        dayMaxTemp: dayWeather.dayMaxTemp,
+        dayMinTemp: 0.0,
+        dayMaxTemp: 0.0,
       );
     }).toList();
   }
