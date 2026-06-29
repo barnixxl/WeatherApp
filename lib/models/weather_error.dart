@@ -21,6 +21,7 @@ class WeatherError {
   static const int loadFailedCode = 9;
   static const int configErrorCode = 10;
   static const int invalidDataCode = 11;
+  static const int gpsDisabledCode = 12;
 
   @override
   String toString() => errorMessage;
@@ -108,5 +109,10 @@ class WeatherError {
   factory WeatherError.invalidData() => WeatherError(
         errorCode: invalidDataCode,
         errorMessage: strings.error_invalid_data,
+      );
+
+  factory WeatherError.gpsDisabled() => WeatherError(
+        errorCode: gpsDisabledCode,
+        errorMessage: strings.error_gps_disabled,
       );
 }
