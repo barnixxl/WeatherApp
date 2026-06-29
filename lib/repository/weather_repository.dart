@@ -140,13 +140,36 @@ class WeatherRepository extends BaseRepository {
     DateTime date,
     List<HourWeather> hourlyData,
   ) {
-    final temps = hourlyData.map(
+    final sorted = List<HourWeather>.from(
+      hourlyData,
+    )..sort(
+      (
+        a,
+        b,
+      ) {
+        final aDt = a.dateTime;
+        final bDt = b.dateTime;
+        if (aDt == null && bDt == null) {
+          return 0;
+        }
+        if (aDt == null) {
+          return 1;
+        }
+        if (bDt == null) {
+          return -1;
+        }
+        return aDt.compareTo(
+          bDt,
+        );
+      },
+    );
+    final temps = sorted.map(
       (e) => e.temperature,
     );
     if (temps.isNotEmpty) {
       return DayWeather(
         date: date,
-        hourlyData: hourlyData,
+        hourlyData: sorted,
         dayMinTemp: temps.reduce(
           min,
         ),
@@ -157,7 +180,7 @@ class WeatherRepository extends BaseRepository {
     }
     return DayWeather(
       date: date,
-      hourlyData: hourlyData,
+      hourlyData: sorted,
       dayMinTemp: 0.0,
       dayMaxTemp: 0.0,
     );
