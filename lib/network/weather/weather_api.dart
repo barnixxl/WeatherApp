@@ -90,17 +90,21 @@ class WeatherApi {
       final response = WeatherResponseFromNetwork.fromJson(
         data,
       );
-      final allItemsValid =
-          (response.list ?? []).every((item) => item.dt != null);
-      if (allItemsValid) {
-        return WeatherResult.success(
-          WeatherForecastData.fromNetworkModel(
-            response,
-          ),
+      final list = response.list;
+      if (list != null && list.isNotEmpty) {
+        if (list.every((item) => item.dt != null)) {
+          return WeatherResult.success(
+            WeatherForecastData.fromNetworkModel(
+              response,
+            ),
+          );
+        }
+        return WeatherResult.failure(
+          WeatherError.invalidData(),
         );
       }
       return WeatherResult.failure(
-        WeatherError.invalidData(),
+        WeatherError.noData(),
       );
     } catch (e) {
       return WeatherResult.failure(
