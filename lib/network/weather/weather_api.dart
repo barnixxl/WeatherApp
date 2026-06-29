@@ -2,10 +2,13 @@ import 'package:get_it/get_it.dart';
 
 import '../../config/app_config.dart';
 import '../../main.dart';
-import '../../models/weather_error.dart';
 import '../../models/api_forecast.dart';
+import '../../models/hour_weather.dart';
+import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
+import '../../utils/int_extensions.dart';
 import '../weather_network.dart';
+import 'resp/items/weather_items_from_network.dart';
 import 'resp/weather_response_from_network.dart';
 
 class WeatherApi {
@@ -94,7 +97,7 @@ class WeatherApi {
       if (list != null && list.isNotEmpty) {
         if (list.every((item) => item.dt != null)) {
           return WeatherResult.success(
-            ApiForecast.fromNetworkModel(
+            _buildApiForecast(
               response,
             ),
           );
@@ -111,5 +114,33 @@ class WeatherApi {
         WeatherError.parsing(),
       );
     }
+  }
+
+  ApiForecast _buildApiForecast(
+    WeatherResponseFromNetwork response,
+  ) {
+    return ApiForecast(
+      weatherData: (response.list ?? [])
+          .map((e) => _buildHourWeather(e))
+          .toList(),
+      cityName: response.city?.name ?? strings.common_unknow_city_name,
+      latitude: response.city?.coord?.lat ?? 0.0,
+      longitude: response.city?.coord?.lon ?? 0.0,
+    );
+  }
+
+  HourWeather _buildHourWeather(
+    WeatherItemFromNetwork item,
+  ) {
+    return HourWeather(
+      dateTime: item.dt?.toDateTimeFromUnixSeconds(),
+      temperature: item.main?.temp ?? 0.0,
+      tempMin: item.main?.tempMin ?? 0.0,
+      tempMax: item.main?.tempMax ?? 0.0,
+      weatherMain: item.weather?.firstOrNull?.main ?? '',
+      weatherState: WeatherStateAssets.fromCode(
+        item.weather?.firstOrNull?.icon ?? '',
+      ),
+    );
   }
 }
