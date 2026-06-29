@@ -31,23 +31,17 @@ class WeatherApi {
   ) async {
     final apiKey = AppConfig.apiKey;
     if (apiKey != null) {
-      try {
-        final result = await _network.get<Map<String, dynamic>>(
-          'forecast',
-          queryParameters: _buildQueryParams(
-            apiKey,
-            lat,
-            lon,
-          ),
-        );
-        return _processNetworkResult(
-          result,
-        );
-      } catch (e) {
-        return WeatherResult.failure(
-          WeatherError.fromException(e),
-        );
-      }
+      final result = await _network.get<Map<String, dynamic>>(
+        'forecast',
+        queryParameters: _buildQueryParams(
+          apiKey,
+          lat,
+          lon,
+        ),
+      );
+      return _processNetworkResult(
+        result,
+      );
     }
     return WeatherResult.failure(
       WeatherError.configError(
@@ -92,20 +86,26 @@ class WeatherApi {
   WeatherResult<WeatherForecastData> _parseForecastData(
     Map<String, dynamic> data,
   ) {
-    final response = WeatherResponseFromNetwork.fromJson(
-      data,
-    );
-    final allItemsValid =
-        (response.list ?? []).every((item) => item.dt != null);
-    if (allItemsValid) {
-      return WeatherResult.success(
-        WeatherForecastData.fromNetworkModel(
-          response,
-        ),
+    try {
+      final response = WeatherResponseFromNetwork.fromJson(
+        data,
+      );
+      final allItemsValid =
+          (response.list ?? []).every((item) => item.dt != null);
+      if (allItemsValid) {
+        return WeatherResult.success(
+          WeatherForecastData.fromNetworkModel(
+            response,
+          ),
+        );
+      }
+      return WeatherResult.failure(
+        WeatherError.invalidData(),
+      );
+    } catch (e) {
+      return WeatherResult.failure(
+        WeatherError.parsing(),
       );
     }
-    return WeatherResult.failure(
-      WeatherError.invalidData(),
-    );
   }
 }
