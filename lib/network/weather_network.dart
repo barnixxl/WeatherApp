@@ -5,6 +5,7 @@ import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 
 class WeatherNetwork {
+  static final GetIt _getIt = GetIt.instance;
   static const String _baseUrl = 'https://api.openweathermap.org/data/2.5/';
   late final Dio _dio;
 
@@ -14,6 +15,10 @@ class WeatherNetwork {
     getIt.registerSingleton<WeatherNetwork>(
       this,
     );
+  }
+
+  static WeatherNetwork getInstance() {
+    return _getIt<WeatherNetwork>();
   }
 
   Future<void> initializeDependencies() async {

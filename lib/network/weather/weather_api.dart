@@ -28,6 +28,10 @@ class WeatherApi {
     _network = _getIt<WeatherNetwork>();
   }
 
+  static WeatherApi getInstance() {
+    return _getIt<WeatherApi>();
+  }
+
   Future<WeatherResult<ApiForecast>> fetchForecast(
     double lat,
     double lon,
