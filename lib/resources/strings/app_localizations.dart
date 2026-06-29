@@ -208,6 +208,12 @@ abstract class AppLocalizations {
   /// **'Ошибка обработки данных'**
   String get error_invalid_data;
 
+  /// No description provided for @error_gps_disabled.
+  ///
+  /// In ru, this message translates to:
+  /// **'Включи GPS в настройках устройства'**
+  String get error_gps_disabled;
+
   /// No description provided for @common_unknow_city_name.
   ///
   /// In ru, this message translates to:
