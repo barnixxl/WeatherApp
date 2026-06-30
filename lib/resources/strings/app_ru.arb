@@ -1,4 +1,5 @@
 {
+  "@@locale": "ru",
   "app_title": "Прогноз погоды",
   "home_title": "Прогноз погоды",
   "updated_at": "Обновлено: {date}",
