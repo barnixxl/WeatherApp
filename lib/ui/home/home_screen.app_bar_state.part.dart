@@ -24,7 +24,9 @@ Widget _buildAppBarWidget({
           children: [
             Text(
               strings.app_bar_subtitle(
-                cityName,
+                cityName.isNotEmpty
+                    ? cityName
+                    : strings.common_unknown_city_name,
                 lastUpdateDate?.toDayMonthYearTextDateFormat() ??
                     strings.common_absent_date,
               ),

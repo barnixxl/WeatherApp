@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 
 import '../../config/app_config.dart';
-import '../../main.dart';
 import '../../models/api_forecast.dart';
 import '../../models/hour_weather.dart';
 import '../../models/weather_error.dart';
@@ -127,7 +126,7 @@ class WeatherApi {
     return ApiForecast(
       weatherData:
           (response.list ?? []).map((e) => _buildHourWeather(e)).toList(),
-      cityName: response.city?.name ?? strings.common_unknown_city_name,
+      cityName: response.city?.name ?? '',
       latitude: response.city?.coord?.lat ?? 0.0,
       longitude: response.city?.coord?.lon ?? 0.0,
     );
