@@ -232,6 +232,12 @@ abstract class AppLocalizations {
   /// **'{temp}°C'**
   String temperature_format(String temp);
 
+  /// No description provided for @temperature_range.
+  ///
+  /// In ru, this message translates to:
+  /// **'{min}°C - {max}°C'**
+  String temperature_range(String min, String max);
+
   /// No description provided for @app_bar_subtitle.
   ///
   /// In ru, this message translates to:

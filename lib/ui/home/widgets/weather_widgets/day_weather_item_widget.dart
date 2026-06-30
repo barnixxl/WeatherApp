@@ -29,34 +29,41 @@ class DayWeatherItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            Row(
-              children: [
-                Text(
-                  date.toDayOfWeekFormat() ?? '',
-                  style: const TextStyle(
-                    color: AppColors.onPrimary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+          Row(
+            children: [
+              Text(
+                date.toDayOfWeekFormat() ?? '',
+                style: const TextStyle(
+                  color: AppColors.onPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                strings.temperature_range(
+                  dayMinTemp.toStringAsFixed(
+                    0,
+                  ),
+                  dayMaxTemp.toStringAsFixed(
+                    0,
                   ),
                 ),
-                const Spacer(),
-                Text(
-                  '${strings.temperature_format(dayMinTemp.toStringAsFixed(0))} - ${strings.temperature_format(dayMaxTemp.toStringAsFixed(0))}',
-                  style: const TextStyle(
-                    color: AppColors.onPrimary,
-                    fontSize: 16,
-                  ),
+                style: const TextStyle(
+                  color: AppColors.onPrimary,
+                  fontSize: 16,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            HourlyWeatherRow(
-              hourlyData: hourlyData,
-            ),
-          ],
-        ),
-      );
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          HourlyWeatherRow(
+            hourlyData: hourlyData,
+          ),
+        ],
+      ),
+    );
   }
 }

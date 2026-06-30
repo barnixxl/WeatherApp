@@ -87,6 +87,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String temperature_range(String min, String max) {
+    return '$min°C - $max°C';
+  }
+
+  @override
   String app_bar_subtitle(String cityName, String date) {
     return '$cityName • Обновлено: $date';
   }
