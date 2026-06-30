@@ -30,6 +30,20 @@ class WeatherResult<T> {
   bool get isLoading => status == Status.loading;
 
   bool get isError => status == Status.failure;
+
+  @override
+  String toString() {
+    switch (status) {
+      case Status.notInitialized:
+        return 'WeatherResult.notInitialized';
+      case Status.loading:
+        return 'WeatherResult.loading(data: $data)';
+      case Status.success:
+        return 'WeatherResult.success(data: $data)';
+      case Status.failure:
+        return 'WeatherResult.failure(error: $error)';
+    }
+  }
 }
 
 enum Status {
