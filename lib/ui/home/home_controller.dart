@@ -15,8 +15,10 @@ class HomeController {
 
   WeatherResult<ForecastData> get result => _weatherResult.value;
 
+  static const _emptyDayWeather = <DayWeather>[];
+
   List<DayWeather> get dayWeather =>
-      _weatherResult.value.data?.dayWeather ?? [];
+      _weatherResult.value.data?.dayWeather ?? _emptyDayWeather;
 
   DateTime? get lastUpdateDate => dayWeather.firstOrNull?.date;
 
