@@ -51,9 +51,7 @@ class WeatherApi {
       );
     }
     return WeatherResult.failure(
-      WeatherError.configError(
-        strings.error_config,
-      ),
+      WeatherError.configError(),
     );
   }
 

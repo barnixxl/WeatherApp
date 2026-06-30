@@ -98,12 +98,9 @@ class WeatherError {
         errorMessage: strings.error_load_failed,
       );
 
-  factory WeatherError.configError(
-    String message,
-  ) =>
-      WeatherError(
+  factory WeatherError.configError() => WeatherError(
         errorCode: configErrorCode,
-        errorMessage: message,
+        errorMessage: strings.error_config,
       );
 
   factory WeatherError.invalidData() => WeatherError(
