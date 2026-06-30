@@ -13,6 +13,14 @@ class HomeController {
     WeatherResult.notInitialized(),
   );
 
+  final Observable<String> _appBarCityName = Observable(
+    '',
+  );
+
+  final Observable<DateTime?> _appBarLastUpdate = Observable(
+    null,
+  );
+
   WeatherResult<ForecastData> get result => _weatherResult.value;
 
   static const _emptyDayWeather = <DayWeather>[];
@@ -20,7 +28,7 @@ class HomeController {
   List<DayWeather> get dayWeather =>
       _weatherResult.value.data?.dayWeather ?? _emptyDayWeather;
 
-  DateTime? get lastUpdateDate => dayWeather.firstOrNull?.date;
+  DateTime? get lastUpdateDate => _appBarLastUpdate.value;
 
   WeatherError? get error => _weatherResult.value.error;
 
@@ -28,7 +36,7 @@ class HomeController {
 
   double get longitude => _weatherResult.value.data?.longitude ?? 0.0;
 
-  String get cityName => _weatherResult.value.data?.cityName ?? '';
+  String get cityName => _appBarCityName.value;
 
   Future<void> onRefreshPressed() async {
     _setState(
@@ -45,6 +53,8 @@ class HomeController {
   ) {
     runInAction(() {
       _weatherResult.value = value;
+      _appBarCityName.value = value.data?.cityName ?? '';
+      _appBarLastUpdate.value = value.data?.dayWeather.firstOrNull?.date;
     });
   }
 }
