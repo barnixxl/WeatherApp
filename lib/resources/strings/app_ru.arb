@@ -2,14 +2,6 @@
   "@@locale": "ru",
   "app_title": "Прогноз погоды",
   "home_title": "Прогноз погоды",
-  "updated_at": "Обновлено: {date}",
-  "@updated_at": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
   "loading_weather": "Загрузка прогноза погоды...",
   "error": "Ошибка...",
   "geo_error": "Нет доступа к геолокации. Включи GPS и попробуй снова.",

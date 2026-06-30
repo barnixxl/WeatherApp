@@ -15,11 +15,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home_title => 'Прогноз погоды';
 
   @override
-  String updated_at(String date) {
-    return 'Обновлено: $date';
-  }
-
-  @override
   String get loading_weather => 'Загрузка прогноза погоды...';
 
   @override

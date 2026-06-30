@@ -106,12 +106,6 @@ abstract class AppLocalizations {
   /// **'Прогноз погоды'**
   String get home_title;
 
-  /// No description provided for @updated_at.
-  ///
-  /// In ru, this message translates to:
-  /// **'Обновлено: {date}'**
-  String updated_at(String date);
-
   /// No description provided for @loading_weather.
   ///
   /// In ru, this message translates to:
