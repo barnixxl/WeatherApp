@@ -22,7 +22,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get geo_error =>
-      'Нет доступа к геолокации. Включи GPS и попробуй снова.';
+      'Нет доступа к геолокации. Включите GPS и попробуйте снова.';
 
   @override
   String get retry => 'Повторить';
@@ -68,7 +68,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_invalid_data => 'Ошибка обработки данных';
 
   @override
-  String get error_gps_disabled => 'Включи GPS в настройках устройства';
+  String get error_gps_disabled => 'Включите GPS в настройках устройства';
 
   @override
   String get common_unknown_city_name => 'Неизвестное название города';

@@ -121,7 +121,7 @@ abstract class AppLocalizations {
   /// No description provided for @geo_error.
   ///
   /// In ru, this message translates to:
-  /// **'Нет доступа к геолокации. Включи GPS и попробуй снова.'**
+  /// **'Нет доступа к геолокации. Включите GPS и попробуйте снова.'**
   String get geo_error;
 
   /// No description provided for @retry.
@@ -205,7 +205,7 @@ abstract class AppLocalizations {
   /// No description provided for @error_gps_disabled.
   ///
   /// In ru, this message translates to:
-  /// **'Включи GPS в настройках устройства'**
+  /// **'Включите GPS в настройках устройства'**
   String get error_gps_disabled;
 
   /// No description provided for @common_unknown_city_name.
