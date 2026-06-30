@@ -94,12 +94,6 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('ru')];
 
-  /// No description provided for @app_title.
-  ///
-  /// In ru, this message translates to:
-  /// **'Прогноз погоды'**
-  String get app_title;
-
   /// No description provided for @home_title.
   ///
   /// In ru, this message translates to:

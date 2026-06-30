@@ -9,9 +9,6 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get app_title => 'Прогноз погоды';
-
-  @override
   String get home_title => 'Прогноз погоды';
 
   @override
