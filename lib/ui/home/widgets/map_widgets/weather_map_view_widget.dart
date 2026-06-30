@@ -19,37 +19,39 @@ class WeatherMapView extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return FlutterMap(
-      options: MapOptions(
-        initialCenter: LatLng(
-          latitude,
-          longitude,
+    return RepaintBoundary(
+      child: FlutterMap(
+        options: MapOptions(
+          initialCenter: LatLng(
+            latitude,
+            longitude,
+          ),
+          initialZoom: 10.0,
         ),
-        initialZoom: 10.0,
-      ),
-      children: [
-        TileLayer(
-          urlTemplate: AppConfig.mapTileUrl,
-          userAgentPackageName: AppConfig.mapUserAgent,
-        ),
-        MarkerLayer(
-          markers: [
-            Marker(
-              point: LatLng(
-                latitude,
-                longitude,
-              ),
-              width: 40,
-              height: 40,
-              child: Image.asset(
-                MapImages.locationPin,
+        children: [
+          TileLayer(
+            urlTemplate: AppConfig.mapTileUrl,
+            userAgentPackageName: AppConfig.mapUserAgent,
+          ),
+          MarkerLayer(
+            markers: [
+              Marker(
+                point: LatLng(
+                  latitude,
+                  longitude,
+                ),
                 width: 40,
                 height: 40,
+                child: Image.asset(
+                  MapImages.locationPin,
+                  width: 40,
+                  height: 40,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
