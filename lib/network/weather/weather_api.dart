@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../config/app_config.dart';
+import '../../main.dart';
 import '../../models/api_forecast.dart';
 import '../../models/hour_weather.dart';
 import '../../models/weather_error.dart';
@@ -50,7 +51,7 @@ class WeatherApi {
       );
     }
     return WeatherResult.failure(
-      WeatherError.configError(),
+      error: WeatherError.configError(),
     );
   }
 
@@ -79,11 +80,11 @@ class WeatherApi {
         );
       }
       return WeatherResult.failure(
-        WeatherError.loadFailed(),
+        error: WeatherError.loadFailed(),
       );
     }
     return WeatherResult.failure(
-      result.error,
+      error: result.error ?? WeatherError.unknown(),
     );
   }
 
@@ -107,15 +108,15 @@ class WeatherApi {
           );
         }
         return WeatherResult.failure(
-          WeatherError.invalidData(),
+          error: WeatherError.invalidData(),
         );
       }
       return WeatherResult.failure(
-        WeatherError.noData(),
+        error: WeatherError.noData(),
       );
     } catch (e) {
       return WeatherResult.failure(
-        WeatherError.parsing(),
+        error: WeatherError.parsing(),
       );
     }
   }
@@ -126,7 +127,7 @@ class WeatherApi {
     return ApiForecast(
       weatherData:
           (response.list ?? []).map((e) => _buildHourWeather(e)).toList(),
-      cityName: response.city?.name ?? '',
+      cityName: response.city?.name ?? strings.common_unknown_city_name,
       latitude: response.city?.coord?.lat ?? 0.0,
       longitude: response.city?.coord?.lon ?? 0.0,
     );

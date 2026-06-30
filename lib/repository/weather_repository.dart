@@ -48,11 +48,11 @@ class WeatherRepository extends BaseRepository {
         );
       }
       return WeatherResult.failure(
-        WeatherError.noGeo(),
+        error: WeatherError.noGeo(),
       );
     }
     return WeatherResult.failure(
-      WeatherError.gpsDisabled(),
+      error: WeatherError.gpsDisabled(),
     );
   }
 
@@ -70,7 +70,7 @@ class WeatherRepository extends BaseRepository {
       );
     }
     return WeatherResult.failure(
-      result.error,
+      error: result.error ?? WeatherError.unknown(),
     );
   }
 
@@ -106,7 +106,7 @@ class WeatherRepository extends BaseRepository {
       );
     }
     return WeatherResult.failure(
-      WeatherError.loadFailed(),
+      error: WeatherError.loadFailed(),
     );
   }
 

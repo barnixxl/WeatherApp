@@ -20,10 +20,10 @@ class WeatherResult<T> {
   )   : error = null,
         status = Status.success;
 
-  WeatherResult.failure(
-    this.error,
-  )   : data = null,
-        status = Status.failure;
+  WeatherResult.failure({
+    this.data,
+    required this.error,
+  }) : status = Status.failure;
 
   bool get isSuccess => status == Status.success;
 

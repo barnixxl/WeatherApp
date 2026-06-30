@@ -66,17 +66,17 @@ class WeatherNetwork {
         );
       }
       return WeatherResult.failure(
-        WeatherError.loadFailed(),
+        error: WeatherError.loadFailed(),
       );
     } on DioException catch (e) {
       return WeatherResult.failure(
-        _mapDioError(
+        error: _mapDioError(
           e,
         ),
       );
     } catch (e) {
       return WeatherResult.failure(
-        WeatherError.fromException(
+        error: WeatherError.fromException(
           e,
         ),
       );
