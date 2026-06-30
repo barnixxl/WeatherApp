@@ -63,7 +63,7 @@ class WeatherApi {
       'appid': apiKey,
       'lat': lat.toString(),
       'lon': lon.toString(),
-      'units': 'metric',
+      'units': AppConfig.mapMetric,
       'lang': AppConfig.mapLanguage,
     };
   }
