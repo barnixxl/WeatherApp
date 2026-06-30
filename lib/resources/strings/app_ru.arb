@@ -41,7 +41,7 @@
   "error_config": "Ошибка конфигурации приложения",
   "error_invalid_data": "Ошибка обработки данных",
   "error_gps_disabled": "Включи GPS в настройках устройства",
-  "common_unknow_city_name": "Неизвестное название города",
+  "common_unknown_city_name": "Неизвестное название города",
   "current_location": "Текущее местоположение",
   "temperature_format": "{temp}°C",
   "@temperature_format": {

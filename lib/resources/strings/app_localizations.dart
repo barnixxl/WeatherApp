@@ -214,11 +214,11 @@ abstract class AppLocalizations {
   /// **'Включи GPS в настройках устройства'**
   String get error_gps_disabled;
 
-  /// No description provided for @common_unknow_city_name.
+  /// No description provided for @common_unknown_city_name.
   ///
   /// In ru, this message translates to:
   /// **'Неизвестное название города'**
-  String get common_unknow_city_name;
+  String get common_unknown_city_name;
 
   /// No description provided for @current_location.
   ///

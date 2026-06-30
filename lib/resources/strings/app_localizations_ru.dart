@@ -76,7 +76,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_gps_disabled => 'Включи GPS в настройках устройства';
 
   @override
-  String get common_unknow_city_name => 'Неизвестное название города';
+  String get common_unknown_city_name => 'Неизвестное название города';
 
   @override
   String get current_location => 'Текущее местоположение';

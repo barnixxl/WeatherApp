@@ -129,7 +129,7 @@ class WeatherApi {
     return ApiForecast(
       weatherData:
           (response.list ?? []).map((e) => _buildHourWeather(e)).toList(),
-      cityName: response.city?.name ?? strings.common_unknow_city_name,
+      cityName: response.city?.name ?? strings.common_unknown_city_name,
       latitude: response.city?.coord?.lat ?? 0.0,
       longitude: response.city?.coord?.lon ?? 0.0,
     );
