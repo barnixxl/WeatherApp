@@ -63,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Observer(
               builder: (_) {
                 return Visibility(
-                  visible: homeController.result.isLoading,
+                  visible: homeController.result.isLoading &&
+                      homeController.dayWeather.isEmpty,
                   child: _buildLoadingWidget(),
                 );
               },
