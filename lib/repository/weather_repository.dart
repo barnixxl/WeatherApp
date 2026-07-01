@@ -40,15 +40,21 @@ class WeatherRepository extends BaseRepository {
   Future<WeatherResult<ForecastData>> fetchForecast() async {
     final serviceEnabled = await _locationService.isLocationServiceEnabled();
     if (serviceEnabled) {
-      final position = await _locationService.getCurrentLocation();
-      if (position != null) {
-        return _fetchAndGroup(
-          position.latitude,
-          position.longitude,
+      final locationResult = await _locationService.getCurrentLocation();
+      if (locationResult.isSuccess) {
+        final position = locationResult.data;
+        if (position != null) {
+          return _fetchAndGroup(
+            position.latitude,
+            position.longitude,
+          );
+        }
+        return WeatherResult.failure(
+          error: WeatherError.noGeo(),
         );
       }
       return WeatherResult.failure(
-        error: WeatherError.noGeo(),
+        error: locationResult.error ?? WeatherError.noGeo(),
       );
     }
     return WeatherResult.failure(
