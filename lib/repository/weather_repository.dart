@@ -6,7 +6,7 @@ import '../models/day_weather.dart';
 import '../models/forecast_data.dart';
 import '../models/hour_weather.dart';
 import '../models/weather_error.dart';
-import '../models/api_forecast.dart';
+import '../models/forecast_response.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
 import '../utils/location_service.dart';
@@ -81,7 +81,7 @@ class WeatherRepository extends BaseRepository {
   }
 
   WeatherResult<ForecastData> _groupAndFilterForecast(
-    ApiForecast? data,
+      ForecastResponse? data,
   ) {
     if (data != null) {
       final grouped = _groupByDay(

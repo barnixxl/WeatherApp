@@ -1,12 +1,12 @@
 import 'hour_weather.dart';
 
-class ApiForecast {
+class ForecastResponse {
   final List<HourWeather> weatherData;
   final String cityName;
   final double latitude;
   final double longitude;
 
-  const ApiForecast({
+  const ForecastResponse({
     required this.weatherData,
     required this.cityName,
     required this.latitude,
