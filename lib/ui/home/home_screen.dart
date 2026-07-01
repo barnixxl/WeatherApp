@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Observer(
               builder: (_) {
                 return Visibility(
-                  visible: homeController.result.isError,
+                  visible: homeController.showErrorContent,
                   child: _buildErrorWidget(
                     error: homeController.error,
                     onRetryPressed: _onRefreshPressed,

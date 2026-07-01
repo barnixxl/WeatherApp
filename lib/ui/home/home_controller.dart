@@ -40,6 +40,8 @@ class HomeController {
 
   bool get showLoadingContent => result.isLoading && dayWeather.isEmpty;
 
+  bool get showErrorContent => result.isError;
+
   bool get showForecastContent =>
       result.isSuccess || (result.isLoading && dayWeather.isNotEmpty);
 
