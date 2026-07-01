@@ -16,6 +16,7 @@ Widget _buildErrorWidget({
             MapImages.errorOutline,
             width: 64,
             height: 64,
+            color: AppColors.error,
           ),
           const SizedBox(
             height: 16,
