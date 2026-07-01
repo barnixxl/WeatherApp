@@ -17,7 +17,7 @@ class HomeController {
     '',
   );
 
-  final Observable<DateTime?> _appBarLastUpdate = Observable(
+  final Observable<DateTime?> _firstForecastDate = Observable(
     null,
   );
 
@@ -28,7 +28,7 @@ class HomeController {
   List<DayWeather> get dayWeather =>
       _weatherResult.value.data?.dayWeather ?? _emptyDayWeather;
 
-  DateTime? get lastUpdateDate => _appBarLastUpdate.value;
+  DateTime? get firstForecastDate => _firstForecastDate.value;
 
   WeatherError? get error => _weatherResult.value.error;
 
@@ -65,7 +65,7 @@ class HomeController {
       final data = value.data;
       if (data != null) {
         _appBarCityName.value = data.cityName;
-        _appBarLastUpdate.value = data.dayWeather.firstOrNull?.date;
+        _firstForecastDate.value = data.dayWeather.firstOrNull?.date;
       }
     });
   }
