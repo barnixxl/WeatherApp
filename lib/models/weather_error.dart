@@ -22,6 +22,7 @@ class WeatherError {
   static const int configErrorCode = 10;
   static const int invalidDataCode = 11;
   static const int gpsDisabledCode = 12;
+  static const int locationTimeoutCode = 13;
 
   @override
   String toString() => errorMessage;
@@ -111,5 +112,10 @@ class WeatherError {
   factory WeatherError.gpsDisabled() => WeatherError(
         errorCode: gpsDisabledCode,
         errorMessage: strings.error_gps_disabled,
+      );
+
+  factory WeatherError.locationTimeout() => WeatherError(
+        errorCode: locationTimeoutCode,
+        errorMessage: strings.error_location_timeout,
       );
 }
