@@ -33,13 +33,13 @@ class LocationService {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         return WeatherResult.failure(
-          error: WeatherError.noGeo(),
+          WeatherError.noGeo(),
         );
       }
     }
     if (permission == LocationPermission.deniedForever) {
       return WeatherResult.failure(
-        error: WeatherError.noGeo(),
+        WeatherError.noGeo(),
       );
     }
     try {
@@ -55,11 +55,11 @@ class LocationService {
       );
     } on TimeoutException {
       return WeatherResult.failure(
-        error: WeatherError.locationTimeout(),
+        WeatherError.locationTimeout(),
       );
     } catch (_) {
       return WeatherResult.failure(
-        error: WeatherError.noGeo(),
+        WeatherError.noGeo(),
       );
     }
   }

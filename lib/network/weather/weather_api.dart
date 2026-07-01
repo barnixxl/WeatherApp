@@ -51,7 +51,7 @@ class WeatherApi {
       );
     }
     return WeatherResult.failure(
-      error: WeatherError.configError(),
+      WeatherError.configError(),
     );
   }
 
@@ -80,11 +80,11 @@ class WeatherApi {
         );
       }
       return WeatherResult.failure(
-        error: WeatherError.loadFailed(),
+        WeatherError.loadFailed(),
       );
     }
     return WeatherResult.failure(
-      error: result.error ?? WeatherError.unknown(),
+      result.error ?? WeatherError.unknown(),
     );
   }
 
@@ -108,15 +108,15 @@ class WeatherApi {
           );
         }
         return WeatherResult.failure(
-          error: WeatherError.invalidData(),
+          WeatherError.invalidData(),
         );
       }
       return WeatherResult.failure(
-        error: WeatherError.noData(),
+        WeatherError.noData(),
       );
     } catch (e) {
       return WeatherResult.failure(
-        error: WeatherError.parsing(),
+        WeatherError.parsing(),
       );
     }
   }
