@@ -31,6 +31,8 @@ class WeatherResult<T> {
 
   bool get isError => status == Status.failure;
 
+  bool get isNotInitialized => status == Status.notInitialized;
+
   @override
   String toString() {
     switch (status) {
