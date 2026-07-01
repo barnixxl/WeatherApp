@@ -17,7 +17,4 @@ WeatherItemFromNetwork _$WeatherItemFromNetworkFromJson(
           ?.map(
               (e) => WeatherInfoFromNetwork.fromJson(e as Map<String, dynamic>))
           .toList(),
-      wind: json['wind'] == null
-          ? null
-          : WindDataFromNetwork.fromJson(json['wind'] as Map<String, dynamic>),
     );
