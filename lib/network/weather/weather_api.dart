@@ -37,7 +37,7 @@ class WeatherApi {
     double lon,
   ) async {
     final apiKey = AppConfig.apiKey;
-    if (apiKey != null) {
+    if (apiKey != null && apiKey.isNotEmpty) {
       final result = await _network.get<Map<String, dynamic>>(
         'forecast',
         queryParameters: _buildQueryParams(
