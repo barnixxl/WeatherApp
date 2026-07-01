@@ -202,6 +202,12 @@ abstract class AppLocalizations {
   /// **'Включите GPS в настройках устройства'**
   String get error_gps_disabled;
 
+  /// No description provided for @error_location_timeout.
+  ///
+  /// In ru, this message translates to:
+  /// **'Время ожидания геолокации истекло'**
+  String get error_location_timeout;
+
   /// No description provided for @common_unknown_city_name.
   ///
   /// In ru, this message translates to:

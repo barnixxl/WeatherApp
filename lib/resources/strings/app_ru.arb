@@ -32,6 +32,7 @@
   "error_config": "Ошибка конфигурации приложения",
   "error_invalid_data": "Ошибка обработки данных",
   "error_gps_disabled": "Включите GPS в настройках устройства",
+  "error_location_timeout": "Время ожидания геолокации истекло",
   "common_unknown_city_name": "Неизвестное название города",
   "current_location": "Текущее местоположение",
   "temperature_format": "{temp}°C",

@@ -68,6 +68,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get error_gps_disabled => 'Включите GPS в настройках устройства';
 
   @override
+  String get error_location_timeout => 'Время ожидания геолокации истекло';
+
+  @override
   String get common_unknown_city_name => 'Неизвестное название города';
 
   @override
