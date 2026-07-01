@@ -43,9 +43,18 @@ class HomeController {
       WeatherResult.loading(data: _weatherResult.value.data),
     );
     final result = await _repository.fetchForecast();
-    _setState(
-      result,
-    );
+    if (result.isSuccess) {
+      _setState(
+        result,
+      );
+    } else {
+      _setState(
+        WeatherResult.failure(
+          data: _weatherResult.value.data,
+          error: result.error!,
+        ),
+      );
+    }
   }
 
   void _setState(
