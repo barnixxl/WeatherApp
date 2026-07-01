@@ -82,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Observer(
               builder: (_) {
                 return Visibility(
-                  visible: homeController.result.isSuccess,
+                  visible: homeController.result.isSuccess ||
+                      (homeController.result.isLoading &&
+                          homeController.dayWeather.isNotEmpty),
                   child: _buildSuccessWidget(
                     dayWeather: homeController.dayWeather,
                     latitude: homeController.latitude,

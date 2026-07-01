@@ -40,7 +40,7 @@ class HomeController {
 
   Future<void> onRefreshPressed() async {
     _setState(
-      WeatherResult.loading(),
+      WeatherResult.loading(data: _weatherResult.value.data),
     );
     final result = await _repository.fetchForecast();
     _setState(
