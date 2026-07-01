@@ -48,6 +48,8 @@ class WeatherApi {
       );
       return _processNetworkResult(
         result,
+        lat,
+        lon,
       );
     }
     return WeatherResult.failure(
@@ -71,12 +73,16 @@ class WeatherApi {
 
   WeatherResult<ForecastResponse> _processNetworkResult(
     WeatherResult<Map<String, dynamic>> result,
+    double lat,
+    double lon,
   ) {
     if (result.isSuccess) {
       final data = result.data;
       if (data != null) {
         return _parseForecastData(
           data,
+          lat,
+          lon,
         );
       }
       return WeatherResult.failure(
@@ -90,6 +96,8 @@ class WeatherApi {
 
   WeatherResult<ForecastResponse> _parseForecastData(
     Map<String, dynamic> data,
+    double lat,
+    double lon,
   ) {
     try {
       final response = WeatherResponseFromNetwork.fromJson(
@@ -104,6 +112,8 @@ class WeatherApi {
           return WeatherResult.success(
             _buildRawForecast(
               response,
+              lat,
+              lon,
             ),
           );
         }
@@ -123,13 +133,15 @@ class WeatherApi {
 
   ForecastResponse _buildRawForecast(
     WeatherResponseFromNetwork response,
+    double lat,
+    double lon,
   ) {
     return ForecastResponse(
       weatherData:
           (response.list ?? []).map((e) => _buildHourWeather(e)).toList(),
       cityName: response.city?.name ?? strings.common_unknown_city_name,
-      latitude: response.city?.coord?.lat ?? 0.0,
-      longitude: response.city?.coord?.lon ?? 0.0,
+      latitude: response.city?.coord?.lat ?? lat,
+      longitude: response.city?.coord?.lon ?? lon,
     );
   }
 
