@@ -10,7 +10,7 @@ class HomeController {
   final WeatherRepository _repository = WeatherRepository.getInstance();
 
   final Observable<WeatherResult<ForecastData>> _weatherResult = Observable(
-    WeatherResult.notInitialized(),
+    WeatherResult.loading(),
   );
 
   final Observable<String> _appBarCityName = Observable(
