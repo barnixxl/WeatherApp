@@ -38,12 +38,11 @@ class HomeController {
 
   String get cityName => _appBarCityName.value;
 
-  bool get showLoadingContent => result.isLoading && dayWeather.isEmpty;
+  bool get isLoading => result.isLoading;
 
-  bool get showErrorContent => result.isError;
+  bool get hasError => result.isError;
 
-  bool get showForecastContent =>
-      result.isSuccess || (result.isLoading && dayWeather.isNotEmpty);
+  bool get hasSuccess => result.isSuccess;
 
   Future<void> onRefreshPressed() async {
     _setState(
