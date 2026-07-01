@@ -229,7 +229,7 @@ abstract class AppLocalizations {
   /// No description provided for @app_bar_subtitle.
   ///
   /// In ru, this message translates to:
-  /// **'{cityName} • Обновлено: {date}'**
+  /// **'{cityName} • {date}'**
   String app_bar_subtitle(String cityName, String date);
 }
 

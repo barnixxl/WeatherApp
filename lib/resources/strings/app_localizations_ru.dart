@@ -85,6 +85,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String app_bar_subtitle(String cityName, String date) {
-    return '$cityName • Обновлено: $date';
+    return '$cityName • $date';
   }
 }
