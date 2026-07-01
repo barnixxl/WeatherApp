@@ -38,8 +38,7 @@ class HomeController {
 
   String get cityName => _appBarCityName.value;
 
-  bool get showLoadingContent =>
-      result.isLoading && dayWeather.isEmpty;
+  bool get showLoadingContent => result.isLoading && dayWeather.isEmpty;
 
   bool get showForecastContent =>
       result.isSuccess || (result.isLoading && dayWeather.isNotEmpty);
@@ -57,7 +56,7 @@ class HomeController {
       _setState(
         WeatherResult.failure(
           data: _weatherResult.value.data,
-          error: result.error!,
+          error: result.error ?? WeatherError.unknown(),
         ),
       );
     }
