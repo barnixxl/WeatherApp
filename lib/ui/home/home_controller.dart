@@ -53,8 +53,11 @@ class HomeController {
   ) {
     runInAction(() {
       _weatherResult.value = value;
-      _appBarCityName.value = value.data?.cityName ?? '';
-      _appBarLastUpdate.value = value.data?.dayWeather.firstOrNull?.date;
+      final data = value.data;
+      if (data != null) {
+        _appBarCityName.value = data.cityName;
+        _appBarLastUpdate.value = data.dayWeather.firstOrNull?.date;
+      }
     });
   }
 }
