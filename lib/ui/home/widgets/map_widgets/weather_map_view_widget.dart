@@ -21,6 +21,9 @@ class WeatherMapView extends StatelessWidget {
   ) {
     return RepaintBoundary(
       child: FlutterMap(
+        key: ValueKey(
+          '$latitude,$longitude',
+        ),
         options: MapOptions(
           initialCenter: LatLng(
             latitude,
