@@ -34,7 +34,8 @@ enum WeatherStateAssets {
   snow,
   snowNight,
   fog,
-  fogNight;
+  fogNight,
+  unknown;
 
   String get imagePath {
     switch (this) {
@@ -74,6 +75,8 @@ enum WeatherStateAssets {
         return WeatherStateImages.fog;
       case WeatherStateAssets.fogNight:
         return WeatherStateImages.fogNight;
+      case WeatherStateAssets.unknown:
+        return WeatherStateImages.unknown;
     }
   }
 
@@ -118,7 +121,7 @@ enum WeatherStateAssets {
       case '50n':
         return WeatherStateAssets.fogNight;
       default:
-        return WeatherStateAssets.sun;
+        return WeatherStateAssets.unknown;
     }
   }
 }

@@ -18,4 +18,5 @@ class WeatherStateImages {
   static const snowNight = '$_baseImagePath/snow_night.png';
   static const fog = '$_baseImagePath/fog.png';
   static const fogNight = '$_baseImagePath/fog_night.png';
+  static const unknown = '$_baseImagePath/unknown.png';
 }
