@@ -1,15 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_info_from_network.dart';
+part of 'weather_icon_from_network.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-WeatherInfoFromNetwork _$WeatherInfoFromNetworkFromJson(
+WeatherIconFromNetwork _$WeatherIconFromNetworkFromJson(
         Map<String, dynamic> json) =>
-    WeatherInfoFromNetwork(
-      main: json['main'] as String?,
-      description: json['description'] as String?,
+    WeatherIconFromNetwork(
       icon: json['icon'] as String?,
     );

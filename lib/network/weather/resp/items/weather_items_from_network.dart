@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../data/main_data_from_network.dart';
-import '../info/weather_info_from_network.dart';
+import '../icon/weather_icon_from_network.dart';
 
 part 'weather_items_from_network.g.dart';
 
@@ -14,7 +14,7 @@ class WeatherItemFromNetwork {
   @JsonKey(name: 'main')
   final MainDataFromNetwork? main;
   @JsonKey(name: 'weather')
-  final List<WeatherInfoFromNetwork>? weather;
+  final List<WeatherIconFromNetwork>? weather;
 
   WeatherItemFromNetwork({
     this.dt,

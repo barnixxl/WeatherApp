@@ -15,6 +15,6 @@ WeatherItemFromNetwork _$WeatherItemFromNetworkFromJson(
           : MainDataFromNetwork.fromJson(json['main'] as Map<String, dynamic>),
       weather: (json['weather'] as List<dynamic>?)
           ?.map(
-              (e) => WeatherInfoFromNetwork.fromJson(e as Map<String, dynamic>))
+              (e) => WeatherIconFromNetwork.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
