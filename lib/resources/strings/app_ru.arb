@@ -54,7 +54,7 @@
       }
     }
   },
-  "app_bar_subtitle": "{cityName} • {date}",
+  "app_bar_subtitle": "{cityName} • Обновлено: {date}",
   "@app_bar_subtitle": {
     "placeholders": {
       "cityName": {
