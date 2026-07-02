@@ -6,4 +6,5 @@ class AppConfig {
   static const mapUserAgent = 'com.example.weather_app';
   static const mapLanguage = 'ru';
   static const mapMetric = 'metric';
+  static const baseUrl = 'https://api.openweathermap.org/data/2.5/';
 }
