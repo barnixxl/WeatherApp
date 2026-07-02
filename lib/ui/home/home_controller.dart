@@ -50,7 +50,6 @@ class HomeController {
     );
     final result = await _repository.fetchForecast();
     if (result.isSuccess) {
-      _lastUpdateDate.value = DateTime.now();
       _setState(
         result,
       );
@@ -72,6 +71,9 @@ class HomeController {
       final data = value.data;
       if (data != null) {
         _appBarCityName.value = data.cityName;
+        if (value.isSuccess) {
+          _lastUpdateDate.value = DateTime.now();
+        }
       }
     });
   }
