@@ -62,16 +62,18 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Observer(
               builder: (_) {
+                final dayWeather = homeController.dayWeather;
                 return Visibility(
-                  visible: homeController.isLoading,
+                  visible: homeController.isLoading && dayWeather.isEmpty,
                   child: _buildLoadingWidget(),
                 );
               },
             ),
             Observer(
               builder: (_) {
+                final dayWeather = homeController.dayWeather;
                 return Visibility(
-                  visible: homeController.hasError,
+                  visible: homeController.hasError && dayWeather.isEmpty,
                   child: _buildErrorWidget(
                     error: homeController.error,
                     onRetryPressed: _onRefreshPressed,
