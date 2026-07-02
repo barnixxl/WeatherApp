@@ -42,6 +42,12 @@ class HomeController {
 
   bool get hasError => result.isError;
 
+  bool get showLoadingContent => result.isLoading && dayWeather.isEmpty;
+
+  bool get showErrorContent => result.isError && dayWeather.isEmpty;
+
+  bool get showForecastContent => dayWeather.isNotEmpty;
+
   Future<void> onRefreshPressed() async {
     _setState(
       WeatherResult.loading(
