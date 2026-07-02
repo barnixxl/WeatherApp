@@ -102,13 +102,18 @@ class WeatherRepository extends BaseRepository {
             b.date,
           ),
         );
-      return WeatherResult.success(
-        ForecastData(
-          dayWeather: dayWeather,
-          cityName: data.cityName,
-          latitude: data.latitude,
-          longitude: data.longitude,
-        ),
+      if (dayWeather.isNotEmpty) {
+        return WeatherResult.success(
+          ForecastData(
+            dayWeather: dayWeather,
+            cityName: data.cityName,
+            latitude: data.latitude,
+            longitude: data.longitude,
+          ),
+        );
+      }
+      return WeatherResult.failure(
+        WeatherError.noData(),
       );
     }
     return WeatherResult.failure(
