@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 
 import '../models/day_weather.dart';
 import '../models/forecast_data.dart';
+import '../models/forecast_response.dart';
 import '../models/hour_weather.dart';
 import '../models/weather_error.dart';
-import '../models/forecast_response.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
 import '../utils/location_service.dart';
