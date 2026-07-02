@@ -42,8 +42,6 @@ class HomeController {
 
   bool get hasError => result.isError;
 
-  bool get hasSuccess => result.isSuccess;
-
   Future<void> onRefreshPressed() async {
     _setState(
       WeatherResult.loading(data: _weatherResult.value.data),
