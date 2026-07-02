@@ -17,7 +17,7 @@ class HomeController {
     '',
   );
 
-  final Observable<DateTime?> _firstForecastDate = Observable(
+  final Observable<DateTime?> _lastUpdateDate = Observable(
     null,
   );
 
@@ -28,7 +28,7 @@ class HomeController {
   List<DayWeather> get dayWeather =>
       _weatherResult.value.data?.dayWeather ?? _emptyDayWeather;
 
-  DateTime? get firstForecastDate => _firstForecastDate.value;
+  DateTime? get lastUpdateDate => _lastUpdateDate.value;
 
   WeatherError? get error => _weatherResult.value.error;
 
@@ -50,6 +50,7 @@ class HomeController {
     );
     final result = await _repository.fetchForecast();
     if (result.isSuccess) {
+      _lastUpdateDate.value = DateTime.now();
       _setState(
         result,
       );
@@ -70,7 +71,6 @@ class HomeController {
       final data = value.data;
       if (data != null) {
         _appBarCityName.value = data.cityName;
-        _firstForecastDate.value = data.dayWeather.firstOrNull?.date;
       }
     });
   }

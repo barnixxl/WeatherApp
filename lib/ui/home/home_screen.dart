@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (_) {
             return _buildAppBarWidget(
               cityName: homeController.cityName,
-              firstForecastDate: homeController.firstForecastDate,
+              lastUpdateDate: homeController.lastUpdateDate,
             );
           },
         ),

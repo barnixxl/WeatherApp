@@ -2,7 +2,7 @@ part of 'home_screen.dart';
 
 Widget _buildAppBarWidget({
   required String cityName,
-  required DateTime? firstForecastDate,
+  required DateTime? lastUpdateDate,
 }) {
   return AppBar(
     title: Text(
@@ -25,7 +25,7 @@ Widget _buildAppBarWidget({
             Text(
               strings.app_bar_subtitle(
                 cityName,
-                firstForecastDate?.toDayMonthYearTextDateFormat() ??
+                lastUpdateDate?.toDayMonthYearTextDateFormat() ??
                     strings.common_absent_date,
               ),
               style: const TextStyle(
