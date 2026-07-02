@@ -81,7 +81,7 @@ class WeatherRepository extends BaseRepository {
   }
 
   WeatherResult<ForecastData> _groupAndFilterForecast(
-      ForecastResponse? data,
+    ForecastResponse? data,
   ) {
     if (data != null) {
       final grouped = _groupByDay(
@@ -149,26 +149,26 @@ class WeatherRepository extends BaseRepository {
     final sorted = List<HourWeather>.from(
       hourlyData,
     )..sort(
-      (
-        a,
-        b,
-      ) {
-        final aDt = a.dateTime;
-        final bDt = b.dateTime;
-        if (aDt == null && bDt == null) {
-          return 0;
-        }
-        if (aDt == null) {
-          return 1;
-        }
-        if (bDt == null) {
-          return -1;
-        }
-        return aDt.compareTo(
-          bDt,
-        );
-      },
-    );
+        (
+          a,
+          b,
+        ) {
+          final aDt = a.dateTime;
+          final bDt = b.dateTime;
+          if (aDt == null && bDt == null) {
+            return 0;
+          }
+          if (aDt == null) {
+            return 1;
+          }
+          if (bDt == null) {
+            return -1;
+          }
+          return aDt.compareTo(
+            bDt,
+          );
+        },
+      );
     final minTemps = sorted.map(
       (e) => e.tempMin,
     );

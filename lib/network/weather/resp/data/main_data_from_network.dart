@@ -12,6 +12,7 @@ class MainDataFromNetwork {
   final double? tempMin;
   @JsonKey(name: 'temp_max')
   final double? tempMax;
+
   MainDataFromNetwork({
     this.temp,
     this.tempMin,
