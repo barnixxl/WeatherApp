@@ -1,4 +1,4 @@
-import 'ui/home/home_screen.dart';
+import 'package:currency_converter/ui/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/date_symbol_data_local.dart';

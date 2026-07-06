@@ -52,11 +52,11 @@ import 'app_localizations_ru.dart';
 /// Then, in the Project Navigator, open the Info.plist file under the Runner
 /// project’s Runner folder.
 ///
-/// Next, select the Information Property List items, select Add Item from the
+/// Next, select the Information Property List item, select Add Item from the
 /// Editor menu, then select Localizations from the pop-up menu.
 ///
-/// Select and expand the newly-created Localizations items then, for each
-/// locale your application supports, add a new items and select the locale
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
@@ -279,6 +279,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   throw FlutterError(
       'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
       'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-strings configuration '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
       'that was used.');
 }
