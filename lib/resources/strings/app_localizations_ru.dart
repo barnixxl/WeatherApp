@@ -90,4 +90,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String app_bar_subtitle(String cityName, String date) {
     return '$cityName • Обновлено: $date';
   }
+
+  @override
+  String get map_osm_attribution => '© OpenStreetMap contributors';
 }

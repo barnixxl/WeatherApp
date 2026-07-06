@@ -237,6 +237,12 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'{cityName} • Обновлено: {date}'**
   String app_bar_subtitle(String cityName, String date);
+
+  /// No description provided for @map_osm_attribution.
+  ///
+  /// In ru, this message translates to:
+  /// **'© OpenStreetMap contributors'**
+  String get map_osm_attribution;
 }
 
 class _AppLocalizationsDelegate

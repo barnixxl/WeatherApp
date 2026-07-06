@@ -64,5 +64,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "map_osm_attribution": "© OpenStreetMap contributors"
 }
