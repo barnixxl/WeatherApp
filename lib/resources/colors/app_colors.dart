@@ -7,5 +7,6 @@ class AppColors {
   static const onPrimary = Color(0xFFFFFFFF);
   static const error = Color(0xFFF44336);
   static const shadow = Color(0xFF1976D2);
+  static const scrollBlue = Color(0xFF78A5D6);
   static const primaryGray = Color(0xFF777777);
 }
