@@ -81,12 +81,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Observer(
               builder: (_) {
+                final dayWeather = homeController.dayWeather;
+                final latitude = homeController.latitude;
+                final longitude = homeController.longitude;
                 return Visibility(
                   visible: homeController.hasSuccess,
                   child: _buildSuccessWidget(
-                    dayWeather: homeController.dayWeather,
-                    latitude: homeController.latitude,
-                    longitude: homeController.longitude,
+                    dayWeather: dayWeather,
+                    latitude: latitude,
+                    longitude: longitude,
                   ),
                 );
               },
