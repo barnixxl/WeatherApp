@@ -35,7 +35,7 @@ class WeatherError {
     }
     return WeatherError(
       errorCode: unknownCode,
-      errorMessage: strings.error_unknown,
+      errorMessage: e.toString(),
     );
   }
 
