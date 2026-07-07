@@ -5,12 +5,9 @@ import '../../models/forecast_data.dart';
 import '../../models/weather_error.dart';
 import '../../models/weather_result.dart';
 import '../../repository/weather_repository.dart';
-import '../../utils/location_service.dart';
 
 class HomeController {
   final WeatherRepository _repository = WeatherRepository.getInstance();
-
-  final LocationService _locationService = LocationService.getInstance();
 
   final Observable<WeatherResult<ForecastData>> _weatherResult = Observable(
     WeatherResult.notInitialized(),
@@ -53,32 +50,7 @@ class HomeController {
         data: _weatherResult.value.data,
       ),
     );
-    final serviceEnabled = await _locationService.isLocationServiceEnabled();
-    if (serviceEnabled == false) {
-      _setState(WeatherResult.failure(
-        WeatherError.gpsDisabled(),
-        data: _weatherResult.value.data,
-      ));
-      return;
-    }
-
-    final locationResult = await _locationService.getCurrentLocation();
-
-    final locationData = locationResult.data;
-    if (locationResult.isError || locationData == null) {
-      _setState(
-        WeatherResult.failure(
-          locationResult.error ?? WeatherError.noGeo(),
-          data: _weatherResult.value.data,
-        ),
-      );
-      return;
-    }
-
-    final result = await _repository.fetchForecast(
-      locationData.latitude,
-      locationData.longitude,
-    );
+    final result = await _repository.fetchForecast();
     if (result.isSuccess) {
       _setState(
         result,
@@ -87,6 +59,7 @@ class HomeController {
       _setState(
         WeatherResult.failure(
           result.error ?? WeatherError.unknown(),
+          data: _weatherResult.value.data,
         ),
       );
     }

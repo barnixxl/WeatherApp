@@ -9,12 +9,14 @@ import '../models/hour_weather.dart';
 import '../models/weather_error.dart';
 import '../models/weather_result.dart';
 import '../network/weather/weather_api.dart';
+import '../utils/location_service.dart';
 import 'base_repository.dart';
 
 class WeatherRepository extends BaseRepository {
   static final GetIt _getIt = GetIt.instance;
 
   late final WeatherApi _weatherApi;
+  late final LocationService _locationService;
 
   @override
   void register(
@@ -28,13 +30,39 @@ class WeatherRepository extends BaseRepository {
   @override
   Future<void> initializeDependencies() async {
     _weatherApi = _getIt<WeatherApi>();
+    _locationService = _getIt<LocationService>();
   }
 
   static WeatherRepository getInstance() {
     return _getIt<WeatherRepository>();
   }
 
-  Future<WeatherResult<ForecastData>> fetchForecast(
+  Future<WeatherResult<ForecastData>> fetchForecast() async {
+    final serviceEnabled = await _locationService.isLocationServiceEnabled();
+    if (serviceEnabled) {
+      final locationResult = await _locationService.getCurrentLocation();
+      if (locationResult.isSuccess) {
+        final position = locationResult.data;
+        if (position != null) {
+          return _fetchAndGroup(
+            position.latitude,
+            position.longitude,
+          );
+        }
+        return WeatherResult.failure(
+          WeatherError.noGeo(),
+        );
+      }
+      return WeatherResult.failure(
+        locationResult.error ?? WeatherError.noGeo(),
+      );
+    }
+    return WeatherResult.failure(
+      WeatherError.gpsDisabled(),
+    );
+  }
+
+  Future<WeatherResult<ForecastData>> _fetchAndGroup(
     double lat,
     double lon,
   ) async {
