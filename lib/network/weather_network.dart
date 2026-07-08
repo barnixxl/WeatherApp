@@ -92,9 +92,7 @@ class WeatherNetwork {
       case DioExceptionType.receiveTimeout:
         return WeatherError.timeout();
       case DioExceptionType.badCertificate:
-        return WeatherError.badResponse(
-          0,
-        );
+        return WeatherError.unknown(); 
       case DioExceptionType.badResponse:
         final statusCode = e.response?.statusCode ?? 0;
         if (statusCode >= 500) {
