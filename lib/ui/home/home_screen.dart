@@ -8,7 +8,7 @@ import '../../resources/colors/app_colors.dart';
 import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
 import 'home_controller.dart';
-import 'widgets/map_widgets/weather_map_widget.dart';
+import 'widgets/map_widgets/map_widget.dart';
 import 'widgets/weather_widgets/day_weather_item_widget.dart';
 
 part 'home_screen.app_bar_state.part.dart';
@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return _buildAppBarWidget(
               cityName: homeController.cityName,
               lastUpdateDate: homeController.lastUpdateDate,
+              onMapPressed: _showMapOverlay,
             );
           },
         ),
@@ -82,20 +83,26 @@ class _HomeScreenState extends State<HomeScreen> {
             Observer(
               builder: (_) {
                 final dayWeather = homeController.dayWeather;
-                final latitude = homeController.latitude;
-                final longitude = homeController.longitude;
                 return Visibility(
                   visible: homeController.hasSuccess,
                   child: _buildSuccessWidget(
                     dayWeather: dayWeather,
-                    latitude: latitude,
-                    longitude: longitude,
                   ),
                 );
               },
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showMapOverlay() {
+    showDialog(
+      context: context,
+      builder: (_) => MapOverlayWidget(
+        latitude: _homeController.latitude,
+        longitude: _homeController.longitude,
       ),
     );
   }
