@@ -3,6 +3,7 @@ part of 'home_screen.dart';
 Widget _buildAppBarWidget({
   required String cityName,
   required DateTime? lastUpdateDate,
+  required void Function() onMapPressed,
 }) {
   return AppBar(
     title: Text(
@@ -10,6 +11,14 @@ Widget _buildAppBarWidget({
     ),
     backgroundColor: AppColors.primary,
     foregroundColor: AppColors.onPrimary,
+    actions: [
+      IconButton(
+        icon: const Icon(
+          Icons.map_outlined,
+        ),
+        onPressed: onMapPressed,
+      ),
+    ],
     bottom: PreferredSize(
       preferredSize: const Size.fromHeight(
         40,
