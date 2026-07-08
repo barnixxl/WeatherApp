@@ -28,7 +28,7 @@ class WeatherMapView extends StatelessWidget {
             child: FlutterMap(
               key: ValueKey(
                 '$latitude,'
-                '$longitude,',
+                '$longitude,'
               ),
               options: MapOptions(
                 initialCenter: LatLng(
