@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'map_header_widget.dart';
+import '../../../../main.dart';
+import '../../../../resources/colors/app_colors.dart';
+import '../../../../resources/images/map_images/map_images.dart';
 import 'weather_map_view_widget.dart';
 
 class MapOverlayWidget extends StatelessWidget {
@@ -32,8 +34,9 @@ class MapOverlayWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MapHeaderWidget(
-            onClose: onClose,
+          _buildHeader(
+            context,
+            onClose,
           ),
           SizedBox(
             height: 300,
@@ -46,4 +49,45 @@ class MapOverlayWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildHeader(
+  BuildContext context,
+  VoidCallback onClose,
+) {
+  return Container(
+    padding: const EdgeInsets.all(
+      12,
+    ),
+    color: AppColors.primaryDark,
+    child: Row(
+      children: [
+        Image.asset(
+          MapImages.locationOn,
+          width: 20,
+          height: 20,
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          strings.current_location,
+          style: const TextStyle(
+            color: AppColors.onPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const Spacer(),
+        IconButton(
+          icon: Image.asset(
+            MapImages.closeIcon,
+            width: 24,
+            height: 24,
+          ),
+          onPressed: onClose,
+        ),
+      ],
+    ),
+  );
 }
