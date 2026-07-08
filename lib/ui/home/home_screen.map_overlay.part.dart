@@ -51,15 +51,17 @@ Widget _buildOverlayHeader(
         const SizedBox(
           width: 8,
         ),
-        Text(
-          strings.current_location,
-          style: const TextStyle(
-            color: AppColors.onPrimary,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
+        Expanded(
+          child: Text(
+            strings.current_location,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: AppColors.onPrimary,
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        const Spacer(),
         IconButton(
           icon: Image.asset(
             MapImages.closeIcon,
