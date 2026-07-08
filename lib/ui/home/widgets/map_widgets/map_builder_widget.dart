@@ -5,12 +5,12 @@ import '../../../../resources/colors/app_colors.dart';
 import '../../../../resources/images/map_images/map_images.dart';
 import 'map_view_widget.dart';
 
-class MapWidget extends StatelessWidget {
+class MapBuilderWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
   final VoidCallback onClose;
 
-  const MapWidget({
+  const MapBuilderWidget({
     super.key,
     required this.latitude,
     required this.longitude,
