@@ -32,7 +32,7 @@ class DayWeatherItem extends StatelessWidget {
           Row(
             children: [
               Text(
-                date.toDayOfWeekFormat() ?? '',
+                date.toDayOfWeekFormat() ?? strings.common_absent_day,
                 style: const TextStyle(
                   color: AppColors.onPrimary,
                   fontSize: 18,
