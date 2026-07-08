@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../main.dart';
-import '../../../../models/hour_weather.dart';
-import '../../../../resources/colors/app_colors.dart';
-import '../../../../utils/date_formatter.dart';
-import '../shared/app_card_widget.dart';
+import '../../../main.dart';
+import '../../../models/hour_weather.dart';
+import '../../../resources/colors/app_colors.dart';
+import '../../../utils/date_formatter.dart';
+import '../../common/app_card/app_card_widget.dart';
 import 'hourly_weather_row.dart';
 
 class DayWeatherItem extends StatelessWidget {
