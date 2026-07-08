@@ -55,7 +55,7 @@ Widget _buildOverlayHeader(
           strings.current_location,
           style: const TextStyle(
             color: AppColors.onPrimary,
-            fontSize: 16,
+            fontSize: 13,
             fontWeight: FontWeight.bold,
           ),
         ),
