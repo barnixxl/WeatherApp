@@ -5,12 +5,12 @@ import '../../../../resources/colors/app_colors.dart';
 import '../../../../resources/images/map_images/map_images.dart';
 import 'weather_map_view_widget.dart';
 
-class MapOverlayWidget extends StatelessWidget {
+class MapWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
   final VoidCallback onClose;
 
-  const MapOverlayWidget({
+  const MapWidget({
     super.key,
     required this.latitude,
     required this.longitude,
