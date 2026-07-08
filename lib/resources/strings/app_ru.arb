@@ -6,6 +6,8 @@
   "geo_error": "Нет доступа к геолокации. Включите GPS и попробуйте снова.",
   "retry": "Повторить",
   "common_absent_date": "Дата отсутствует",
+  "common_absent_day": "День отсутствует",
+  "common_absent_time": "Время отсутствует",
   "error_timeout": "Время соединения вышло",
   "error_no_internet": "Проверьте соединение с интернетом",
   "error_server": "Ошибка сервера: {statusCode}",

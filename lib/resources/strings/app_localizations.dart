@@ -130,6 +130,18 @@ abstract class AppLocalizations {
   /// **'Дата отсутствует'**
   String get common_absent_date;
 
+  /// No description provided for @common_absent_day.
+  ///
+  /// In ru, this message translates to:
+  /// **'День отсутствует'**
+  String get common_absent_day;
+
+  /// No description provided for @common_absent_time.
+  ///
+  /// In ru, this message translates to:
+  /// **'Время отсутствует'**
+  String get common_absent_time;
+
   /// No description provided for @error_timeout.
   ///
   /// In ru, this message translates to:

@@ -28,6 +28,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get common_absent_date => 'Дата отсутствует';
 
   @override
+  String get common_absent_day => 'День отсутствует';
+
+  @override
+  String get common_absent_time => 'Время отсутствует';
+
+  @override
   String get error_timeout => 'Время соединения вышло';
 
   @override
