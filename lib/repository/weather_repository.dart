@@ -79,124 +79,124 @@ class WeatherRepository extends BaseRepository {
       result.error ?? WeatherError.unknown(),
     );
   }
-}
 
-WeatherResult<ForecastData> _groupAndFilterForecast(
-  ForecastResponse? data,
-) {
-  if (data != null) {
-    final grouped = _groupByDay(
-      data.weatherData,
-    );
-    final dayWeather = grouped.entries
-        .map((e) => _createDayWeather(
-              e.key,
-              e.value,
-            ))
-        .toList()
-      ..sort(
-        (
-          a,
-          b,
-        ) =>
-            a.date.compareTo(
-          b.date,
-        ),
+  WeatherResult<ForecastData> _groupAndFilterForecast(
+    ForecastResponse? data,
+  ) {
+    if (data != null) {
+      final grouped = _groupByDay(
+        data.weatherData,
       );
-    if (dayWeather.isNotEmpty) {
-      return WeatherResult.success(
-        ForecastData(
-          dayWeather: dayWeather,
-          cityName: data.cityName,
-          latitude: data.latitude,
-          longitude: data.longitude,
-        ),
+      final dayWeather = grouped.entries
+          .map((e) => _createDayWeather(
+                e.key,
+                e.value,
+              ))
+          .toList()
+        ..sort(
+          (
+            a,
+            b,
+          ) =>
+              a.date.compareTo(
+            b.date,
+          ),
+        );
+      if (dayWeather.isNotEmpty) {
+        return WeatherResult.success(
+          ForecastData(
+            dayWeather: dayWeather,
+            cityName: data.cityName,
+            latitude: data.latitude,
+            longitude: data.longitude,
+          ),
+        );
+      }
+      return WeatherResult.failure(
+        WeatherError.noData(),
       );
     }
     return WeatherResult.failure(
-      WeatherError.noData(),
+      WeatherError.loadFailed(),
     );
   }
-  return WeatherResult.failure(
-    WeatherError.loadFailed(),
-  );
-}
 
-Map<DateTime, List<HourWeather>> _groupByDay(
-  List<HourWeather> weatherList,
-) {
-  final Map<DateTime, List<HourWeather>> grouped = {};
-  for (final weather in weatherList) {
-    final dt = weather.dateTime;
-    if (dt == null) {
-      continue;
+  Map<DateTime, List<HourWeather>> _groupByDay(
+    List<HourWeather> weatherList,
+  ) {
+    final Map<DateTime, List<HourWeather>> grouped = {};
+    for (final weather in weatherList) {
+      final dt = weather.dateTime;
+      if (dt == null) {
+        continue;
+      }
+      final date = DateTime(
+        dt.year,
+        dt.month,
+        dt.day,
+      );
+      grouped
+          .putIfAbsent(
+            date,
+            () => [],
+          )
+          .add(
+            weather,
+          );
     }
-    final date = DateTime(
-      dt.year,
-      dt.month,
-      dt.day,
-    );
-    grouped
-        .putIfAbsent(
-          date,
-          () => [],
-        )
-        .add(
-          weather,
-        );
+    return grouped;
   }
-  return grouped;
-}
 
-DayWeather _createDayWeather(
-  DateTime date,
-  List<HourWeather> hourlyData,
-) {
-  final sorted = List<HourWeather>.from(
-    hourlyData,
-  )..sort(
-      (
-        a,
-        b,
-      ) {
-        final aDt = a.dateTime;
-        final bDt = b.dateTime;
-        if (aDt == null && bDt == null) {
-          return 0;
-        }
-        if (aDt == null) {
-          return 1;
-        }
-        if (bDt == null) {
-          return -1;
-        }
-        return aDt.compareTo(
-          bDt,
-        );
-      },
+  DayWeather _createDayWeather(
+    DateTime date,
+    List<HourWeather> hourlyData,
+  ) {
+    final sorted = List<HourWeather>.from(
+      hourlyData,
+    )..sort(
+        (
+          a,
+          b,
+        ) {
+          final aDt = a.dateTime;
+          final bDt = b.dateTime;
+          if (aDt == null && bDt == null) {
+            return 0;
+          }
+          if (aDt == null) {
+            return 1;
+          }
+          if (bDt == null) {
+            return -1;
+          }
+          return aDt.compareTo(
+            bDt,
+          );
+        },
+      );
+    final minTemps = sorted.map(
+      (e) => e.tempMin,
     );
-  final minTemps = sorted.map(
-    (e) => e.tempMin,
-  );
-  final maxTemps = sorted.map(
-    (e) => e.tempMax,
-  );
-  if (minTemps.isNotEmpty) {
+    final maxTemps = sorted.map(
+      (e) => e.tempMax,
+    );
+    if (minTemps.isNotEmpty) {
+      return DayWeather(
+        date: date,
+        hourlyData: sorted,
+        dayMinTemp: minTemps.reduce(
+          min,
+        ),
+        dayMaxTemp: maxTemps.reduce(
+          max,
+        ),
+      );
+    }
     return DayWeather(
       date: date,
       hourlyData: sorted,
-      dayMinTemp: minTemps.reduce(
-        min,
-      ),
-      dayMaxTemp: maxTemps.reduce(
-        max,
-      ),
+      dayMinTemp: 0.0,
+      dayMaxTemp: 0.0,
     );
   }
-  return DayWeather(
-    date: date,
-    hourlyData: sorted,
-    dayMinTemp: 0.0,
-    dayMaxTemp: 0.0,
-  );
 }
