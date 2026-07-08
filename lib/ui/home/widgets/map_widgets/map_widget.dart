@@ -6,11 +6,13 @@ import 'weather_map_view_widget.dart';
 class MapOverlayWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
+  final VoidCallback onClose;
 
   const MapOverlayWidget({
     super.key,
     required this.latitude,
     required this.longitude,
+    required this.onClose,
   });
 
   @override
@@ -30,7 +32,9 @@ class MapOverlayWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const MapHeaderWidget(),
+          MapHeaderWidget(
+            onClose: onClose,
+          ),
           SizedBox(
             height: 300,
             child: WeatherMapView(

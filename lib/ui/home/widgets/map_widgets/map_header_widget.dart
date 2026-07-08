@@ -5,8 +5,11 @@ import '../../../../resources/colors/app_colors.dart';
 import '../../../../resources/images/map_images/map_images.dart';
 
 class MapHeaderWidget extends StatelessWidget {
+  final VoidCallback onClose;
+
   const MapHeaderWidget({
     super.key,
+    required this.onClose,
   });
 
   @override
@@ -43,9 +46,7 @@ class MapHeaderWidget extends StatelessWidget {
               width: 24,
               height: 24,
             ),
-            onPressed: () => Navigator.of(
-              context,
-            ).pop(),
+            onPressed: onClose,
           ),
         ],
       ),

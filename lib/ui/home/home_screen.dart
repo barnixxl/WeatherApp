@@ -100,9 +100,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showMapOverlay() {
     showDialog(
       context: context,
-      builder: (_) => MapOverlayWidget(
+      builder: (
+        dialogContext,
+      ) =>
+          MapOverlayWidget(
         latitude: _homeController.latitude,
         longitude: _homeController.longitude,
+        onClose: () => Navigator.of(
+          dialogContext,
+        ).pop(),
       ),
     );
   }
