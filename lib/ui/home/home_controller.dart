@@ -67,15 +67,17 @@ class HomeController {
   void _setState(
     WeatherResult<ForecastData> value,
   ) {
-    runInAction(() {
-      _weatherResult.value = value;
-      final data = value.data;
-      if (data != null) {
-        _appBarCityName.value = data.cityName;
-        if (value.isSuccess) {
-          _lastUpdateDate.value = DateTime.now();
+    runInAction(
+      () {
+        _weatherResult.value = value;
+        final data = value.data;
+        if (data != null) {
+          _appBarCityName.value = data.cityName;
+          if (value.isSuccess) {
+            _lastUpdateDate.value = DateTime.now();
+          }
         }
-      }
-    });
+      },
+    );
   }
 }
