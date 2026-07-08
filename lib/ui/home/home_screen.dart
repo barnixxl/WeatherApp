@@ -8,7 +8,7 @@ import '../../resources/colors/app_colors.dart';
 import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
 import 'home_controller.dart';
-import 'widgets/map_widgets/map_builder_widget.dart';
+import 'widgets/map_widgets/map_view_widget.dart';
 import 'widgets/weather_widgets/day_weather_item_widget.dart';
 
 part 'home_screen.app_bar_state.part.dart';
@@ -16,6 +16,8 @@ part 'home_screen.app_bar_state.part.dart';
 part 'home_screen.error_state.part.dart';
 
 part 'home_screen.load_state.part.dart';
+
+part 'home_screen.map_overlay.part.dart';
 
 part 'home_screen.success_state.part.dart';
 
@@ -103,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (
         dialogContext,
       ) =>
-          MapBuilderWidget(
+          _buildMapOverlay(
         latitude: _homeController.latitude,
         longitude: _homeController.longitude,
         onClose: () => Navigator.of(
