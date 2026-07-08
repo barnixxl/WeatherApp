@@ -8,7 +8,7 @@ import 'map_view_widget.dart';
 class MapBuilderWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
-  final VoidCallback onClose;
+  final void Function() onClose;
 
   const MapBuilderWidget({
     super.key,
@@ -52,7 +52,7 @@ class MapBuilderWidget extends StatelessWidget {
 
   Widget _buildHeader(
     BuildContext context,
-    VoidCallback onClose,
+    void Function() onClose,
   ) {
     return Container(
       padding: const EdgeInsets.all(
