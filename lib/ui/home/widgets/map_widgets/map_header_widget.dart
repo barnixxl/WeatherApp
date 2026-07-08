@@ -38,9 +38,10 @@ class MapHeaderWidget extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            icon: const Icon(
-              Icons.close,
-              color: AppColors.onPrimary,
+            icon: Image.asset(
+              MapImages.closeIcon,
+              width: 24,
+              height: 24,
             ),
             onPressed: () => Navigator.of(
               context,

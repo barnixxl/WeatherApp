@@ -13,8 +13,10 @@ Widget _buildAppBarWidget({
     foregroundColor: AppColors.onPrimary,
     actions: [
       IconButton(
-        icon: const Icon(
-          Icons.map_outlined,
+        icon: Image.asset(
+          MapImages.mapIcon,
+          width: 24,
+          height: 24,
         ),
         onPressed: onMapPressed,
       ),
