@@ -41,7 +41,7 @@ class WeatherNetwork {
     if (kDebugMode) {
       _dio.interceptors.add(
         LogInterceptor(
-          request: true,
+          request: false,
           requestBody: true,
           responseBody: true,
           error: true,
