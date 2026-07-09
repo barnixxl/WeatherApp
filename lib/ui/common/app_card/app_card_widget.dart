@@ -6,7 +6,6 @@ class AppCardWidget extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
-  final double? height;
   final bool clipContent;
 
   const AppCardWidget({
@@ -19,7 +18,6 @@ class AppCardWidget extends StatelessWidget {
     this.padding = const EdgeInsets.all(
       12,
     ),
-    this.height,
     this.clipContent = false,
   });
 
@@ -27,34 +25,18 @@ class AppCardWidget extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return Container(
+    return Card(
       margin: margin,
-      height: height,
-      decoration: BoxDecoration(
-        color: AppColors.primaryLight,
+      elevation: 0,
+      color: AppColors.primaryLight,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           16,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow.withValues(
-              alpha: 0.3,
-            ),
-            blurRadius: 4,
-            offset: const Offset(
-              0,
-              2,
-            ),
-          ),
-        ],
       ),
+      clipBehavior: clipContent ? Clip.antiAlias : Clip.none,
       child: clipContent
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(
-                16,
-              ),
-              child: child,
-            )
+          ? child
           : Padding(
               padding: padding,
               child: child,
