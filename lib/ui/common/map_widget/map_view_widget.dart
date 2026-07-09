@@ -7,11 +7,11 @@ import '../../../../main.dart';
 import '../../../../resources/colors/app_colors.dart';
 import '../../../../resources/images/map_images/map_images.dart';
 
-class WeatherMapView extends StatelessWidget {
+class MapView extends StatelessWidget {
   final double latitude;
   final double longitude;
 
-  const WeatherMapView({
+  const MapView({
     super.key,
     required this.latitude,
     required this.longitude,

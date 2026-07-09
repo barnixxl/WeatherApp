@@ -23,7 +23,7 @@ Widget _buildMapOverlay({
         ),
         SizedBox(
           height: 300,
-          child: WeatherMapView(
+          child: MapView(
             latitude: latitude,
             longitude: longitude,
           ),
