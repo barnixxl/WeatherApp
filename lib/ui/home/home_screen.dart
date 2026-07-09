@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(
-          kToolbarHeight + 40,
+          kToolbarHeight + AppDimens.appBarBottomHeight,
         ),
         child: Observer(
           builder: (_) {

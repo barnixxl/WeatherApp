@@ -16,4 +16,6 @@ class AppDimens {
   static const double mapOverlayHeight = 300;
 
   static const double radiusMd = 16;
+
+  static const double appBarBottomHeight = 40;
 }

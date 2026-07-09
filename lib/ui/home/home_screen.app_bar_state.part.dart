@@ -23,7 +23,7 @@ Widget _buildAppBarWidget({
     ],
     bottom: PreferredSize(
       preferredSize: const Size.fromHeight(
-        40,
+        AppDimens.appBarBottomHeight,
       ),
       child: Container(
         padding: const EdgeInsets.all(
