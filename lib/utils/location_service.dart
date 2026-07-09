@@ -55,9 +55,9 @@ class LocationService {
       return WeatherResult.failure(
         WeatherError.locationTimeout(),
       );
-    } catch (_) {
+    } catch (e) {
       return WeatherResult.failure(
-        WeatherError.noGeo(),
+        WeatherError.fromException(e),
       );
     }
   }
