@@ -1,4 +1,4 @@
-import 'dart:math';
+//import 'dart:math';
 
 import 'package:get_it/get_it.dart';
 
@@ -174,29 +174,21 @@ class WeatherRepository extends BaseRepository {
           );
         },
       );
-    final minTemps = sorted.map(
-      (e) => e.tempMin,
-    );
-    final maxTemps = sorted.map(
-      (e) => e.tempMax,
-    );
-    if (minTemps.isNotEmpty) {
-      return DayWeather(
-        date: date,
-        hourlyData: sorted,
-        dayMinTemp: minTemps.reduce(
-          min,
-        ),
-        dayMaxTemp: maxTemps.reduce(
-          max,
-        ),
-      );
+    var minTemp = sorted.first.tempMin;
+    var maxTemp = sorted.first.tempMax;
+    for (final item in sorted) {
+      if (item.tempMin < minTemp) {
+        minTemp = item.tempMin;
+      }
+      if (item.tempMax > maxTemp) {
+        maxTemp = item.tempMax;
+      }
     }
     return DayWeather(
       date: date,
       hourlyData: sorted,
-      dayMinTemp: 0.0,
-      dayMaxTemp: 0.0,
+      dayMinTemp: minTemp,
+      dayMaxTemp: maxTemp,
     );
   }
 }
