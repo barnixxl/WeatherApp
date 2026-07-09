@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Observer(
           builder: (_) {
             return _buildAppBarWidget(
-              cityName: homeController.cityName,
+              cityName: homeController.appBarCityName,
               lastUpdateDate: homeController.lastUpdateDate,
               onMapPressed: _showMapOverlay,
             );

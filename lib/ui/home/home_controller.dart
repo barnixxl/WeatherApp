@@ -30,7 +30,7 @@ class HomeController {
 
   double get longitude => _weatherResult.value.data?.longitude ?? 0.0;
 
-  String get cityName => _weatherResult.value.data?.cityName ?? '';
+  String get appBarCityName => _weatherResult.value.data?.cityName ?? '';
 
   bool get isLoading => result.isLoading;
 
