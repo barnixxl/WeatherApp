@@ -22,7 +22,9 @@ Future<void> initializeLocale() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
+  try {
+    await dotenv.load();
+  } catch (_) {}
   await initializeLocale();
   strings = lookupAppLocalizations(
     const Locale(
