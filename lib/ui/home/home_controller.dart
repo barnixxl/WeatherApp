@@ -51,9 +51,7 @@ class HomeController {
       );
     } else {
       _setState(
-        WeatherResult.failure(
-          result.error ?? WeatherError.unknown(),
-        ),
+        result,
       );
     }
   }
