@@ -23,7 +23,7 @@ Widget _buildMapOverlayWidget({
         ),
         SizedBox(
           height: AppDimens.mapOverlayHeight,
-          child: MapView(
+          child: MapViewWidget(
             latitude: latitude,
             longitude: longitude,
           ),
