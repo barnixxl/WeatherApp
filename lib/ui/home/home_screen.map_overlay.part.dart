@@ -64,7 +64,7 @@ Widget _buildOverlayHeaderWidget(
         ),
         IconButton(
           icon: Image.asset(
-            MapImages.closeIcon,
+            AppImages.closeIcon,
             width: AppDimens.iconSm,
             height: AppDimens.iconSm,
           ),
