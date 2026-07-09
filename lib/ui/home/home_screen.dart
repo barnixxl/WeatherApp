@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../main.dart';
 import '../../models/day_weather.dart';
-import '../../models/weather_error.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
@@ -76,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Visibility(
                   visible: homeController.hasError,
                   child: _buildErrorWidget(
-                    error: homeController.error,
+                    errorMessage: homeController.error?.errorMessage,
                     onRetryPressed: _onRefreshPressed,
                   ),
                 );

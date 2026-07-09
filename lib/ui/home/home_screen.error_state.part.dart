@@ -1,7 +1,7 @@
 part of 'home_screen.dart';
 
 Widget _buildErrorWidget({
-  required WeatherError? error,
+  required String? errorMessage,
   required void Function() onRetryPressed,
 }) {
   return Center(
@@ -22,7 +22,7 @@ Widget _buildErrorWidget({
             height: 16,
           ),
           Text(
-            error?.errorMessage ?? strings.error,
+            errorMessage ?? strings.error,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 16,
