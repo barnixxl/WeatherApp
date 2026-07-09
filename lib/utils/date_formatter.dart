@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-extension DateUtils on DateTime? {
+extension DateTimeFormattingUtil on DateTime? {
   static final DateFormat dayMonthYearTextDateFormat =
       DateFormat('d MMMM y', 'ru');
   static final DateFormat dayOfWeekFormat = DateFormat('EEEE', 'ru');
