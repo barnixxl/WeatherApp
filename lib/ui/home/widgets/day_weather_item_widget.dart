@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../models/hour_weather.dart';
 import '../../../resources/colors/app_colors.dart';
+import '../../../resources/dimens/app_dimens.dart';
 import '../../../utils/date_formatter.dart';
 import '../../common/app_card/app_card_widget.dart';
 import 'hourly_weather_row.dart';
@@ -35,8 +36,7 @@ class DayWeatherItem extends StatelessWidget {
                 date.toDayOfWeekFormat() ?? strings.common_absent_day,
                 style: const TextStyle(
                   color: AppColors.onPrimary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontSize: AppDimens.fontLg,
                 ),
               ),
               const Spacer(),
@@ -51,7 +51,7 @@ class DayWeatherItem extends StatelessWidget {
                 ),
                 style: const TextStyle(
                   color: AppColors.onPrimary,
-                  fontSize: 16,
+                    fontSize: AppDimens.fontMd,
                 ),
               ),
             ],

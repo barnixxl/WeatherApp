@@ -15,8 +15,8 @@ Widget _buildAppBarWidget({
       IconButton(
         icon: Image.asset(
           MapImages.mapIcon,
-          width: 24,
-          height: 24,
+          width: AppDimens.iconSm,
+          height: AppDimens.iconSm,
         ),
         onPressed: onMapPressed,
       ),
@@ -41,7 +41,7 @@ Widget _buildAppBarWidget({
               ),
               style: const TextStyle(
                 color: AppColors.onPrimary,
-                fontSize: 12,
+                  fontSize: AppDimens.fontXs,
               ),
             ),
           ],

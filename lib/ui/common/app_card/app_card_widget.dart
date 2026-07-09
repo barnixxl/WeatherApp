@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors/app_colors.dart';
+import '../../../../resources/dimens/app_dimens.dart';
 
 class AppCardWidget extends StatelessWidget {
   final Widget child;
@@ -31,7 +32,7 @@ class AppCardWidget extends StatelessWidget {
       color: AppColors.primaryLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          16,
+          AppDimens.radiusMd,
         ),
       ),
       clipBehavior: clipContent ? Clip.antiAlias : Clip.none,

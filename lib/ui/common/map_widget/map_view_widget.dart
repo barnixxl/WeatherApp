@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../../config/app_config.dart';
 import '../../../../main.dart';
 import '../../../../resources/colors/app_colors.dart';
+import '../../../../resources/dimens/app_dimens.dart';
 import '../../../../resources/images/map_images/map_images.dart';
 
 class MapView extends StatelessWidget {
@@ -65,7 +66,7 @@ class MapView extends StatelessWidget {
           Text(
             strings.map_osm_attribution,
             style: const TextStyle(
-              fontSize: 10,
+              fontSize: AppDimens.fontXxs,
               color: AppColors.primaryGray,
             ),
             textAlign: TextAlign.center,

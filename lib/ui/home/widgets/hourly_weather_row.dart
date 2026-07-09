@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import '../../../models/hour_weather.dart';
 import '../../../resources/colors/app_colors.dart';
+import '../../../resources/dimens/app_dimens.dart';
 import '../../../utils/date_formatter.dart';
 
 class HourlyWeatherRow extends StatelessWidget {
@@ -47,7 +48,7 @@ class HourlyWeatherRow extends StatelessWidget {
                   weather.dateTime?.toHourMinuteFormat() ?? strings.common_absent_time,
                   style: const TextStyle(
                     color: AppColors.onPrimary,
-                    fontSize: 12,
+                    fontSize: AppDimens.fontXs,
                   ),
                 ),
                 const SizedBox(
@@ -60,7 +61,7 @@ class HourlyWeatherRow extends StatelessWidget {
                   )),
                   style: const TextStyle(
                     color: AppColors.onPrimary,
-                    fontSize: 16,
+                    fontSize: AppDimens.fontMd,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

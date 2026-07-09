@@ -14,8 +14,8 @@ Widget _buildErrorWidget({
         children: [
           Image.asset(
             MapImages.errorOutline,
-            width: 64,
-            height: 64,
+            width: AppDimens.iconXl,
+            height: AppDimens.iconXl,
             color: AppColors.error,
           ),
           const SizedBox(
@@ -25,7 +25,7 @@ Widget _buildErrorWidget({
             errorMessage ?? strings.error,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: AppDimens.fontMd,
             ),
           ),
           const SizedBox(

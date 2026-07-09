@@ -12,7 +12,7 @@ Widget _buildMapOverlayWidget({
     clipBehavior: Clip.antiAlias,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(
-        16,
+        AppDimens.radiusMd,
       ),
     ),
     child: Column(
@@ -22,7 +22,7 @@ Widget _buildMapOverlayWidget({
           onClose,
         ),
         SizedBox(
-          height: 300,
+          height: AppDimens.mapOverlayHeight,
           child: MapView(
             latitude: latitude,
             longitude: longitude,
@@ -45,8 +45,8 @@ Widget _buildOverlayHeaderWidget(
       children: [
         Image.asset(
           MapImages.locationOn,
-          width: 20,
-          height: 20,
+          width: AppDimens.iconXs,
+          height: AppDimens.iconXs,
         ),
         const SizedBox(
           width: 8,
@@ -57,7 +57,7 @@ Widget _buildOverlayHeaderWidget(
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: AppColors.onPrimary,
-              fontSize: 13,
+              fontSize: AppDimens.fontSm,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -65,8 +65,8 @@ Widget _buildOverlayHeaderWidget(
         IconButton(
           icon: Image.asset(
             MapImages.closeIcon,
-            width: 24,
-            height: 24,
+            width: AppDimens.iconSm,
+            height: AppDimens.iconSm,
           ),
           onPressed: onClose,
         ),
