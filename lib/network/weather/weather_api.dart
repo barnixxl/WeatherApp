@@ -122,7 +122,7 @@ class WeatherApi {
       );
     } catch (e) {
       return WeatherResult.failure(
-        WeatherError.parsing(),
+        WeatherError.fromException(e),
       );
     }
   }
