@@ -13,10 +13,6 @@ class HomeController {
     WeatherResult.notInitialized(),
   );
 
-  final Observable<String> _appBarCityName = Observable(
-    '',
-  );
-
   final Observable<DateTime?> _lastUpdateDate = Observable(
     null,
   );
@@ -34,7 +30,7 @@ class HomeController {
 
   double get longitude => _weatherResult.value.data?.longitude ?? 0.0;
 
-  String get cityName => _appBarCityName.value;
+  String get cityName => _weatherResult.value.data?.cityName ?? '';
 
   bool get isLoading => result.isLoading;
 
@@ -65,17 +61,11 @@ class HomeController {
   void _setState(
     WeatherResult<ForecastData> value,
   ) {
-    runInAction(
-      () {
-        _weatherResult.value = value;
-        final data = value.data;
-        if (data != null) {
-          _appBarCityName.value = data.cityName;
-          if (value.isSuccess) {
-            _lastUpdateDate.value = DateTime.now();
-          }
-        }
-      },
-    );
+    runInAction(() {
+      _weatherResult.value = value;
+      if (value.isSuccess) {
+        _lastUpdateDate.value = DateTime.now();
+      }
+    });
   }
 }
