@@ -8,11 +8,11 @@ import '../../../../resources/colors/app_colors.dart';
 import '../../../../resources/dimens/app_dimens.dart';
 import '../../../../resources/images/map_images/map_images.dart';
 
-class MapView extends StatelessWidget {
+class MapViewWidget extends StatelessWidget {
   final double latitude;
   final double longitude;
 
-  const MapView({
+  const MapViewWidget({
     super.key,
     required this.latitude,
     required this.longitude,
