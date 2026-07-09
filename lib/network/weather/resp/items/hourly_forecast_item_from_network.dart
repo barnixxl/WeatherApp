@@ -3,29 +3,29 @@ import 'package:json_annotation/json_annotation.dart';
 import '../data/main_data_from_network.dart';
 import '../icon/weather_icon_from_network.dart';
 
-part 'weather_items_from_network.g.dart';
+part 'hourly_forecast_item_from_network.g.dart';
 
 @JsonSerializable(
   createToJson: false,
 )
-class WeatherItemFromNetwork {
+class HourlyForecastItemFromNetwork {
   final int? dt;
   final MainDataFromNetwork? main;
   final List<WeatherIconFromNetwork>? weather;
 
-  WeatherItemFromNetwork({
+  HourlyForecastItemFromNetwork({
     this.dt,
     this.main,
     this.weather,
   });
 
-  factory WeatherItemFromNetwork.fromJson(Map<String, dynamic> json) =>
-      _$WeatherItemFromNetworkFromJson(
+  factory HourlyForecastItemFromNetwork.fromJson(Map<String, dynamic> json) =>
+      _$HourlyForecastItemFromNetworkFromJson(
         json,
       );
 
   @override
-  String toString() => 'WeatherItemFromNetwork('
+  String toString() => 'HourlyForecastItemFromNetwork('
       'dt: $dt,'
       'main: $main,'
       'weather: $weather,'

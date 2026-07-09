@@ -1,4 +1,4 @@
-import '../network/weather/resp/items/weather_items_from_network.dart';
+import '../network/weather/resp/items/hourly_forecast_item_from_network.dart';
 import '../resources/images/weather_state_images/weather_state_images.dart';
 import '../utils/int_extensions.dart';
 
@@ -18,7 +18,7 @@ class HourWeather {
   });
 
   static HourWeather fromNetworkModel(
-    WeatherItemFromNetwork item,
+    HourlyForecastItemFromNetwork item,
   ) {
     return HourWeather(
       dateTime: item.dt?.toDateTimeFromUnixSeconds(),

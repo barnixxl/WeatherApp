@@ -10,8 +10,8 @@ WeatherResponseFromNetwork _$WeatherResponseFromNetworkFromJson(
         Map<String, dynamic> json) =>
     WeatherResponseFromNetwork(
       list: (json['list'] as List<dynamic>?)
-          ?.map(
-              (e) => WeatherItemFromNetwork.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              HourlyForecastItemFromNetwork.fromJson(e as Map<String, dynamic>))
           .toList(),
       city: json['city'] == null
           ? null

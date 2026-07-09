@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'city/city_data_from_network.dart';
-import 'items/weather_items_from_network.dart';
+import 'items/hourly_forecast_item_from_network.dart';
 
 part 'weather_response_from_network.g.dart';
 
@@ -9,7 +9,7 @@ part 'weather_response_from_network.g.dart';
   createToJson: false,
 )
 class WeatherResponseFromNetwork {
-  final List<WeatherItemFromNetwork>? list;
+  final List<HourlyForecastItemFromNetwork>? list;
   final CityDataFromNetwork? city;
 
   WeatherResponseFromNetwork({
