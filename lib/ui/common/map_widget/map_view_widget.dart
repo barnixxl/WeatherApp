@@ -29,7 +29,7 @@ class MapViewWidget extends StatelessWidget {
             child: FlutterMap(
               key: ValueKey(
                 '$latitude,'
-                '$longitude,'
+                '$longitude'
               ),
               options: MapOptions(
                 initialCenter: LatLng(
