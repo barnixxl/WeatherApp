@@ -1,6 +1,6 @@
 part of 'home_screen.dart';
 
-Widget _buildMapOverlay({
+Widget _buildMapOverlayWidget({
   required double latitude,
   required double longitude,
   required void Function() onClose,
@@ -18,7 +18,7 @@ Widget _buildMapOverlay({
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _buildOverlayHeader(
+        _buildOverlayHeaderWidget(
           onClose,
         ),
         SizedBox(
@@ -33,7 +33,7 @@ Widget _buildMapOverlay({
   );
 }
 
-Widget _buildOverlayHeader(
+Widget _buildOverlayHeaderWidget(
   void Function() onClose,
 ) {
   return Container(

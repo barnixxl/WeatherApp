@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (
         dialogContext,
       ) =>
-          _buildMapOverlay(
+          _buildMapOverlayWidget(
         latitude: _homeController.latitude,
         longitude: _homeController.longitude,
         onClose: () => Navigator.of(
