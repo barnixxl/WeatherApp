@@ -69,7 +69,7 @@ class WeatherRepository extends BaseRepository {
       lon,
     );
     if (result.isSuccess) {
-      return _groupAndFilterForecast(
+      return _groupForecast(
         result.data,
       );
     }
@@ -78,7 +78,7 @@ class WeatherRepository extends BaseRepository {
     );
   }
 
-  WeatherResult<ForecastData> _groupAndFilterForecast(
+  WeatherResult<ForecastData> _groupForecast(
     ForecastResponse? data,
   ) {
     if (data != null) {
