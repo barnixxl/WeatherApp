@@ -8,9 +8,7 @@ part 'city_data_from_network.g.dart';
   createToJson: false,
 )
 class CityDataFromNetwork {
-  @JsonKey(name: 'name')
   final String? name;
-  @JsonKey(name: 'coord')
   final CoordDataFromNetwork? coord;
 
   CityDataFromNetwork({

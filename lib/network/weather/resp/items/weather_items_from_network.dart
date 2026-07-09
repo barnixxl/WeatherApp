@@ -9,11 +9,8 @@ part 'weather_items_from_network.g.dart';
   createToJson: false,
 )
 class WeatherItemFromNetwork {
-  @JsonKey(name: 'dt')
   final int? dt;
-  @JsonKey(name: 'main')
   final MainDataFromNetwork? main;
-  @JsonKey(name: 'weather')
   final List<WeatherIconFromNetwork>? weather;
 
   WeatherItemFromNetwork({

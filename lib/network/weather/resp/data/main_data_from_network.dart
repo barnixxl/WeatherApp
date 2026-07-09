@@ -6,7 +6,6 @@ part 'main_data_from_network.g.dart';
   createToJson: false,
 )
 class MainDataFromNetwork {
-  @JsonKey(name: 'temp')
   final double? temp;
   @JsonKey(name: 'temp_min')
   final double? tempMin;

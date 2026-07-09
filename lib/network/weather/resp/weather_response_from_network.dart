@@ -9,9 +9,7 @@ part 'weather_response_from_network.g.dart';
   createToJson: false,
 )
 class WeatherResponseFromNetwork {
-  @JsonKey(name: 'list')
   final List<WeatherItemFromNetwork>? list;
-  @JsonKey(name: 'city')
   final CityDataFromNetwork? city;
 
   WeatherResponseFromNetwork({

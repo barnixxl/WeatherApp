@@ -6,7 +6,6 @@ part 'weather_icon_from_network.g.dart';
   createToJson: false,
 )
 class WeatherIconFromNetwork {
-  @JsonKey(name: 'icon')
   final String? icon;
 
   WeatherIconFromNetwork({

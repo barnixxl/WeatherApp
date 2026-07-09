@@ -6,9 +6,7 @@ part 'coord_data_from_network.g.dart';
   createToJson: false,
 )
 class CoordDataFromNetwork {
-  @JsonKey(name: 'lat')
   final double? lat;
-  @JsonKey(name: 'lon')
   final double? lon;
 
   CoordDataFromNetwork({
