@@ -14,7 +14,7 @@ Widget _buildAppBarWidget({
     actions: [
       IconButton(
         icon: Image.asset(
-          AppImages.mapIcon,
+          AppImages.icMap,
           width: AppDimens.iconSm,
           height: AppDimens.iconSm,
         ),

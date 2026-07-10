@@ -13,7 +13,7 @@ Widget _buildErrorWidget({
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            AppImages.errorOutline,
+            AppImages.icErrorOutline,
             width: AppDimens.iconXl,
             height: AppDimens.iconXl,
             color: AppColors.error,

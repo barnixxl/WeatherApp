@@ -44,7 +44,7 @@ Widget _buildOverlayHeaderWidget(
     child: Row(
       children: [
         Image.asset(
-          AppImages.locationOn,
+          AppImages.icLocationOn,
           width: AppDimens.iconXs,
           height: AppDimens.iconXs,
         ),
@@ -64,7 +64,7 @@ Widget _buildOverlayHeaderWidget(
         ),
         IconButton(
           icon: Image.asset(
-            AppImages.closeIcon,
+            AppImages.icClose,
             width: AppDimens.iconSm,
             height: AppDimens.iconSm,
           ),

@@ -24,43 +24,43 @@ enum WeatherStateAssets {
   String get imagePath {
     switch (this) {
       case WeatherStateAssets.sun:
-        return AppImages.sun;
+        return AppImages.icSun;
       case WeatherStateAssets.moon:
-        return AppImages.moon;
+        return AppImages.icMoon;
       case WeatherStateAssets.sunBehindCloud:
-        return AppImages.sunBehindCloud;
+        return AppImages.icSunBehindCloud;
       case WeatherStateAssets.moonBehindCloud:
-        return AppImages.moonBehindCloud;
+        return AppImages.icMoonBehindCloud;
       case WeatherStateAssets.greyClouds:
-        return AppImages.greyClouds;
+        return AppImages.icGreyClouds;
       case WeatherStateAssets.greyCloudsNight:
-        return AppImages.greyCloudsNight;
+        return AppImages.icGreyCloudsNight;
       case WeatherStateAssets.darkClouds:
-        return AppImages.darkClouds;
+        return AppImages.icDarkClouds;
       case WeatherStateAssets.darkCloudsNight:
-        return AppImages.darkCloudsNight;
+        return AppImages.icDarkCloudsNight;
       case WeatherStateAssets.rain:
-        return AppImages.rain;
+        return AppImages.icRain;
       case WeatherStateAssets.rainNight:
-        return AppImages.rainNight;
+        return AppImages.icRainNight;
       case WeatherStateAssets.sunRain:
-        return AppImages.sunRain;
+        return AppImages.icSunRain;
       case WeatherStateAssets.sunRainNight:
-        return AppImages.sunRainNight;
+        return AppImages.icSunRainNight;
       case WeatherStateAssets.thunderstorm:
-        return AppImages.thunderstorm;
+        return AppImages.icThunderstorm;
       case WeatherStateAssets.thunderstormNight:
-        return AppImages.thunderstormNight;
+        return AppImages.icThunderstormNight;
       case WeatherStateAssets.snow:
-        return AppImages.snow;
+        return AppImages.icSnow;
       case WeatherStateAssets.snowNight:
-        return AppImages.snowNight;
+        return AppImages.icSnowNight;
       case WeatherStateAssets.fog:
-        return AppImages.fog;
+        return AppImages.icFog;
       case WeatherStateAssets.fogNight:
-        return AppImages.fogNight;
+        return AppImages.icFogNight;
       case WeatherStateAssets.unknown:
-        return AppImages.unknown;
+        return AppImages.icUnknown;
     }
   }
 

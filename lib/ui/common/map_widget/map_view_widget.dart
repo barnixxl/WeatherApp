@@ -51,7 +51,7 @@ class MapViewWidget extends StatelessWidget {
                       width: AppDimens.mapMarkerSize,
                       height: AppDimens.mapMarkerSize,
                       child: Image.asset(
-                        AppImages.locationPin,
+                        AppImages.icLocationPin,
                         width: AppDimens.mapMarkerSize,
                         height: AppDimens.mapMarkerSize,
                       ),
