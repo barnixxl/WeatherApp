@@ -36,12 +36,10 @@ class AppCardWidget extends StatelessWidget {
         ),
       ),
       clipBehavior: clipContent ? Clip.antiAlias : Clip.none,
-      child: clipContent
-          ? child
-          : Padding(
-              padding: padding,
-              child: child,
-            ),
+      child: Padding(
+        padding: padding,
+        child: child,
+      ),
     );
   }
 }
