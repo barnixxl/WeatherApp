@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../config/app_config.dart';
@@ -113,6 +114,7 @@ class WeatherApi {
         WeatherError.noData(),
       );
     } catch (e) {
+      debugPrint(e.toString());
       return WeatherResult.failure(
         WeatherError.fromException(e),
       );
