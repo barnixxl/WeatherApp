@@ -26,7 +26,7 @@ class LocationService {
   }
 
   Future<WeatherResult<Position>> getCurrentLocation() async {
-    var permission = await Geolocator.checkPermission();
+    LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
