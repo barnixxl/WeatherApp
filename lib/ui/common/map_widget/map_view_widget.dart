@@ -34,7 +34,7 @@ class MapViewWidget extends StatelessWidget {
                   latitude,
                   longitude,
                 ),
-                initialZoom: 10.0,
+                initialZoom: AppDimens.mapInitialZoom,
               ),
               children: [
                 TileLayer(
@@ -48,12 +48,12 @@ class MapViewWidget extends StatelessWidget {
                         latitude,
                         longitude,
                       ),
-                      width: 40,
-                      height: 40,
+                      width: AppDimens.mapMarkerSize,
+                      height: AppDimens.mapMarkerSize,
                       child: Image.asset(
                         MapImages.locationPin,
-                        width: 40,
-                        height: 40,
+                        width: AppDimens.mapMarkerSize,
+                        height: AppDimens.mapMarkerSize,
                       ),
                     ),
                   ],

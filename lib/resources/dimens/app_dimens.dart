@@ -18,4 +18,7 @@ class AppDimens {
   static const double radiusMd = 16;
 
   static const double appBarBottomHeight = 40;
+
+  static const double mapInitialZoom = 10.0;
+  static const double mapMarkerSize = 40.0;
 }
