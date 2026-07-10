@@ -6,7 +6,7 @@ import '../../../../config/app_config.dart';
 import '../../../../main.dart';
 import '../../../../resources/colors/app_colors.dart';
 import '../../../../resources/dimens/app_dimens.dart';
-import '../../../../resources/images/map_images/map_images.dart';
+import '../../../../resources/images/app_images/app_images.dart';
 
 class MapViewWidget extends StatelessWidget {
   final double latitude;
@@ -51,7 +51,7 @@ class MapViewWidget extends StatelessWidget {
                       width: AppDimens.mapMarkerSize,
                       height: AppDimens.mapMarkerSize,
                       child: Image.asset(
-                        MapImages.locationPin,
+                        AppImages.locationPin,
                         width: AppDimens.mapMarkerSize,
                         height: AppDimens.mapMarkerSize,
                       ),

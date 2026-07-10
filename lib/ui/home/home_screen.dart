@@ -6,7 +6,6 @@ import '../../models/day_weather.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/dimens/app_dimens.dart';
 import '../../resources/images/app_images/app_images.dart';
-import '../../resources/images/map_images/map_images.dart';
 import '../../utils/date_formatter.dart';
 import '../common/map_widget/map_view_widget.dart';
 import 'home_controller.dart';

@@ -44,7 +44,7 @@ Widget _buildOverlayHeaderWidget(
     child: Row(
       children: [
         Image.asset(
-          MapImages.locationOn,
+          AppImages.locationOn,
           width: AppDimens.iconXs,
           height: AppDimens.iconXs,
         ),
