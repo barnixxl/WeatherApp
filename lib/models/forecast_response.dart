@@ -22,6 +22,7 @@ class ForecastResponse {
   ) {
     return ForecastResponse(
       weatherData: (response.list ?? [])
+          .where((e) => e.dt != null)
           .map((e) => HourWeather.fromNetworkModel(e))
           .toList(),
       cityName: response.city?.name ?? strings.common_unknown_city_name,

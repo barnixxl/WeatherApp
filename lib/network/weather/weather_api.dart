@@ -101,20 +101,12 @@ class WeatherApi {
       );
       final list = response.list;
       if (list != null && list.isNotEmpty) {
-        if (list.every((
-          item,
-        ) =>
-            item.dt != null)) {
-          return WeatherResult.success(
-            ForecastResponse.fromNetworkModel(
-              response,
-              lat,
-              lon,
-            ),
-          );
-        }
-        return WeatherResult.failure(
-          WeatherError.invalidData(),
+        return WeatherResult.success(
+          ForecastResponse.fromNetworkModel(
+            response,
+            lat,
+            lon,
+          ),
         );
       }
       return WeatherResult.failure(
