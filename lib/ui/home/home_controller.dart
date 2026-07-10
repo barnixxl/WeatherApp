@@ -45,15 +45,7 @@ class HomeController {
       ),
     );
     final result = await _repository.fetchForecast();
-    if (result.isSuccess) {
-      _setState(
-        result,
-      );
-    } else {
-      _setState(
-        result,
-      );
-    }
+    _setState(result);
   }
 
   void _setState(
