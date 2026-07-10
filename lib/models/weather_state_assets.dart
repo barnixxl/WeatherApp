@@ -1,4 +1,4 @@
-import '../resources/images/weather_state_images/weather_state_images.dart';
+import '../resources/images/app_images/app_images.dart';
 
 enum WeatherStateAssets {
   sun,
@@ -24,43 +24,43 @@ enum WeatherStateAssets {
   String get imagePath {
     switch (this) {
       case WeatherStateAssets.sun:
-        return WeatherStateImages.sun;
+        return AppImages.sun;
       case WeatherStateAssets.moon:
-        return WeatherStateImages.moon;
+        return AppImages.moon;
       case WeatherStateAssets.sunBehindCloud:
-        return WeatherStateImages.sunBehindCloud;
+        return AppImages.sunBehindCloud;
       case WeatherStateAssets.moonBehindCloud:
-        return WeatherStateImages.moonBehindCloud;
+        return AppImages.moonBehindCloud;
       case WeatherStateAssets.greyClouds:
-        return WeatherStateImages.greyClouds;
+        return AppImages.greyClouds;
       case WeatherStateAssets.greyCloudsNight:
-        return WeatherStateImages.greyCloudsNight;
+        return AppImages.greyCloudsNight;
       case WeatherStateAssets.darkClouds:
-        return WeatherStateImages.darkClouds;
+        return AppImages.darkClouds;
       case WeatherStateAssets.darkCloudsNight:
-        return WeatherStateImages.darkCloudsNight;
+        return AppImages.darkCloudsNight;
       case WeatherStateAssets.rain:
-        return WeatherStateImages.rain;
+        return AppImages.rain;
       case WeatherStateAssets.rainNight:
-        return WeatherStateImages.rainNight;
+        return AppImages.rainNight;
       case WeatherStateAssets.sunRain:
-        return WeatherStateImages.sunRain;
+        return AppImages.sunRain;
       case WeatherStateAssets.sunRainNight:
-        return WeatherStateImages.sunRainNight;
+        return AppImages.sunRainNight;
       case WeatherStateAssets.thunderstorm:
-        return WeatherStateImages.thunderstorm;
+        return AppImages.thunderstorm;
       case WeatherStateAssets.thunderstormNight:
-        return WeatherStateImages.thunderstormNight;
+        return AppImages.thunderstormNight;
       case WeatherStateAssets.snow:
-        return WeatherStateImages.snow;
+        return AppImages.snow;
       case WeatherStateAssets.snowNight:
-        return WeatherStateImages.snowNight;
+        return AppImages.snowNight;
       case WeatherStateAssets.fog:
-        return WeatherStateImages.fog;
+        return AppImages.fog;
       case WeatherStateAssets.fogNight:
-        return WeatherStateImages.fogNight;
+        return AppImages.fogNight;
       case WeatherStateAssets.unknown:
-        return WeatherStateImages.unknown;
+        return AppImages.unknown;
     }
   }
 
