@@ -27,10 +27,8 @@ class MapViewWidget extends StatelessWidget {
         children: [
           Expanded(
             child: FlutterMap(
-              key: ValueKey(
-                '$latitude,'
-                '$longitude'
-              ),
+              key: ValueKey('$latitude,'
+                  '$longitude'),
               options: MapOptions(
                 initialCenter: LatLng(
                   latitude,

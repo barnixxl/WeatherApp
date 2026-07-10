@@ -51,7 +51,7 @@ class DayWeatherItem extends StatelessWidget {
                 ),
                 style: const TextStyle(
                   color: AppColors.onPrimary,
-                    fontSize: AppDimens.fontMd,
+                  fontSize: AppDimens.fontMd,
                 ),
               ),
             ],

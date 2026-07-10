@@ -41,7 +41,7 @@ Widget _buildAppBarWidget({
               ),
               style: const TextStyle(
                 color: AppColors.onPrimary,
-                  fontSize: AppDimens.fontXs,
+                fontSize: AppDimens.fontXs,
               ),
             ),
           ],
