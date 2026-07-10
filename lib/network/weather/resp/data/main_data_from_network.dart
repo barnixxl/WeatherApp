@@ -25,8 +25,8 @@ class MainDataFromNetwork {
 
   @override
   String toString() => 'MainDataFromNetwork('
-      'temp: $temp, '
-      'tempMin: $tempMin, '
+      'temp: $temp,'
+      'tempMin: $tempMin,'
       'tempMax: $tempMax'
       ')';
 }
