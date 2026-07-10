@@ -57,12 +57,12 @@ Future<void> main() async {
   await repository.initializeDependencies();
 
   runApp(
-    const MyApp(),
+    const WeatherApp(),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({
+class WeatherApp extends StatelessWidget {
+  const WeatherApp({
     super.key,
   });
 
