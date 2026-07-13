@@ -45,7 +45,9 @@ class HomeController {
       ),
     );
     final result = await _repository.fetchForecast();
-    _setState(result);
+    _setState(
+      result,
+    );
   }
 
   void _setState(
